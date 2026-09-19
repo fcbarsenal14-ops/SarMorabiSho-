@@ -1,128 +1,52 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>سرمربی شو</title>
-
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: Arial, sans-serif;
-            background: var(--tg-theme-bg-color, #0b0f0d);
-            color: var(--tg-theme-text-color, #ffffff);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .card {
-            width: 100%;
-            max-width: 430px;
-            padding: 35px 22px;
-            border-radius: 28px;
-            background: var(--tg-theme-secondary-bg-color, #151b18);
-            text-align: center;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
-        }
-
-        .logo {
-            font-size: 65px;
-            margin-bottom: 15px;
-        }
-
-        h1 {
-            margin: 0 0 12px;
-            font-size: 27px;
-        }
-
-        .welcome {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .username {
-            opacity: 0.7;
-            font-size: 15px;
-            margin-bottom: 28px;
-        }
-
-        button {
-            width: 100%;
-            border: none;
-            padding: 16px;
-            border-radius: 16px;
-            background: var(--tg-theme-button-color, #2481cc);
-            color: var(--tg-theme-button-text-color, #ffffff);
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>سرمربی شو</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{--bg:#07100c;--panel:#101b16;--panel2:#15231c;--line:rgba(255,255,255,.09);--text:#f6f8f6;--muted:#91a39a;--green:#35d07f;--green2:#168b52;--gold:#f4c95d;--red:#f06d72;--blue:#4f8cff;--shadow:0 18px 50px rgba(0,0,0,.35)}
+*{box-sizing:border-box}html,body{margin:0;background:radial-gradient(circle at 80% -10%,#153a29 0,#07100c 38%,#050a08 100%);color:var(--text);font-family:Arial,Tahoma,sans-serif}body{min-height:100vh}.app{max-width:760px;margin:auto;min-height:100vh;padding-bottom:92px}.top{position:sticky;top:0;z-index:20;padding:12px 16px 8px;background:rgba(5,10,8,.82);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.toprow{display:flex;align-items:center;justify-content:space-between;gap:10px}.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px}.brandmark{width:42px;height:42px;border-radius:14px;background:linear-gradient(145deg,#41e58d,#0b5e37);display:grid;place-items:center;font-size:22px;box-shadow:0 8px 24px #0006}.actions{display:flex;gap:8px}.iconbtn{border:1px solid var(--line);background:#ffffff08;color:white;width:40px;height:40px;border-radius:13px;font-size:18px}.content{padding:16px}.page{display:none;animation:fade .22s ease}.page.active{display:block}@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}.hero{position:relative;overflow:hidden;border:1px solid #ffffff14;border-radius:26px;padding:20px;background:linear-gradient(135deg,#183b2a,#10261d 55%,#0e1713);box-shadow:var(--shadow);margin-bottom:14px}.hero:after{content:"⚽";position:absolute;left:-12px;bottom:-38px;font-size:145px;opacity:.06}.herohead{display:flex;align-items:center;justify-content:space-between;gap:12px}.teamidentity{display:flex;align-items:center;gap:13px}.logo{width:64px;height:64px;border-radius:20px;background:linear-gradient(145deg,#e9f2eb,#839c8b);color:#0b2417;display:grid;place-items:center;font-size:30px;box-shadow:0 10px 30px #0005}.eyebrow{color:#9ecab2;font-size:12px}.teamname{font-size:22px;font-weight:900;margin-top:3px}.leaguepill{padding:8px 11px;border-radius:99px;background:#ffffff12;border:1px solid #ffffff16;font-size:12px}.moneyrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.money{background:#06100b66;border:1px solid #ffffff0e;border-radius:16px;padding:12px}.money small{display:block;color:var(--muted);margin-bottom:4px}.money b{font-size:20px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.card{background:linear-gradient(160deg,#132019,#0d1612);border:1px solid var(--line);border-radius:20px;padding:15px;box-shadow:0 10px 30px #0002}.tile{min-height:128px;position:relative;overflow:hidden}.tile .big{font-size:28px}.tile h3{margin:9px 0 5px;font-size:17px}.tile p{margin:0;color:var(--muted);font-size:12px;line-height:1.7}.tile:after{content:"";position:absolute;left:-18px;bottom:-25px;font-size:90px;opacity:.06}.sectiontitle{display:flex;align-items:center;justify-content:space-between;margin:20px 2px 10px}.sectiontitle h2{font-size:17px;margin:0}.sectiontitle span{font-size:12px;color:var(--muted)}.btn{border:0;border-radius:14px;padding:12px 15px;font-weight:800;color:#06110b;background:var(--green);font-size:14px}.btn.secondary{background:#ffffff0d;color:white;border:1px solid var(--line)}.btn.gold{background:var(--gold)}.btn.red{background:#7f2830;color:white}.list{display:flex;flex-direction:column;gap:9px}.row{display:flex;align-items:center;gap:10px;background:#ffffff06;border:1px solid var(--line);padding:11px;border-radius:15px}.avatar{width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,#284b39,#15231b);display:grid;place-items:center;font-weight:900}.grow{flex:1}.muted{color:var(--muted);font-size:12px}.value{font-weight:900}.positive{color:var(--green)}.negative{color:var(--red)}.badge{display:inline-flex;padding:5px 8px;border-radius:99px;background:#35d07f18;color:#7ff0ae;font-size:11px;border:1px solid #35d07f22}.bottom{position:fixed;bottom:0;left:0;right:0;z-index:30;margin:auto;max-width:760px;padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:rgba(7,12,10,.92);backdrop-filter:blur(20px);border-top:1px solid var(--line)}.nav{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}.nav button{border:0;background:transparent;color:#82928a;padding:7px 2px;border-radius:14px;font-size:11px}.nav button span{display:block;font-size:20px;margin-bottom:3px}.nav button.active{background:#35d07f14;color:#72eaa7}.nav button.active span{filter:drop-shadow(0 0 7px #35d07f)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.stat{background:#ffffff06;border:1px solid var(--line);padding:11px 5px;border-radius:15px;text-align:center}.stat b{display:block;font-size:17px}.stat small{color:var(--muted);font-size:10px}.table{overflow:hidden;border:1px solid var(--line);border-radius:18px}.tr{display:grid;grid-template-columns:34px 1fr 44px 44px 52px;gap:6px;padding:11px;border-bottom:1px solid var(--line);align-items:center;font-size:12px}.tr:last-child{border-bottom:0}.tr.head{color:var(--muted);font-size:10px;background:#ffffff04}.rank{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:#ffffff08}.pitch{position:relative;min-height:510px;border-radius:24px;overflow:hidden;background:linear-gradient(90deg,#0e693c,#16874d,#0e693c);border:2px solid #ffffff2a;margin-top:10px}.pitch:before{content:"";position:absolute;inset:18px;border:2px solid #ffffff35;border-radius:12px}.midline{position:absolute;top:50%;left:18px;right:18px;border-top:2px solid #ffffff35}.circle{position:absolute;width:110px;height:110px;border:2px solid #ffffff35;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}.spot{position:absolute;width:8px;height:8px;background:#fff;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}.player{position:absolute;transform:translate(-50%,-50%);text-align:center}.player .shirt{width:45px;height:45px;border-radius:15px;background:linear-gradient(145deg,#f4c95d,#b67813);display:grid;place-items:center;color:#182014;font-weight:900;border:2px solid #fff8;box-shadow:0 8px 15px #0005}.player b{display:block;font-size:10px;margin-top:4px;background:#08120dcc;border-radius:8px;padding:3px 5px;white-space:nowrap}.formbar{height:7px;background:#ffffff0a;border-radius:99px;overflow:hidden}.formbar i{display:block;height:100%;background:var(--green);border-radius:99px}.profilecard{display:flex;gap:15px;align-items:center}.portrait{width:82px;height:82px;border-radius:25px;background:linear-gradient(145deg,#2a5b43,#10251a);display:grid;place-items:center;font-size:42px}.tabs{display:flex;gap:7px;overflow:auto;margin:12px 0}.tabs button{white-space:nowrap}.notice{padding:12px 14px;border-radius:15px;background:#f4c95d12;border:1px solid #f4c95d25;color:#e9d28b;font-size:12px;line-height:1.8}.modal{position:fixed;inset:0;background:#000a;z-index:100;display:none;align-items:end}.modal.show{display:flex}.sheet{width:100%;max-width:760px;margin:auto;background:#101a15;border:1px solid var(--line);border-radius:26px 26px 0 0;padding:20px}.input{width:100%;background:#ffffff07;border:1px solid var(--line);border-radius:14px;color:white;padding:13px;outline:0}.empty{text-align:center;color:var(--muted);padding:35px 10px}.smallgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}@media(min-width:600px){.grid{grid-template-columns:repeat(4,1fr)}.grid .wide{grid-column:span 2}.tile{min-height:145px}.content{padding:20px}.pitch{min-height:580px}}
+</style>
 </head>
-
 <body>
-
-    <div class="card">
-
-        <div class="logo">⚽</div>
-
-        <h1>سرمربی شو</h1>
-
-        <div class="welcome">
-            سلام به سرمربی شو خوش اومدی 👋
-        </div>
-
-        <div class="username" id="username">
-            در حال دریافت اطلاعات...
-        </div>
-
-        <button onclick="startApp()">
-            🚀 شروع بازی
-        </button>
-
-    </div>
-
-    <script>
-        const tg = window.Telegram.WebApp;
-
-        tg.ready();
-        tg.expand();
-
-        const user = tg.initDataUnsafe?.user;
-
-        if (user) {
-            let fullName = user.first_name || "";
-
-            if (user.last_name) {
-                fullName += " " + user.last_name;
-            }
-
-            document.getElementById("username").innerText =
-                `خوش اومدی ${fullName} 🌟`;
-        } else {
-            document.getElementById("username").innerText =
-                "به بازی سرمربی شو خوش اومدی 🌟";
-        }
-
-        function startApp() {
-            tg.showAlert("به سرمربی شو خوش اومدی ⚽🔥");
-        }
-    </script>
-
+<div class="app">
+<header class="top"><div class="toprow"><div class="brand"><div class="brandmark">⚽</div><div>سرمربی شو<div class="muted">مدیریت فوتبال آنلاین</div></div></div><div class="actions"><button class="iconbtn" onclick="showPage('notifications')">🔔</button><button class="iconbtn" onclick="showPage('profile')">👤</button></div></div></header>
+<main class="content">
+<section id="home" class="page active">
+<div class="hero"><div class="herohead"><div class="teamidentity"><div class="logo">⚽</div><div><div class="eyebrow">سرمربی</div><div class="teamname" id="homeTeam">تیم من</div><div class="muted" id="managerName">مربی شما</div></div></div><div class="leaguepill">🏆 لیگ دسته ۶</div></div><div class="moneyrow"><div class="money"><small>💰 موجودی</small><b>€100,000,000</b></div><div class="money"><small>💎 الماس</small><b>0</b></div></div></div>
+<div class="stats"><div class="stat"><b>0</b><small>امتیاز مربی</small></div><div class="stat"><b>0</b><small>جام</small></div><div class="stat"><b>0</b><small>برد</small></div><div class="stat"><b>0</b><small>بازی</small></div></div>
+<div class="sectiontitle"><h2>مدیریت سریع</h2><span>همه بخش‌ها</span></div>
+<div class="grid"><div class="card tile" onclick="showPage('team')"><div class="big">👥</div><h3>تیم من</h3><p>بازیکنان، ترکیب و وضعیت تیم</p></div><div class="card tile" onclick="showPage('league')"><div class="big">🏆</div><h3>مسابقات و لیگ</h3><p>جدول، بازی‌ها و آمار رقابت</p></div><div class="card tile" onclick="showPage('transfers')"><div class="big">💰</div><h3>نقل‌وانتقالات</h3><p>خرید، فروش و قرارداد بازیکنان</p></div><div class="card tile" onclick="showPage('stadium')"><div class="big">🏟️</div><h3>ورزشگاه</h3><p>ارتقا، ظرفیت و درآمد بلیت</p></div><div class="card tile" onclick="showPage('tactics')"><div class="big">🧠</div><h3>تاکتیک</h3><p>سبک بازی، پرس و ترکیب</p></div><div class="card tile" onclick="showPage('alliance')"><div class="big">🤝</div><h3>اتحاد</h3><p>ساخت، عضویت و رقابت گروهی</p></div><div class="card tile" onclick="showPage('info')"><div class="big">📰</div><h3>بانک اطلاعات</h3><p>اخبار، تورنمنت‌ها و نقل‌وانتقالات</p></div><div class="card tile" onclick="showPage('office')"><div class="big">🏢</div><h3>دفتر مربی</h3><p>پیام‌ها، افتخارات و تراکنش‌ها</p></div></div>
+<div class="sectiontitle"><h2>بازی بعدی</h2><span>قابل تغییر تا ۱ دقیقه قبل</span></div><div class="card"><div class="row"><div class="avatar">🏟️</div><div class="grow"><b>هنوز مسابقه‌ای زمان‌بندی نشده</b><div class="muted">پس از ورود به لیگ، برنامه بازی‌ها اینجا نمایش داده می‌شود.</div></div><button class="btn secondary" onclick="showPage('league')">لیگ</button></div></div>
+</section>
+<section id="team" class="page"><div class="sectiontitle"><h2>👥 تیم من</h2><button class="btn secondary" onclick="showPage('profile')">پروفایل تیم</button></div><div class="hero"><div class="teamidentity"><div class="logo">⚽</div><div><div class="eyebrow">تیم</div><div class="teamname">تیم من</div><div class="muted">16 بازیکن • 11 اصلی • 5 ذخیره</div></div></div></div><div class="grid"><div class="card tile" onclick="showPage('lineup')"><div class="big">🟩</div><h3>ترکیب اصلی</h3><p>چینش بازیکنان روی زمین</p></div><div class="card tile" onclick="showPage('tactics')"><div class="big">🧠</div><h3>تاکتیک</h3><p>آرایش و دستورات مسابقه</p></div><div class="card tile"><div class="big">🏋️</div><h3>تمرین</h3><p>تمرین نیازمند مرکز ورزشی است.</p></div><div class="card tile"><div class="big">🌱</div><h3>آکادمی جوانان</h3><p>استعدادهای ۱۲ تا ۱۵ ساله</p></div></div><div class="sectiontitle"><h2>بازیکنان</h2><span>نمونه اولیه</span></div><div class="list" id="playerList"></div></section>
+<section id="lineup" class="page"><div class="sectiontitle"><h2>🟩 ترکیب تیم</h2><button class="btn secondary" onclick="showPage('team')">بازگشت</button></div><div class="smallgrid"><div class="card"><div class="muted">آرایش</div><b>4-2-3-1</b></div><div class="card"><div class="muted">قدرت ترکیب</div><b>74</b></div></div><div class="pitch"><div class="midline"></div><div class="circle"></div><div class="spot"></div><div class="player" style="left:50%;top:89%"><div class="shirt">72</div><b>علی رضایی</b></div><div class="player" style="left:18%;top:70%"><div class="shirt">71</div><b>مهدی احمدی</b></div><div class="player" style="left:39%;top:73%"><div class="shirt">70</div><b>امیر محمدی</b></div><div class="player" style="left:61%;top:73%"><div class="shirt">74</div><b>محمد کریمی</b></div><div class="player" style="left:82%;top:70%"><div class="shirt">70</div><b>رضا حسینی</b></div><div class="player" style="left:36%;top:51%"><div class="shirt">73</div><b>سینا مرادی</b></div><div class="player" style="left:64%;top:51%"><div class="shirt">75</div><b>آرش کاظمی</b></div><div class="player" style="left:50%;top:35%"><div class="shirt">76</div><b>سامان اکبری</b></div><div class="player" style="left:20%;top:34%"><div class="shirt">74</div><b>پارسا نادری</b></div><div class="player" style="left:80%;top:34%"><div class="shirt">72</div><b>امیرحسین صادقی</b></div><div class="player" style="left:50%;top:15%"><div class="shirt">77</div><b>میلاد رحیمی</b></div></div></section>
+<section id="tactics" class="page"><div class="sectiontitle"><h2>🧠 تاکتیک</h2><span>تصمیم‌های مسابقه</span></div><div class="notice">هیچ تاکتیکی همیشه بهترین نیست؛ فشار بالا قدرت نیمه اول را بیشتر می‌کند اما می‌تواند خستگی نیمه دوم را افزایش دهد.</div><div class="list" style="margin-top:12px"><div class="row"><div class="avatar">⚽</div><div class="grow"><b>سبک بازی</b><div class="muted">متعادل</div></div><button class="btn secondary">تغییر</button></div><div class="row"><div class="avatar">🔥</div><div class="grow"><b>پرسینگ</b><div class="muted">متوسط</div></div><button class="btn secondary">تغییر</button></div><div class="row"><div class="avatar">🛡️</div><div class="grow"><b>خط دفاع</b><div class="muted">متعادل</div></div><button class="btn secondary">تغییر</button></div><div class="row"><div class="avatar">⏱️</div><div class="grow"><b>سرعت بازی</b><div class="muted">معمولی</div></div><button class="btn secondary">تغییر</button></div><div class="row"><div class="avatar">🎯</div><div class="grow"><b>پاسکاری</b><div class="muted">ترکیبی</div></div><button class="btn secondary">تغییر</button></div><div class="row"><div class="avatar">⚡</div><div class="grow"><b>ضدحمله</b><div class="muted">خاموش</div></div><button class="btn secondary">تغییر</button></div><div class="row"><div class="avatar">👁️</div><div class="grow"><b>مارکینگ</b><div class="muted">منطقه‌ای</div></div><button class="btn secondary">تغییر</button></div></div></section>
+<section id="transfers" class="page"><div class="sectiontitle"><h2>💰 نقل‌وانتقالات</h2><span>بازار بازیکنان</span></div><div class="grid3"><div class="stat"><b>€100M</b><small>بودجه</small></div><div class="stat"><b>2%</b><small>مالیات انتقال</small></div><div class="stat"><b>16</b><small>بازیکن</small></div></div><div class="tabs"><button class="btn">بازار</button><button class="btn secondary">فروش بازیکن</button><button class="btn secondary">پیشنهادها</button></div><div class="list" id="marketList"></div></section>
+<section id="league" class="page"><div class="sectiontitle"><h2>🏆 مسابقات و لیگ</h2><span>دسته ۶</span></div><div class="hero"><div class="teamidentity"><div class="logo">🏆</div><div><div class="eyebrow">لیگ</div><div class="teamname">گروه D6</div><div class="muted">۱۲ تیم • ۲ صعود • ۲ سقوط</div></div></div></div><div class="tabs"><button class="btn">جدول</button><button class="btn secondary">بازی‌ها</button><button class="btn secondary">آمار</button></div><div class="table"><div class="tr head"><span>#</span><span>تیم</span><span>بازی</span><span>امتیاز</span><span>فرم</span></div><div id="leagueTable"></div></div><div class="sectiontitle"><h2>جوایز</h2></div><div class="grid"><div class="card"><b>برد</b><p class="muted">۵۰,۰۰۰ یورو + ۳ امتیاز</p></div><div class="card"><b>تساوی</b><p class="muted">۲۵,۰۰۰ یورو + ۱ امتیاز</p></div></div></section>
+<section id="stadium" class="page"><div class="sectiontitle"><h2>🏟️ ورزشگاه</h2><span>سطح ۱</span></div><div class="hero" style="min-height:230px"><div class="eyebrow">ورزشگاه شهر</div><div class="teamname">ظرفیت 10,000 نفر</div><p class="muted">درآمد پایه مسابقه: €1,000,000</p><div class="sectiontitle"><span>سطح بعدی</span><b>€10,000,000</b></div><button class="btn" style="width:100%">ارتقای ورزشگاه</button></div><div class="grid"><div class="card"><b>🎟️ قیمت بلیت</b><p class="muted">قیمت بلیت را خودت تعیین می‌کنی.</p></div><div class="card"><b>📈 حضور تماشاگر</b><p class="muted">قیمت بالاتر می‌تواند تقاضا را کاهش دهد.</p></div></div></section>
+<section id="profile" class="page"><div class="sectiontitle"><h2>👤 پروفایل مربی</h2></div><div class="card profilecard"><div class="portrait">👤</div><div class="grow"><div class="eyebrow">مربی</div><h2 style="margin:5px 0">مربی شما</h2><div class="muted">تیم من • دسته ۶</div></div><button class="btn secondary">ویرایش</button></div><div class="stats" style="margin-top:12px"><div class="stat"><b>0</b><small>بازی</small></div><div class="stat"><b>0</b><small>برد</small></div><div class="stat"><b>0</b><small>جام</small></div><div class="stat"><b>0</b><small>امتیاز</small></div></div><div class="sectiontitle"><h2>افتخارات</h2></div><div class="empty">هنوز افتخاری ثبت نشده است.</div></section>
+<section id="alliance" class="page"><div class="sectiontitle"><h2>🤝 اتحادها</h2><button class="btn gold">ساخت اتحاد • 💎100</button></div><div class="hero"><div class="teamidentity"><div class="logo">🤝</div><div><div class="eyebrow">اتحاد</div><div class="teamname">هنوز عضو اتحادی نیستی</div><div class="muted">اتحادها برای رقابت گروهی، مأموریت و افتخار هستند.</div></div></div></div><div class="grid"><div class="card tile"><div class="big">🔎</div><h3>جستجوی اتحاد</h3><p>اتحادهای فعال را پیدا کن.</p></div><div class="card tile"><div class="big">📨</div><h3>دعوت‌ها</h3><p>درخواست‌ها و دعوت‌های عضویت.</p></div></div></section>
+<section id="info" class="page"><div class="sectiontitle"><h2>📰 بانک اطلاعات</h2></div><div class="grid"><div class="card tile"><div class="big">🏆</div><h3>تورنمنت‌ها</h3><p>فعال، آینده و دوره‌های گذشته</p></div><div class="card tile"><div class="big">📰</div><h3>اخبار</h3><p>لیگ، تیم‌ها، مسابقات و بازی</p></div><div class="card tile"><div class="big">🔁</div><h3>آخرین انتقالات</h3><p>بازیکن، مبدأ، مقصد و مبلغ</p></div><div class="card tile"><div class="big">📊</div><h3>رتبه‌بندی‌ها</h3><p>مربی، تیم، بازیکن و اتحاد</p></div></div></section>
+<section id="office" class="page"><div class="sectiontitle"><h2>🏢 دفتر مربی</h2></div><div class="grid"><div class="card"><b>💬 پیام‌ها</b><p class="muted">پیام‌های خصوصی و سیستمی</p></div><div class="card"><b>📝 پست‌ها</b><p class="muted">پست‌های مربی و فعالیت اجتماعی</p></div><div class="card"><b>🏆 افتخارات</b><p class="muted">جام‌ها و رکوردها</p></div><div class="card"><b>💳 تراکنش‌ها</b><p class="muted">تاریخچه مالی حساب</p></div></div></section>
+<section id="notifications" class="page"><div class="sectiontitle"><h2>🔔 اعلان‌ها</h2></div><div class="list"><div class="row"><div class="avatar">⚽</div><div class="grow"><b>خوش آمدی</b><div class="muted">حساب سرمربی شو آماده ساخت تیم توست.</div></div></div><div class="row"><div class="avatar">🏆</div><div class="grow"><b>لیگ</b><div class="muted">پس از تکمیل ثبت‌نام، گروه لیگ برایت ساخته می‌شود.</div></div></div></div></section>
+</main>
+<nav class="bottom"><div class="nav"><button data-page="home" class="active"><span>🏠</span>خانه</button><button data-page="team"><span>👥</span>تیم</button><button data-page="league"><span>🏆</span>لیگ</button><button data-page="info"><span>📰</span>اطلاعات</button><button data-page="profile"><span>👤</span>پروفایل</button></div></nav>
+</div>
+<script>
+const tg=window.Telegram?.WebApp; if(tg){tg.ready();tg.expand();try{tg.setHeaderColor('#07100c');tg.setBackgroundColor('#07100c')}catch(e){}}
+const pages=[...document.querySelectorAll('.page')];
+function showPage(id){pages.forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+const players=[['علی رضایی','GK',72,'🧤'],['مهدی احمدی','LB',71,'🛡️'],['امیر محمدی','CB',70,'🛡️'],['محمد کریمی','CB',74,'🛡️'],['رضا حسینی','RB',70,'🛡️'],['سینا مرادی','CM',73,'⚙️'],['آرش کاظمی','CM',75,'⚙️'],['سامان اکبری','CAM',76,'🎯'],['پارسا نادری','LW',74,'⚡'],['امیرحسین صادقی','RW',72,'⚡'],['میلاد رحیمی','ST',77,'⚽'],['نوید حیدری','GK',68,'🧤'],['یاسین موسوی','CB',67,'🛡️'],['علی اکبری','CM',69,'⚙️'],['مهدی رضوانی','RW',68,'⚡'],['محمدرضا کریمی','ST',70,'⚽']];
+document.getElementById('playerList').innerHTML=players.map((p,i)=>`<div class="row"><div class="avatar">${p[3]}</div><div class="grow"><b>${p[0]}</b><div class="muted">${p[1]} • ${i<11?'اصلی':'ذخیره'} • سن ${21+(i%8)}</div><div class="formbar" style="margin-top:6px"><i style="width:${Math.min(100,p[2]+15)}%"></i></div></div><div class="value">${p[2]}</div></div>`).join('');
+const market=[['رضا نوروزی','GK',75,84375000],['امید کریمی','CB',78,91260000],['پویان احمدی','CM',79,93615000],['علی نادری','CAM',81,98415000],['نوید صادقی','RW',80,96000000],['رضا مرادی','ST',82,100860000]];
+document.getElementById('marketList').innerHTML=market.map(p=>`<div class="row"><div class="avatar">⚽</div><div class="grow"><b>${p[0]}</b><div class="muted">${p[1]} • ریتینگ ${p[2]} • حقوق €${(p[2]*2500).toLocaleString()}</div></div><div style="text-align:left"><b>€${p[3].toLocaleString()}</b><br><button class="btn" style="padding:7px 9px;margin-top:5px">خرید</button></div></div>`).join('');
+const teams=['تیم من','پارس FC','تهران یونایتد','سپاهان نوین','آبی‌پوشان','پایتخت FC','خلیج فارس','شمال FC','جنوب FC','استقلال جوان','پرسپولیس نوین','فولاد شهر'];
+document.getElementById('leagueTable').innerHTML=teams.map((t,i)=>`<div class="tr"><span class="rank">${i+1}</span><span><b>${t}</b><small class="muted" style="display:block">${i===0?'شما':'سیستم'}</small></span><span>${i===0?0:Math.max(0,12-i)}</span><span><b>${i===0?0:Math.max(0,30-i*2)}</b></span><span class="${i<2?'positive':''}">${i<2?'↑':''}</span></div>`).join('');
+const u=tg?.initDataUnsafe?.user;if(u){const n=[u.first_name,u.last_name].filter(Boolean).join(' ');if(n){document.getElementById('managerName').textContent=n;document.querySelector('#profile h2').textContent=n;}}
+</script>
 </body>
 </html>
