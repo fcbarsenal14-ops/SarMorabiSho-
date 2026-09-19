@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +23,6 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            direction: rtl;
         }
 
         .card {
@@ -61,4 +60,69 @@
         button {
             width: 100%;
             border: none;
-            padding: 16
+            padding: 16px;
+            border-radius: 16px;
+            background: var(--tg-theme-button-color, #2481cc);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+
+        <div class="logo">⚽</div>
+
+        <h1>سرمربی شو</h1>
+
+        <div class="welcome">
+            سلام به سرمربی شو خوش اومدی 👋
+        </div>
+
+        <div class="username" id="username">
+            در حال دریافت اطلاعات...
+        </div>
+
+        <button onclick="startApp()">
+            🚀 شروع بازی
+        </button>
+
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+
+        tg.ready();
+        tg.expand();
+
+        const user = tg.initDataUnsafe?.user;
+
+        if (user) {
+            let fullName = user.first_name || "";
+
+            if (user.last_name) {
+                fullName += " " + user.last_name;
+            }
+
+            document.getElementById("username").innerText =
+                `خوش اومدی ${fullName} 🌟`;
+        } else {
+            document.getElementById("username").innerText =
+                "به بازی سرمربی شو خوش اومدی 🌟";
+        }
+
+        function startApp() {
+            tg.showAlert("به سرمربی شو خوش اومدی ⚽🔥");
+        }
+    </script>
+
+</body>
+</html>
