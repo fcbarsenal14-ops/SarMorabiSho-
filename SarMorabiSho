@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>سرمربی شو</title>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: var(--tg-theme-bg-color, #0b0f0d);
+            color: var(--tg-theme-text-color, #ffffff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            direction: rtl;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 430px;
+            padding: 35px 22px;
+            border-radius: 28px;
+            background: var(--tg-theme-secondary-bg-color, #151b18);
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .logo {
+            font-size: 65px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            margin: 0 0 12px;
+            font-size: 27px;
+        }
+
+        .welcome {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .username {
+            opacity: 0.7;
+            font-size: 15px;
+            margin-bottom: 28px;
+        }
+
+        button {
+            width: 100%;
+            border: none;
+            padding: 16
