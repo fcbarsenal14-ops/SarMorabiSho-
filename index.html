@@ -46,6 +46,9 @@ body{overflow-x:hidden}.alliancePage,.rankingPage,.competitionPage{width:100%;ov
 /* V1.14 PATCH 2026-09-20 */
 .managerHandle{display:block;color:#9fd6c0;font-size:10px;margin-top:2px}.rankProfile>span{min-width:0}.rankProfile>span>b{display:block}.rankingTeamName{font-weight:900}.marketCompact .marketTop{gap:8px}.marketCompact .playerBig{width:88px;height:88px;flex:0 0 88px;border-radius:16px}.marketCompact .playerBig img{width:100%;height:100%;object-fit:cover;border-radius:16px}.marketCompact .playerInfo b{font-size:13px}.marketCompact .tag{padding:3px 6px;font-size:8px}.marketCompact .statGrid{grid-template-columns:repeat(6,1fr);gap:4px}.marketCompact .miniStat{padding:5px 2px}.marketCompact .miniStat b{font-size:10px}.marketCompact .miniStat span{font-size:7px}.marketCompact .positionBox,.marketCompact .priceBox{min-width:78px;padding:7px}.marketCompact .positionBox b,.marketCompact .priceBox b{font-size:12px}.adminMarketImage{display:none}.adminMode .adminMarketImage{display:block}.predictionGrid{display:grid;gap:6px}.predictionMatch{border:1px solid #fff2;border-radius:13px;padding:8px;background:#ffffff04}.predictionMatch .predictionOption{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-top:6px}.predictionMatch .predictionOption button{border:1px solid #ffffff18;background:#ffffff08;color:#fff;border-radius:9px;padding:7px 4px;font-size:9px}.predictionMatch .predictionOption button.active{background:#18b87525;border-color:#18b87599}.predictionLeagueTitle{margin:12px 0 5px;color:var(--gold);font-weight:900;font-size:13px}
 </style>
+<style>
+.profileFollowerCount{margin-top:5px;color:#f4c95d;font-size:12px;font-weight:800}.profileActionGrid{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.likedPost{border-color:#ef6b7399!important;background:#ef6b7318!important}.postActions .btn{min-width:78px}.profileModalAvatar{width:72px;height:72px;border-radius:20px;object-fit:cover;border:2px solid #ffffff22}
+</style>
 </head>
 <body>
 <div class="app">
@@ -509,6 +512,108 @@ window.__baseRenderV114=__baseRenderV114;
 
 
 function rankType(type){const rows=rankingRows(type),body=document.getElementById('rankBody');if(!body)return;body.innerHTML=rows.map((r,i)=>{let media='';if(type==='team'){const av=i===0?(state.avatar||'https://ui-avatars.com/api/?name='+encodeURIComponent(managerName)+'&background=183d2c&color=fff'):'https://ui-avatars.com/api/?name='+encodeURIComponent(r[1])+'&background=29483b&color=fff';media=`<img class="rankAvatar" src="${av}">`}else if(type==='alliance'){media=`<img class="allianceLogoSmall" src="${i===0&&state.allianceImage?state.allianceImage:'https://ui-avatars.com/api/?name='+encodeURIComponent(r[1])+'&background=29483b&color=fff'}">`}else if(type==='player'){const p=defaultPlayers.concat(market).find(x=>x.name===r[1]);const img=p?(state.playerImages?.[p.num]||state.playerImages?.['m'+p.num]):'';media=img?`<img class="rankAvatar" src="${img}">`:'⚽'}else{media=`<img class="rankAvatar" src="${i===0?(state.avatar||'https://ui-avatars.com/api/?name='+encodeURIComponent(managerName)+'&background=183d2c&color=fff'):'https://ui-avatars.com/api/?name='+encodeURIComponent(r[1])+'&background=29483b&color=fff'}">`}const action=type==='team'?`openTeamProfile(${JSON.stringify(r[1])})`:type==='alliance'?`openAllianceProfile(${JSON.stringify(r[1])})`:type==='player'?`openPlayerRanking(${i})`:type==='followers'?`openRankProfile(${i})`:'';const manager=type==='team'?`<div class="managerHandle">سرمربی: ${esc(managerHandleForTeam(r[1],i))}</div>`:'';return `<tr class="${i===0?'rankTop':i===1?'silver':i===2?'bronze':''} clickableRow" onclick='${action}'><td class="medal">${i===0?'🥇':i===1?'🥈':i===2?'🥉':fmt(i+1)}</td><td><div class="rankProfile">${media}<span><b class="rankingTeamName">${esc(r[1])}</b>${manager}</span></div></td><td>${fmt(r[2])}</td></tr>`}).join('')}
+
+/* ========================= V1.14 SOCIAL PROFILE PATCH ========================= */
+function socialStore(){
+  state.socialProfiles=state.socialProfiles||{};
+  return state.socialProfiles;
+}
+function ensureSocialProfile(team,index=0){
+  const store=socialStore();
+  if(!store[team]){
+    const baseLikes=Math.max(0,(index%7)*3);
+    store[team]={followers:Math.max(0,50-index*2),posts:[
+      {id:'p1',text:'آماده مسابقه بعدی هستیم ⚽',likes:baseLikes,liked:false,time:'امروز'},
+      {id:'p2',text:'تمرین امروز با قدرت ادامه دارد 💪',likes:Math.max(0,baseLikes-1),liked:false,time:'دیروز'}
+    ]};
+  }
+  store[team].followers=Number(store[team].followers||0);
+  store[team].posts=Array.isArray(store[team].posts)?store[team].posts:[];
+  return store[team];
+}
+function profileMedalsFor(index){
+  if(index===0) return state.medals||{gold:0,silver:0,bronze:0};
+  return {gold:index%5===0?1:0,silver:index%4===0?1:0,bronze:index%3===0?1:0};
+}
+function profileStatsFor(team,index,mine){
+  if(mine) return state.managerStats||{points:0,played:0,wins:0,draws:0,losses:0,trophies:0};
+  return {points:1320-index*11,played:18+index%7,wins:9-index%4,draws:5-index%2,losses:4+index%3,trophies:index%5};
+}
+function renderProfilePosts(team,index=0,mine=false){
+  const data=mine?(state.posts=Array.isArray(state.posts)?state.posts:[],{followers:Number(state.followersCount||0),posts:state.posts}):ensureSocialProfile(team,index);
+  if(!data.posts.length) return '<div class="empty">هنوز پستی منتشر نشده است.</div>';
+  return data.posts.map((post,i)=>{
+    const liked=Boolean(post.likedByMe||false);
+    return `<div class="post">
+      <div class="row"><b>📝 ${mine?'پست مربی':'پست '+esc(team)}</b><small class="sub">${esc(post.time||'امروز')}</small></div>
+      <p style="margin:9px 0;line-height:1.8">${esc(post.text||'')}</p>
+      ${post.image?`<img src="${post.image}" alt="post">`:''}
+      <div class="postActions">
+        <button class="btn alt sm ${liked?'likedPost':''}" onclick="toggleProfilePostLike('${esc(team)}',${i},${mine})">${liked?'❤️':'🤍'} <span id="postLike_${mine?'me':esc(team).replace(/[^\w\u0600-\u06ff]/g,'_')}_${i}">${fmt(post.likes||0)}</span></button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function renderPosts(){
+  const box=document.getElementById('posts');
+  if(!box)return;
+  box.innerHTML=renderProfilePosts(state.team||'تیم من',0,true);
+  save();
+}
+function toggleProfilePostLike(team,index,mine=false){
+  let data;
+  if(mine){
+    state.posts=Array.isArray(state.posts)?state.posts:[];
+    data={posts:state.posts};
+  }else data=ensureSocialProfile(team,Math.max(0,rankingRows('team').findIndex(r=>r[1]===team)));
+  const post=data.posts[index];
+  if(!post)return;
+  post.likes=Math.max(0,Number(post.likes||0));
+  post.likedByMe=!Boolean(post.likedByMe);
+  post.likes += post.likedByMe?1:-1;
+  save();
+  if(mine) renderPosts();
+  else openTeamProfile(team);
+}
+function togglePostLike(team,index){toggleProfilePostLike(team,index,false)}
+function addProfilePost(){
+  const text=(document.getElementById('newProfilePostText')?.value||'').trim();
+  if(!text){toast('متن پست را بنویس');return}
+  state.posts=Array.isArray(state.posts)?state.posts:[];
+  state.posts.unshift({id:'p_'+Date.now(),text,likes:0,likedByMe:false,time:'همین الان'});
+  save();closeModal();renderPosts();toast('پست منتشر شد 📝');
+}
+function openPost(){
+  openModal(`<h2>📝 پست جدید</h2><div class="field"><label>متن پست</label><textarea id="newProfilePostText" class="textarea" rows="5" maxlength="500" placeholder="خبر تیم، نتیجه تمرین یا هر چیزی که می‌خواهی..." ></textarea></div><button class="btn" onclick="addProfilePost()">انتشار پست</button>`);
+}
+function followProfileTeam(team,index){
+  const mine=team===(state.team||'تیم من');
+  if(mine){toast('نمی‌توانی خودت را دنبال کنی');return;}
+  const data=ensureSocialProfile(team,index);
+  data.followedByMe=!Boolean(data.followedByMe);
+  data.followers=Math.max(0,data.followers+(data.followedByMe?1:-1));
+  save();openTeamProfile(team);
+}
+function openTeamProfile(name){
+  const mine=name===(state.team||'تیم من');
+  const rows=rankingRows('team');
+  const index=Math.max(0,rows.findIndex(r=>r[1]===name));
+  const teamManager=managerHandleForTeam(name,index);
+  const stats=profileStatsFor(name,index,mine);
+  const medals=profileMedalsFor(index);
+  const social=mine?{followers:Number(state.followersCount||0),posts:Array.isArray(state.posts)?state.posts:[]} : ensureSocialProfile(name,index);
+  const avatar=mine?(state.avatar||'https://ui-avatars.com/api/?name='+encodeURIComponent(managerName)+'&background=183d2c&color=fff'):'https://ui-avatars.com/api/?name='+encodeURIComponent(teamManager.replace('@',''))+'&background=29483b&color=fff';
+  const friendly=mine?'':`<button class="btn alt sm" onclick="closeModal();openFriendlyRequestFor('${esc(name)}')">🤝 دوستانه</button>`;
+  const msg=mine?'':`<button class="btn gold sm" onclick="closeModal();openPrivateMessage('${esc(name)}','${esc(teamManager)}')">✉️ پیام خصوصی</button>`;
+  const follow=mine?'':`<button class="btn sm" onclick="followProfileTeam('${esc(name)}',${index})">${social.followedByMe?'✓ دنبال می‌کنی':'➕ دنبال کردن'}</button>`;
+  const postHtml=renderProfilePosts(name,index,mine);
+  openModal(`<div class="heroRow"><img class="profileModalAvatar" src="${avatar}"><div><h2 style="margin:0">${esc(name)}</h2><div class="managerHandle">سرمربی: ${esc(teamManager)}</div><div class="sub">لیگ: ${esc(currentLeagueName())}</div><div class="sub">اتحاد: ${esc(mine?(state.allianceName||'بدون اتحاد'):'Green Legends')}</div><div class="profileFollowerCount">👥 ${fmt(social.followers)} فالوور</div></div></div>
+  <div class="profileActionGrid">${follow}${friendly}${msg}</div>
+  ${profileStatsHtmlV2(stats)}
+  <div class="card"><b>🏅 مدال‌ها و جام‌ها</b><div class="medals" style="margin-top:9px"><div class="medalBox"><b>🥇</b>طلا × ${fmt(medals.gold)}</div><div class="medalBox"><b>🥈</b>نقره × ${fmt(medals.silver)}</div><div class="medalBox"><b>🥉</b>برنز × ${fmt(medals.bronze)}</div><div class="medalBox"><b>🏆</b>جام × ${fmt(stats.trophies||0)}</div></div></div>
+  <div class="card"><b>📊 کارنامه کامل</b>${profileStatsHtmlV2(stats)}</div>
+  <div class="card"><div class="row"><b>📝 پست‌های ${mine?'من':'این مربی'}</b><span class="sub">❤️ لایک واقعی</span></div>${postHtml}</div>`);
+}
 
 render();
 </script>
