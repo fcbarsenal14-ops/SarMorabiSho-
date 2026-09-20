@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>سرمربی شو — V1.13 PLUS</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="./api-config.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -136,6 +137,11 @@ body{overflow-x:hidden}.alliancePage,.rankingPage,.competitionPage{width:100%;ov
 <script>
 const tg=window.Telegram?.WebApp;if(tg){tg.ready();tg.expand();try{tg.setHeaderColor('#07100d');tg.setBackgroundColor('#07100d')}catch(e){}}
 const KEY='sar_morabi_v1_1';
+const API_BASE=(window.SAR_MORABI_API_BASE||'').replace(/\/$/,'');
+const serverAuth={ready:false,role:'player',permissions:{},user:null,team:null,teams:[]};
+async function apiRequest(path,options={}){if(!API_BASE)throw new Error('API base is not configured');const headers=Object.assign({'Content-Type':'application/json'},options.headers||{});const initData=window.Telegram?.WebApp?.initData||'';if(initData)headers['X-Telegram-Init-Data']=initData;const r=await fetch(API_BASE+path,{...options,headers});const data=await r.json().catch(()=>({error:'bad_json'}));if(!r.ok)throw new Error(data.error||('HTTP '+r.status));return data}
+async function syncServerSession(){if(!API_BASE)return;try{const me=await apiRequest('/api/me');serverAuth.ready=true;serverAuth.role=me.role||'player';serverAuth.permissions=me.permissions||{};serverAuth.user=me.user;serverAuth.team=me.team;const allTeams=await apiRequest('/api/teams');serverAuth.teams=allTeams.teams||[];state.adminMode=serverAuth.role==='admin';applyRoleClass();if(['admin','game_manager'].includes(serverAuth.role)){const t=await apiRequest('/api/admin/teams');serverAuth.teams=t.teams||[];state.serverTeams=serverAuth.teams}if(serverAuth.role==='admin'){const rr=await apiRequest('/api/admin/reports');state.serverReports=rr.reports||[]}render();}catch(e){serverAuth.ready=false;serverAuth.role='player';serverAuth.permissions={};state.adminMode=false;applyRoleClass();}}
+
 const defaultPlayers=[
 {name:'علی رضایی',pos:'GK',rating:72,age:24,num:1,starter:1,goals:0,assists:0,apps:0,clean:0,form:72,fitness:100,salary:1440000,value:51840000},
 {name:'مهدی احمدی',pos:'LB',rating:71,age:23,num:3,starter:1,goals:0,assists:1,apps:0,clean:0,form:71,fitness:100,salary:1420000,value:50410000},
@@ -507,37 +513,29 @@ function renderAcademy(){
   save();
 }
 function predictionSeed(){const groups=[['لیگ برتر',1],['لیگ ۱',2],['لیگ ۲',4],['لیگ ۳',8],['لیگ ۴',16],['لیگ ۵',32],['لیگ ۶',64]];const out=[];const teams=['آفتاب','پارس','قهرمانان','شاهین','سپهر','طلایی','اتحاد','نفت','آرمان','فولاد','آبی','سبز'];for(const [league,groupCount] of groups){for(let g=1;g<=groupCount;g++){for(let m=0;m<6;m++){const a=teams[(m*2+g-1)%teams.length],b=teams[(m*2+1+g-1)%teams.length];out.push({id:`${league}-${g}-${m}`,league:groupCount>1?`${league} • گروه ${g}`:league,home:`${a} ${g}`,away:`${b} ${g}`,time:m<2?'امروز 14:00':m<4?'امروز 16:00':'امروز 18:00',result:['home','draw','away'][m%3]})}}}return out}
-function currentRole(){
-  if(state.adminMode) return 'admin';
-  const me=state.team||'';
-  if(state.moderation?.gameManagerTeam===me) return 'game_manager';
-  if((state.moderation?.supervisorTeams||[]).includes(me)) return 'supervisor';
-  return 'player';
-}
+function currentRole(){return serverAuth.ready?serverAuth.role:'player'}
 function roleLabel(){return ({admin:'👑 ادمین',game_manager:'🎮 مدیر بازی',supervisor:'🛡️ ناظر',player:'پلیر'})[currentRole()]||'پلیر'}
 function applyRoleClass(){document.body.classList.remove('role-admin','role-game_manager','role-supervisor','role-player');document.body.classList.add('role-'+currentRole())}
-function canModerate(){return ['admin','game_manager','supervisor'].includes(currentRole())}
-function canAssignSupervisor(){return ['admin','game_manager'].includes(currentRole())}
-function roleTeamList(){return rankingRows('team').map(r=>r[1]).filter(Boolean)}
+function canModerate(){return Boolean(serverAuth.ready && serverAuth.permissions?.moderate)}
+function canAssignSupervisor(){return Boolean(serverAuth.ready && serverAuth.permissions?.assign_supervisors)}
+function roleTeamList(){return (serverAuth.teams||[]).map(t=>t.name).filter(Boolean)}
+function roleTeamIdByName(name){return (serverAuth.teams||[]).find(t=>t.name===name)?.id}
 function openModerationPanel(){
   const role=currentRole();
   if(role==='player'){toast('این بخش فقط برای ناظر، مدیر بازی و ادمین است');return}
   const teams=roleTeamList();
-  const gm=state.moderation?.gameManagerTeam||'';
-  const supervisors=state.moderation?.supervisorTeams||[];
-  const reports=state.moderation?.reports||[];
+  const gm=(serverAuth.teams||[]).find(t=>t.role==='game_manager')?.name||'';
+  const supervisors=(serverAuth.teams||[]).filter(t=>t.role==='supervisor').map(t=>t.name);
+  const reports=serverAuth.ready?(state.serverReports||[]):[];
   const assign=canAssignSupervisor()?`<div class="card"><b>${role==='admin'?'👑 مدیریت نقش‌ها':'🎮 مدیریت ناظران'}</b><div class="sub" style="margin-top:5px">${role==='admin'?'یک مدیر بازی انتخاب کن و سپس ناظران را مدیریت کن.':'ناظرهای مورد اعتماد را برای نظارت بر نام پروفایل‌ها انتخاب کن.'}</div>${role==='admin'?`<div class="field"><label>مدیر بازی</label><select class="roleSelect" onchange="setGameManager(this.value)"><option value="">بدون مدیر بازی</option>${teams.map(t=>`<option value="${esc(t)}" ${t===gm?'selected':''}>${esc(t)}</option>`).join('')}</select></div>`:''}<div class="field"><label>ناظرها</label><div class="permissionGrid">${teams.map(t=>`<label><input type="checkbox" ${supervisors.includes(t)?'checked':''} onchange="toggleSupervisor('${esc(t)}',this.checked)"> ${esc(t)}</label>`).join('')}</div></div></div>`:'';
-  const inbox=role==='admin'?`<div class="card"><div class="row"><b>📨 گزارش‌های ارسال‌شده به ادمین</b><span class="pill">${fmt(reports.filter(r=>r.status==='new').length)} جدید</span></div>${reports.length?reports.slice().reverse().map(r=>`<div class="moderationReport"><b>🚨 ${esc(r.reason||'نامناسب')}</b><div class="sub">پروفایل: ${esc(r.team)} • گزارش توسط: ${esc(r.reporterTeam||'ناظر')}</div><div class="sub">زمان: ${esc(r.time||'همین الان')}</div><div style="margin-top:7px"><button class="btn sm" onclick="resolveModerationReport('${r.id}')">تأیید بررسی</button></div></div>`).join(''):'<div class="sub" style="margin-top:8px">گزارشی ثبت نشده است.</div>'}</div>`:'';
+  const inbox=role==='admin'?`<div class="card"><div class="row"><b>📨 گزارش‌های ارسال‌شده به ادمین</b><span class="pill">${fmt(reports.filter(r=>r.status==='new').length)} جدید</span></div>${reports.length?reports.slice().reverse().map(r=>`<div class="moderationReport"><b>🚨 ${esc(r.reason||'نامناسب')}</b><div class="sub">پروفایل: ${esc(r.reported_team)} • گزارش توسط: ${esc(r.reporter_team||'ناظر')}</div><div class="sub">زمان: ${esc(r.created_at||'همین الان')}</div><div style="margin-top:7px"><button class="btn sm" onclick="resolveModerationReport('${r.id}')">تأیید بررسی</button></div></div>`).join(''):'<div class="sub" style="margin-top:8px">گزارشی ثبت نشده است.</div>'}</div>`:'';
   openModal(`<h2>🛡️ مدیریت نظارت</h2><div class="roleBadge">${roleLabel()}</div>${assign}${inbox}`)
 }
-function setGameManager(team){if(currentRole()!=='admin'){toast('فقط ادمین می‌تواند مدیر بازی تعیین کند');return}state.moderation.gameManagerTeam=team||'';save();toast(team?'مدیر بازی تعیین شد 🎮':'مدیر بازی حذف شد');openModerationPanel()}
-function toggleSupervisor(team,on){if(!canAssignSupervisor()){toast('دسترسی تغییر ناظر را نداری');return}const a=state.moderation.supervisorTeams||[];if(on&&!a.includes(team))a.push(team);if(!on){const i=a.indexOf(team);if(i>=0)a.splice(i,1)}state.moderation.supervisorTeams=a;save();toast(on?'ناظر اضافه شد 🛡️':'دسترسی ناظر حذف شد');}
-function submitProfileModerationReport(team,reason){if(!canModerate()){toast('دسترسی گزارش نظارتی نداری');return}const report={id:'mr_'+Date.now(),team,reason,reporterTeam:state.team||'کاربر',role:currentRole(),time:new Date().toLocaleString('fa-IR'),status:'new'};state.moderation.reports=state.moderation.reports||[];state.moderation.reports.push(report);state.notifications=state.notifications||[];if(currentRole()!=='admin')state.notifications.unshift({id:Date.now(),type:'moderation',title:'گزارش نظارتی ارسال شد',text:`گزارش نام پروفایل «${team}» برای ادمین ثبت شد.`,time:'همین الان',read:false});save();closeModal();toast('گزارش برای ادمین ارسال شد 📨')}
-function openProfileModeration(team){if(!canModerate()){return}openModal(`<h2>🚨 بررسی نام پروفایل</h2><div class="sub">پروفایل: <b>${esc(team)}</b></div><div class="field"><label>دلیل گزارش</label><select id="moderationReason" class="roleSelect"><option>نام مستهجن</option><option>نام ضد اخلاقی</option><option>نام توهین‌آمیز</option><option>نام نامناسب دیگر</option></select></div><button class="btn red" style="width:100%" onclick="submitProfileModerationReport('${esc(team)}',document.getElementById('moderationReason').value)">🚨 ارسال گزارش به ادمین</button>`)}
-function resolveModerationReport(id){if(currentRole()!=='admin'){toast('فقط ادمین می‌تواند گزارش را نهایی کند');return}const r=(state.moderation.reports||[]).find(x=>x.id===id);if(r)r.status='resolved';save();openModerationPanel()}
-function renderPredictions(){const box=document.getElementById('predictionList');if(!box)return;const matches=predictionSeed(),groups={};matches.forEach(m=>(groups[m.league]??=[]).push(m));box.innerHTML=Object.entries(groups).map(([league,items])=>`<div class="predictionLeagueTitle">${esc(league)} • ${fmt(items.length)} بازی</div>`+items.map(m=>{const pick=state.predictions[m.id]||'',settled=state.predictionResults[m.id];return `<div class="predictionMatch"><div class="row"><div><b>${esc(m.home)} — ${esc(m.away)}</b><div class="sub">📅 ${esc(m.time)}</div></div><span class="pill">۲۰K EUR</span></div><div class="predictionOption"><button class="${pick==='home'?'active':''}" onclick="choosePrediction('${m.id}','home')">برد میزبان</button><button class="${pick==='draw'?'active':''}" onclick="choosePrediction('${m.id}','draw')">مساوی</button><button class="${pick==='away'?'active':''}" onclick="choosePrediction('${m.id}','away')">برد مهمان</button></div>${settled?`<div class="sub" style="margin-top:5px;color:${settled.correct?'#55e2a0':'#ff8188'}">${settled.correct?'✅ صحیح • +۲۰٬۰۰۰ یورو':'❌ نادرست'}</div>`:''}</div>`}).join('')).join('')}
-function choosePrediction(id,pick){state.predictions[id]=pick;save();renderPredictions();toast('پیش‌بینی ثبت شد 🎯')}
-function settlePredictions(){let reward=0;for(const m of predictionSeed()){if(state.predictionResults[m.id]||!state.predictions[m.id])continue;const correct=state.predictions[m.id]===m.result;state.predictionResults[m.id]={correct};if(correct)reward+=20000}if(reward){state.euros+=reward;save();render();toast('پیش‌بینی‌های صحیح: +'+fmt(reward)+' یورو 💶')}else{save();toast('پیش‌بینی ثبت‌شده‌ای برای تسویه نیست')}}
+async function setGameManager(team){if(currentRole()!=='admin'){toast('فقط ادمین می‌تواند مدیر بازی تعیین کند');return}try{const id=roleTeamIdByName(team);if(!id){toast('تیم پیدا نشد');return}await apiRequest('/api/admin/game-manager',{method:'POST',body:JSON.stringify({team_id:id})});toast('مدیر بازی تعیین شد 🎮');await syncServerSession();openModerationPanel()}catch(e){toast('خطا در تعیین مدیر بازی: '+e.message)}}
+async function toggleSupervisor(team,on){if(!canAssignSupervisor()){toast('دسترسی تغییر ناظر را نداری');return}try{const id=roleTeamIdByName(team);if(!id){toast('تیم پیدا نشد');return}await apiRequest('/api/admin/supervisor',{method:'POST',body:JSON.stringify({team_id:id,enabled:on,permissions:{moderate:true,view_reports:false}})});toast(on?'ناظر اضافه شد 🛡️':'دسترسی ناظر حذف شد');await syncServerSession();openModerationPanel()}catch(e){toast('خطا در تغییر ناظر: '+e.message)}}
+async function submitProfileModerationReport(team,reason){if(!canModerate()){toast('دسترسی گزارش نظارتی نداری');return}try{const id=roleTeamIdByName(team);if(!id){toast('شناسه تیم پیدا نشد');return}await apiRequest('/api/moderation/report',{method:'POST',body:JSON.stringify({reported_team_id:id,reason})});closeModal();toast('گزارش برای ادمین ارسال شد 📨')}catch(e){toast('ارسال گزارش ناموفق بود: '+e.message)}}
+function openProfileModeration(team){if(!canModerate())return;openModal(`<h2>🚨 بررسی نام پروفایل</h2><div class="sub">پروفایل: <b>${esc(team)}</b></div><div class="field"><label>دلیل گزارش</label><select id="moderationReason" class="roleSelect"><option>نام مستهجن</option><option>نام ضد اخلاقی</option><option>نام توهین‌آمیز</option><option>نام نامناسب دیگر</option></select></div><button class="btn red" style="width:100%" onclick="submitProfileModerationReport('${esc(team)}',document.getElementById('moderationReason').value)">🚨 ارسال گزارش به ادمین</button>`)}
+async function resolveModerationReport(id){if(currentRole()!=='admin'){toast('فقط ادمین می‌تواند گزارش را نهایی کند');return}try{await apiRequest('/api/admin/reports/'+id+'/resolve',{method:'POST',body:'{}'});toast('گزارش بررسی و بسته شد');await syncServerSession();openModerationPanel()}catch(e){toast('خطا در بستن گزارش: '+e.message)}}
 function openPredictions(){openModal(`<h2>🔮 پیش‌بینی مسابقات امروز</h2><div class="sub">تمام بازی‌های امروز از لیگ برتر تا لیگ ۶ قابل پیش‌بینی هستند. تعداد بازی‌های امروز: ${fmt(predictionSeed().length)}</div><div id="predictionList" class="predictionGrid" style="margin-top:10px"></div><button class="btn" style="width:100%;margin-top:10px" onclick="settlePredictions()">تسویه پیش‌بینی‌های انجام‌شده</button><div class="adminOnlyControl" style="margin-top:10px"><label class="sub">تصویر پیش‌بینی — فقط ادمین</label><input class="input" type="file" accept="image/*" onchange="setPredictionImage(event)"></div>`);renderPredictions()}
 function setPredictionImage(e){if(!state.adminMode){toast('فقط ادمین می‌تواند تصویر را تغییر دهد');return}const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{state.predictionImage=r.result;save();applyPredictionImage();toast('تصویر پیش‌بینی ذخیره شد')};r.readAsDataURL(f)}
 function applyPredictionImage(){const el=document.getElementById('predictionHomeCard');if(el&&state.predictionImage)el.style.backgroundImage=`linear-gradient(180deg,#0001,#000e),url('${state.predictionImage}')`}
@@ -668,6 +666,7 @@ function searchHome(q){
 }
 
 render();
+syncServerSession();
 </script>
 </body>
 </html>
