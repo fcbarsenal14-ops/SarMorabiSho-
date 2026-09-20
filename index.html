@@ -428,6 +428,89 @@ function render(){
   if(!state.team)setTimeout(createTeam,400)
 }
 
+
+/* ========================= V1.13 PLUS FIX PACK ========================= */
+state.followingProfiles=state.followingProfiles||{};
+
+function stadiumUpgradeCost(){return Number(state.stadium.level||1)*15000000}
+function renderStadium(){
+  const s=state.stadium||{level:1,name:'ورزشگاه شهر',capacity:10000,images:{}};
+  const level=Math.max(1,Math.min(10,Number(s.level||1))); s.level=level;
+  const info=stadiums[level-1]||stadiums[0];
+  s.name=s.name||info.name; s.capacity=Number(s.capacity||info.capacity); s.images=s.images||{};
+  const el=id=>document.getElementById(id);
+  if(el('stadiumLevelText'))el('stadiumLevelText').textContent=level;
+  if(el('stadiumName'))el('stadiumName').textContent=s.name;
+  if(el('stadiumCapacity'))el('stadiumCapacity').textContent='ظرفیت '+fmt(s.capacity)+' نفر';
+  const bg=s.images[level]||s.image||'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=80';
+  if(el('stadiumHero'))el('stadiumHero').style.backgroundImage=`linear-gradient(180deg,#06100b22,#06100bdd),url("${bg}")`;
+  if(el('stadiumUpgradeText'))el('stadiumUpgradeText').textContent=level>=10?'حداکثر سطح':money(stadiumUpgradeCost());
+  if(el('levelBar'))el('levelBar').innerHTML=Array.from({length:10},(_,i)=>`<span class="levelDot ${i<level?'on':''}"></span>`).join('');
+  if(el('stadiumChoices'))el('stadiumChoices').innerHTML=stadiums.map((x,i)=>`<div class="choice ${level===i+1?'on':''} ${level<i+1?'locked':''}" onclick="selectStadium(${i})"><span><b>سطح ${i+1}</b> — ${x.name}<small class="sub" style="display:block">ظرفیت ${fmt(x.capacity)} ${level<i+1?'• 🔒 قفل':''}</small></span><span class="check">${level===i+1?'✓':level>i+1?'✓':'🔒'}</span></div>`).join('');
+}
+function selectStadium(i){if(i+1>Number(state.stadium.level||1)){toast('این سطح هنوز باز نشده است؛ ابتدا ارتقا بده');return}state.stadium.name=stadiums[i].name;state.stadium.capacity=stadiums[i].capacity;save();renderStadium();toast('سطح ورزشگاه انتخاب شد')}
+function upgradeStadium(){
+  if(Number(state.stadium.level||1)>=10){toast('ورزشگاه به حداکثر سطح رسیده است');return}
+  const cost=stadiumUpgradeCost();
+  if(Number(state.euros||0)<cost){toast('موجودی تیم شما کافی نیست');return}
+  state.euros-=cost;state.stadium.level++;
+  const info=stadiums[state.stadium.level-1];state.stadium.name=info.name;state.stadium.capacity=info.capacity;
+  save();render();toast('ورزشگاه به سطح '+state.stadium.level+' رسید 🏟️');
+}
+function setStadiumImage(e){const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{state.stadium.images=state.stadium.images||{};state.stadium.images[state.stadium.level]=r.result;state.stadium.image=r.result;save();renderStadium();toast('عکس پس‌زمینه سطح '+state.stadium.level+' ذخیره شد')};r.readAsDataURL(f)}
+
+function profileStatsHtml(stats){return `<div class="statGrid profileStatsGrid"><div class="miniStat"><b>${fmt(stats.points||0)}</b><span>امتیاز</span></div><div class="miniStat"><b>${fmt(stats.played||0)}</b><span>بازی</span></div><div class="miniStat"><b>${fmt(stats.wins||0)}</b><span>برد</span></div><div class="miniStat"><b>${fmt(stats.draws||0)}</b><span>مساوی</span></div><div class="miniStat"><b>${fmt(stats.losses||0)}</b><span>باخت</span></div><div class="miniStat"><b>${fmt(stats.trophies||0)}</b><span>جام</span></div></div>`}
+function profileHonorsHtml(stats){return `<div class="medals"><div class="medalBox"><b>🥇</b><span>مدال طلا</span></div><div class="medalBox"><b>🥈</b><span>مدال نقره</span></div><div class="medalBox"><b>🥉</b><span>مدال برنز</span></div><div class="medalBox"><b>🏆 ${fmt(stats.trophies||0)}</b><span>جام</span></div></div>`}
+function openRankProfileByName(name,points=0,img='',teamName=''){
+  const mine=name===managerName;
+  const avatar=img||(mine?state.avatar:'https://ui-avatars.com/api/?name='+encodeURIComponent(name)+'&background=29483b&color=fff');
+  const stats=mine?state.managerStats:{points:Number(points||0),played:18,wins:10,draws:4,losses:4,trophies:2};
+  const club=teamName||(mine?(state.team||'تیم من'):'تیم '+name);
+  const friendly=mine?'':`<button class="btn alt sm" onclick="closeModal();openFriendlyRequestFor('${esc(club)}')">🤝 بازی دوستانه</button>`;
+  const message=mine?'':`<button class="btn alt sm" onclick="sendProfileMessage('${esc(name)}')">💬 پیام شخصی</button>`;
+  openModal(`<div class="heroRow"><img class="profileModalAvatar" src="${avatar}"><div><h2 style="margin:0">${esc(club)}</h2><div class="sub">مربی: ${esc(name)}</div><div class="sub">لیگ: ${esc(currentLeagueName())}</div></div></div>${profileStatsHtml(stats)}<div class="card"><b>🏆 مدال‌ها و جام‌ها</b>${profileHonorsHtml(stats)}</div><div class="positions">${friendly}${message}</div><div class="card"><b>📝 پست‌های مربی</b><div class="post"><div class="row"><b>${esc(name)}</b><span class="sub">امروز</span></div><p>${mine?'آخرین خبرهای تیم را اینجا منتشر کن.':'آماده مسابقه بعدی هستیم ⚽'}</p><div class="postActions"><button class="btn alt sm" onclick="toast('لایک ثبت شد ❤️')">❤️ لایک</button></div></div></div>`)
+}
+function openRankProfile(i){const rows=rankingRows('followers');const r=rows[i];if(!r)return;openRankProfileByName(r[3]||r[1],r[2],r[4]||'',r[1])}
+function sendProfileMessage(name){const text=prompt('پیام شخصی برای '+name+' را بنویس:');if(!text||!text.trim())return;state.notifications=state.notifications||[];state.notifications.unshift({type:'social',title:'پیام جدید',text:'پیام شما برای '+name+' ثبت شد.',time:'همین الان',read:false});save();closeModal();toast('پیام شخصی ثبت شد 💬')}
+
+function rankingRows(type){
+  const teams=leagueTeamsBase.concat(['تیم من','پارس فوتبال','آبی پوشان','طلوع تهران','شهاب خلیج','قهرمانان شرق','ستاره‌های ایران','آرمان شهر']);
+  if(type==='team')return Array.from({length:100},(_,i)=>{const name=i===0?(state.team||'تیم من'):(teams[i%teams.length]);return [i+1,name,Math.max(100,2400-i*23),name==='تیم من'?managerName:'مربی '+name]});
+  if(type==='followers')return Array.from({length:100},(_,i)=>{const team=i===0?(state.team||'تیم من'):('باشگاه دنبال‌شده '+(i+1));const coach=i===0?managerName:('مربی '+(i+1));return [i+1,team,Math.max(100,2400-i*17),coach,'']});
+  if(type==='alliance')return allianceData().map((a,i)=>[i+1,a.name,a.points]);
+  return defaultPlayers.concat(market).slice(0,100).map((p,i)=>[i+1,p.name,Number(p.rating||0)]).sort((a,b)=>b[2]-a[2]).map((x,i)=>[i+1,x[1],x[2]]);
+}
+function rankType(type){
+  const body=document.getElementById('rankBody');if(!body)return;const rows=rankingRows(type);
+  const header=body.closest('table')?.querySelector('thead');
+  if(header)header.innerHTML=type==='followers'?'<tr><th>رتبه</th><th>باشگاه</th><th>امتیاز</th></tr>':'<tr><th>رتبه</th><th>نام</th><th>امتیاز</th></tr>';
+  body.innerHTML=rows.map((r,i)=>{
+    let media='';let display=r[1];let action='';
+    if(type==='team'){const av=i===0?(state.avatar||'https://ui-avatars.com/api/?name='+encodeURIComponent(r[3]||managerName)+'&background=183d2c&color=fff'):'https://ui-avatars.com/api/?name='+encodeURIComponent(r[3]||('مربی '+r[1]))+'&background=29483b&color=fff';media=`<img class="rankAvatar" src="${av}">`;action=`openTeamProfile('${esc(r[1])}')`}
+    else if(type==='followers'){const av=i===0?(state.avatar||'https://ui-avatars.com/api/?name='+encodeURIComponent(r[3]||managerName)+'&background=183d2c&color=fff'):'https://ui-avatars.com/api/?name='+encodeURIComponent(r[3])+'&background=29483b&color=fff';media=`<img class="rankAvatar" src="${av}">`;action=`openRankProfile(${i})`}
+    else if(type==='alliance'){media=`<img class="allianceLogoSmall" src="https://ui-avatars.com/api/?name=${encodeURIComponent(r[1])}&background=29483b&color=fff">`;action=`openAllianceProfile('${esc(r[1])}')`}
+    else {const p=defaultPlayers.concat(market).find(x=>x.name===r[1]);const img=p?(state.playerImages?.[p.num]||state.playerImages?.['m'+p.num]):'';media=img?`<img class="rankAvatar" src="${img}">`:'⚽';action=`openPlayerRanking(${i})`}
+    return `<tr class="${i===0?'rankTop':i===1?'silver':i===2?'bronze':''} clickableRow" onclick="${action}"><td class="rankNumber">${i<3?['🥇','🥈','🥉'][i]:fmt(i+1)}</td><td><div class="rankProfile">${media}<span><b>${esc(display)}</b>${(type==='team'||type==='followers')?`<small class="sub rankCoachName">${esc(r[3]||'')}</small>`:''}</span></div></td><td>${fmt(r[2])}</td></tr>`
+  }).join('')
+}
+
+function openTeamProfile(name){
+  const mine=name===(state.team||'تیم من');
+  const coach=mine?managerName:('مربی '+name);
+  const stats=mine?state.managerStats:{points:1320,played:18,wins:9,draws:5,losses:4,trophies:1};
+  const avatar=mine?(state.avatar||'https://ui-avatars.com/api/?name='+encodeURIComponent(coach)+'&background=183d2c&color=fff'):'https://ui-avatars.com/api/?name='+encodeURIComponent(coach)+'&background=29483b&color=fff';
+  const actions=mine?'':`<button class="btn alt sm" onclick="closeModal();openFriendlyRequestFor('${esc(name)}')">🤝 بازی دوستانه</button><button class="btn alt sm" onclick="sendProfileMessage('${esc(coach)}')">💬 پیام شخصی</button>`;
+  openModal(`<div class="heroRow"><img class="profileModalAvatar" src="${avatar}"><div><h2 style="margin:0">${esc(name)}</h2><div class="sub">مربی: ${esc(coach)}</div><div class="sub">لیگ: ${esc(currentLeagueName())}</div><div class="sub">اتحاد: ${esc(mine?(state.allianceName||'بدون اتحاد'):'Green Legends')}</div></div></div>${profileStatsHtml(stats)}<div class="card"><b>🏆 افتخارات</b>${profileHonorsHtml(stats)}</div><div class="positions">${actions}</div><div class="card"><b>📝 پست‌های مربی</b><div class="post"><div class="row"><b>${esc(coach)}</b><span class="sub">امروز</span></div><p>${mine?'آخرین خبرهای تیم را اینجا منتشر کن.':'آماده مسابقه بعدی هستیم ⚽'}</p></div></div>`)
+}
+
+/* market remains information-complete; only density is reduced */
+const __plusStyle=document.createElement('style');
+__plusStyle.textContent=`
+.marketCard{padding:10px;margin:8px 0;border-radius:16px}.marketTop{gap:7px}.marketTop .playerInfo b{font-size:13px}.marketTop .playerInfo .sub{font-size:9px}.marketTop .positionBox{min-width:72px;padding:6px;border-radius:10px}.marketTop .positionBox b{font-size:12px}.marketTop .priceBox{min-width:92px;padding:6px;border-radius:10px}.marketTop .priceBox b{font-size:12px}.marketCard .tag{font-size:8px;padding:3px 5px}.marketCard .statGrid{gap:5px;margin-top:7px}.marketCard .miniStat{padding:5px 3px}.marketCard .miniStat b{font-size:11px}.marketCard .miniStat span{font-size:8px}.marketCard .row{gap:6px}.marketCard .btn.sm{padding:6px 8px;font-size:10px}.rankNumber{width:52px;font-weight:900}.rankCoachName{display:block;font-size:8px;margin-top:2px}.rankingPage .table th,.rankingPage .table td{padding:8px 5px}.tile h3{font-size:18px;font-weight:900;text-shadow:0 2px 10px #000,0 0 2px #000}.tile p{font-size:11px;font-weight:600;text-shadow:0 1px 7px #000}.title,.rankingPage .title{letter-spacing:.1px;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}.card b,.sectionLabel b{font-weight:850;-webkit-font-smoothing:antialiased}.profileStatsGrid{margin-top:10px}
+@media(max-width:430px){.marketTop{gap:5px}.marketTop .playerBig{width:42px;height:42px;min-width:42px}.marketTop .positionBox{min-width:58px}.marketTop .priceBox{min-width:78px}.marketTop .priceBox .sub{font-size:8px}.marketTop .priceBox b{font-size:11px}.marketCard .playerInfo{min-width:70px}.marketCard .statGrid{grid-template-columns:repeat(6,1fr)}.marketCard .row>.tag{display:none}}
+`;
+document.head.appendChild(__plusStyle);
+
 render();
 </script>
 </body>
