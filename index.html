@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>سرمربی شو — V1.14 Full UI 2</title>
+<title>سرمربی شو — UI9</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -150,6 +150,55 @@ body,button,input,textarea,select{font-family:var(--game-font)!important}
 .playerPostCard{background:linear-gradient(145deg,#16231fee,#0d1513ee);border:1px solid var(--line);border-radius:18px;padding:12px;margin:9px 0}.playerPostHead{display:flex;align-items:center;gap:9px}.playerPostAvatar{width:44px;height:44px;border-radius:13px;object-fit:cover;background:#20352d}.playerPostBody{margin-top:8px;font-size:12px;line-height:1.8}.playerPostActions{display:flex;gap:7px;margin-top:9px;align-items:center}.playerPostActions .btn{font-size:10px;padding:7px 9px}.postComments{margin-top:8px;border-top:1px solid #fff1;padding-top:7px}.postComment{font-size:10px;padding:5px 0;border-bottom:1px solid #fff1}.postComment:last-child{border-bottom:0}.postCommentInput{display:flex;gap:6px;margin-top:7px}.postCommentInput input{flex:1;min-width:0;padding:8px;border-radius:10px}
 .adminOnlyControl{display:none}.adminMode .adminOnlyControl{display:block}.adminMode .academyCardV2 .adminOnlyControl{display:none!important}
 </style>
+
+<style id="ui9-final-overrides">
+/* UI9 final polish */
+.brand{flex:1;min-width:0;text-align:right;display:flex;align-items:center;justify-content:flex-start;gap:6px}
+.brand:before{display:none!important;content:none!important}
+.brandTitle{display:block;white-space:nowrap;font-size:20px;line-height:1.2}
+#topBrand{overflow:hidden}
+.top>.row{flex:0 0 auto}
+#homeAvatar{width:78px!important;height:78px!important;border-radius:24px!important;border:2px solid rgba(244,201,93,.55)!important;box-shadow:0 8px 24px #0008!important}
+#profileAvatar{width:102px!important;height:102px!important;border-radius:28px!important;border:2px solid rgba(244,201,93,.55)!important;box-shadow:0 10px 28px #0009!important}
+#profile .heroRow{align-items:center}
+#profile .card:first-of-type{overflow:hidden}
+#profile .card:first-of-type .heroRow{gap:14px}
+#profile .card:first-of-type{border-color:rgba(255,255,255,.16)!important}
+#profile .pageTitleBar,#profile .pageTitleBar .title{border-color:rgba(244,201,93,.55)!important}
+#profile.active .card:first-of-type{border-color:rgba(244,201,93,.72)!important;box-shadow:0 0 0 1px rgba(244,201,93,.10),0 12px 30px #0008!important}
+.profile-open .avatarBtn{border:2px solid rgba(244,201,93,.78)!important;box-shadow:0 0 0 4px rgba(244,201,93,.08)!important}
+.nav button.active{border:1px solid rgba(244,201,93,.34)!important}
+.nav button[onclick*="'profile'"].active{border-color:rgba(244,201,93,.75)!important;box-shadow:inset 0 0 0 1px rgba(244,201,93,.12),0 5px 18px rgba(244,201,93,.12)!important}
+.homeFeatureCard{min-height:155px!important}
+.shareTask{padding:6px!important;margin:5px 0!important;border-radius:12px!important}
+.shareTask .btn{padding:5px 8px!important;font-size:9px!important}
+.shareTask .sub{font-size:8px!important}
+.shareTask b{font-size:10px!important}
+#shareTaskList{display:grid;gap:4px}
+.kitColorList{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;margin-top:8px}
+.kitColorChoice{height:42px;border-radius:12px;border:2px solid rgba(255,255,255,.15);box-shadow:inset 0 1px rgba(255,255,255,.25),0 6px 12px #0004;cursor:pointer;position:relative}
+.kitColorChoice.selected{border-color:#f4c95d;box-shadow:0 0 0 3px rgba(244,201,93,.14),inset 0 1px rgba(255,255,255,.35)}
+.kitColorChoice.selected:after{content:'✓';position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-weight:900;text-shadow:0 2px 5px #000}
+.kitPreview .kitShirt{filter:drop-shadow(0 10px 15px #0008)}
+.medicalLevelsGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.medicalLevelCard{padding:10px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(145deg,#ffffff08,#00000018);text-align:center}
+.medicalLevelCard .docEmoji{font-size:32px;line-height:1.1}
+.medicalLevelCard .lvl{color:var(--gold);font-weight:900;font-size:12px;margin-top:4px}
+.medicalLevelCard .price{font-size:9px;color:var(--muted);margin-top:3px}
+.adminSectionBg{margin:8px 0 10px;padding:7px;border:1px dashed rgba(244,201,93,.35);border-radius:12px;background:rgba(244,201,93,.05)}
+.adminSectionBg label{font-size:9px;color:var(--gold)}
+.sectionBgFile{font-size:9px!important;padding:6px!important}
+.sectionBackgroundApplied{background-size:cover!important;background-position:center!important;background-attachment:scroll!important}
+.playerRankProfile{display:grid;grid-template-columns:54px 1fr;gap:10px;align-items:start}
+.playerRankBigAvatar{width:54px;height:54px;border-radius:15px;object-fit:cover;background:#20332b;border:1px solid #ffffff22}
+.playerSharesBox{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.playerSharesBox .miniStat{padding:7px 4px}
+@media(max-width:390px){
+  #homeAvatar{width:70px!important;height:70px!important}
+  #profileAvatar{width:90px!important;height:90px!important}
+  .kitColorList{gap:5px}.kitColorChoice{height:36px}
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -168,7 +217,6 @@ body,button,input,textarea,select{font-family:var(--game-font)!important}
     <div class="tile club" onclick="show('club')"><h3><span class="homeIconGlass" aria-hidden="true">🏢</span> باشگاه</h3><p>امکانات، تمرین و مدیریت باشگاه</p></div>
     <div class="tile alliance" onclick="show('alliance')"><h3><span class="homeIconGlass" aria-hidden="true">🤝</span> اتحاد</h3><p>اعضا، لوگو و رتبه اتحادها</p></div>
     <div class="tile tactics" onclick="show('tactics')"><h3><span class="homeIconGlass" aria-hidden="true">⚙️</span> تاکتیک</h3><p>سبک بازی، پرس، پاس و دفاع</p></div>
-    <div class="tile postsTile" onclick="show('postsFeed')"><h3><span class="homeIconGlass" aria-hidden="true">📝</span> پست‌ها</h3><p>پست بازیکنان لیگ برتر و لیگ ۱</p></div>
     <div class="tile stadium" onclick="show('stadium')"><h3><span class="homeIconGlass" aria-hidden="true">🏟️</span> ورزشگاه</h3><p>۱۰ سطح و تصویر اختصاصی</p></div>
     <div class="tile academy" onclick="show('academy')"><h3><span class="homeIconGlass" aria-hidden="true">🌱</span> آکادمی جوانان</h3><p>استعداد های ۱۲ تا ۱۸ ساله</p></div>
     <div class="tile" style="background-image:url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=700&q=80')" onclick="show('medical')"><h3><span class="homeIconGlass" aria-hidden="true">🩺</span> بیمارستان</h3><p>پزشکان و وضعیت مصدومان</p></div>
@@ -221,7 +269,7 @@ body,button,input,textarea,select{font-family:var(--game-font)!important}
 
 <section id="contracts" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">📄 قراردادها</div><span class="sub">سرمربی شو</span></div><div class="sub">قرارداد هر بازیکن، حقوق و زمان باقی‌مانده را مدیریت کن.</div><div id="contractList"></div></section>
 <section id="coaches" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">🏋️ مربی تمرین</div><span class="sub">سرمربی شو</span></div><div class="sub">۱۰ مربی تمرین با سطح، اثر و قیمت.</div><div id="coachList" class="miniGrid trainingCoachGrid"></div></section>
-<section id="sponsor" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">🤝 اسپانسر و کیت</div><span class="sub">سرمربی شو</span></div><div class="sponsorHero"><div><span class="pill">قرارداد باشگاه</span><h2 style="margin:8px 0 4px" id="sponsorName">بدون اسپانسر</h2><div class="sub" style="color:#eee" id="sponsorDesc">اسپانسر، کیت و مدت قرارداد را مدیریت کن.</div></div></div><div class="card"><div class="row"><div><b>💼 قرارداد اسپانسر</b><div class="sub" id="sponsorContractText">هنوز قراردادی بسته نشده است.</div></div><button class="btn" onclick="openSponsorContract()">قرارداد</button></div></div><div class="card"><b>👕 کیت تیم</b><div class="sub">بازیکن می‌تواند کیت خودش را طراحی کند و کیت‌های ویژه بعداً توسط ادمین اضافه می‌شوند.</div><div class="kitPreview" id="kitPreview">👕<span>کیت فعلی تیم</span></div><div class="positions"><button class="btn alt sm" onclick="openKitDesigner()">🎨 ساخت کیت</button><button class="btn alt sm" onclick="toast('جای کیت‌های مخصوص برای افزودن ادمین آماده است')">⭐ کیت‌های مخصوص</button></div></div><div class="card"><b>🖼️ جای کیت‌های مخصوص</b><div class="miniGrid"><div class="specialKitSlot">+<small>کیت ویژه ۱</small></div><div class="specialKitSlot">+<small>کیت ویژه ۲</small></div><div class="specialKitSlot">+<small>کیت ویژه ۳</small></div><div class="specialKitSlot">+<small>کیت ویژه ۴</small></div></div><div class="sub" style="margin-top:8px">تصاویر این قسمت بعداً توسط ادمین اضافه می‌شوند.</div></div></section><section id="medical" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">🩺 مرکز پزشکی</div><span class="sub">سرمربی شو</span></div><div class="card"><div class="row"><div><b>سطح مرکز پزشکی</b><div class="sub" id="medicalLevelText">سطح ۱ از ۵</div></div><button class="btn sm" onclick="upgradeMedical()">ارتقا</button></div></div><div id="doctorList" class="miniGrid"></div></section>
+<section id="sponsor" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">🤝 اسپانسر و کیت</div><span class="sub">سرمربی شو</span></div><div class="sponsorHero"><div><span class="pill">قرارداد باشگاه</span><h2 style="margin:8px 0 4px" id="sponsorName">بدون اسپانسر</h2><div class="sub" style="color:#eee" id="sponsorDesc">اسپانسر، کیت و مدت قرارداد را مدیریت کن.</div></div></div><div class="card"><div class="row"><div><b>💼 قرارداد اسپانسر</b><div class="sub" id="sponsorContractText">هنوز قراردادی بسته نشده است.</div></div><button class="btn" onclick="openSponsorContract()">قرارداد</button></div></div><div class="card"><b>👕 کیت تیم</b><div class="sub">بازیکن می‌تواند کیت خودش را طراحی کند و کیت‌های ویژه بعداً توسط ادمین اضافه می‌شوند.</div><div class="kitPreview" id="kitPreview">👕<span>کیت فعلی تیم</span></div><div class="positions"><button class="btn alt sm" onclick="openKitDesigner()">🎨 ساخت کیت</button><button class="btn alt sm" onclick="toast('جای کیت‌های مخصوص برای افزودن ادمین آماده است')">⭐ کیت‌های مخصوص</button></div></div><div class="card"><b>🖼️ جای کیت‌های مخصوص</b><div class="miniGrid"><div class="specialKitSlot">+<small>کیت ویژه ۱</small></div><div class="specialKitSlot">+<small>کیت ویژه ۲</small></div><div class="specialKitSlot">+<small>کیت ویژه ۳</small></div><div class="specialKitSlot">+<small>کیت ویژه ۴</small></div></div><div class="sub" style="margin-top:8px">تصاویر این قسمت بعداً توسط ادمین اضافه می‌شوند.</div></div></section><section id="medical" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">🩺 مرکز پزشکی</div><span class="sub">سرمربی شو</span></div><div class="card"><div class="row"><div><b>سطح مرکز پزشکی</b><div class="sub" id="medicalLevelText">سطح ۱ از ۱۰</div></div><button class="btn sm" onclick="upgradeMedical()">ارتقا</button></div></div><div id="doctorList" class="miniGrid"></div></section>
 <section id="transferHistory" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">🧾 تاریخچه نقل‌وانتقالات</div><span class="sub">سرمربی شو</span></div><div id="transferHistoryList"></div></section>
 <nav class="nav"><button onclick="show('home')" class="active"><b>⌂</b>خانه</button><button onclick="show('team')"><b>⚽</b>تیم</button><button onclick="show('ranking')"><b>🏆</b>رتبه</button><button onclick="show('market')"><b>💶</b>بازار</button><button onclick="show('clubShares')"><b>💱</b>سهام</button><button onclick="show('profile')"><b>👤</b>پروفایل</button></nav>
 </div>
@@ -1237,6 +1285,184 @@ html,body{overscroll-behavior:auto!important}body{touch-action:auto!important}.p
   function scrubAdminCopy(){if(state.adminMode)return;document.querySelectorAll('#academyList .adminOnlyControl,#medical .adminOnlyControl,#club .adminOnlyControl').forEach(e=>e.style.display='none')}
   const oldRender=window.render;window.render=function(){if(typeof oldRender==='function')oldRender();scrubAdminCopy()};
   save();
+})();
+</script>
+
+<script id="ui9-final-js">
+(function(){
+  // Keep the game title compact at the top-right and remove the crown permanently.
+  document.querySelectorAll('.brand').forEach(el=>el.classList.add('ui9-brand'));
+
+  // Ten medical levels, all using the requested doctor emoji.
+  window.renderMedical=function(){
+    const box=document.getElementById('doctorList'); if(!box)return;
+    const level=Math.max(1,Math.min(10,Number(state.medicalLevel||1)));
+    state.medicalLevel=level;
+    const costs=[0,2500000,5000000,8000000,12000000,18000000,26000000,38000000,55000000,80000000];
+    const effects=['درمان پایه','ریکاوری سریع‌تر','کاهش زمان درمان','فیزیوتراپی بهتر','پیشگیری از مصدومیت','ریکاوری حرفه‌ای','مراقبت پیشرفته','پزشکی تخصصی','مرکز درمانی ویژه','مرکز پزشکی سطح ۱۰'];
+    const cards=[];
+    for(let i=1;i<=10;i++){
+      cards.push(`<div class="medicalLevelCard ${i<=level?'active':''}">
+        <div class="docEmoji">🩺</div>
+        <div class="lvl">سطح ${i}</div>
+        <div class="sub">${esc(effects[i-1])}</div>
+        <div class="price">${i===1?'فعال':'هزینه ارتقا: '+money(costs[i-1])}</div>
+      </div>`);
+    }
+    box.innerHTML=`<div class="medicalLevelsGrid">${cards.join('')}</div>
+      <div class="card" style="margin-top:10px"><div class="row"><div><b>سطح فعلی: ${level} از ۱۰</b><div class="sub">هر سطح امکانات درمان و ریکاوری بیشتری دارد.</div></div><button class="btn sm" onclick="upgradeMedical()">⬆️ ارتقا</button></div></div>`;
+    const oldText=document.getElementById('medicalLevelText'); if(oldText)oldText.textContent=`سطح ${level} از ۱۰`;
+  };
+  window.upgradeMedical=function(){
+    const level=Math.max(1,Math.min(10,Number(state.medicalLevel||1)));
+    if(level>=10){toast('مرکز پزشکی در سطح ۱۰ است');return}
+    const costs=[0,2500000,5000000,8000000,12000000,18000000,26000000,38000000,55000000,80000000];
+    const cost=costs[level];
+    if(Number(state.euros||0)<cost){toast('یورو کافی نیست');return}
+    state.euros-=cost;state.medicalLevel=level+1;save();renderMedical();render();toast('مرکز پزشکی ارتقا یافت 🩺');
+  };
+
+  // Fixed 7-color kit picker; no free color input.
+  const kitColors=[
+    {name:'سبز',value:'#18b875'},
+    {name:'قرمز',value:'#d9343e'},
+    {name:'آبی',value:'#2878d8'},
+    {name:'زرد',value:'#f4c95d'},
+    {name:'مشکی',value:'#171a20'},
+    {name:'سفید',value:'#f3f5f4'},
+    {name:'بنفش',value:'#7547b8'}
+  ];
+  window.openKitDesigner=function(){
+    const k=state.kit||{color:'#183d2c',number:10};
+    const options=kitColors.map(c=>`<button type="button" class="kitColorChoice ${String(k.color).toLowerCase()===c.value?'selected':''}" title="${c.name}" aria-label="${c.name}" style="background:${c.value}" onclick="selectKitColor('${c.value}',this)"></button>`).join('');
+    openModal(`<h2>🎨 انتخاب کیت</h2>
+      <p class="sub">فقط یکی از ۷ رنگ رسمی کیت را انتخاب کن.</p>
+      <div class="field"><label>رنگ پیراهن</label><div class="kitColorList">${options}</div><input id="kitColor" type="hidden" value="${esc(k.color||kitColors[0].value)}"></div>
+      <div class="field"><label>شماره کیت</label><input id="kitNumber" class="input" type="number" min="1" max="99" value="${Number(k.number||10)}"></div>
+      <div class="kitPreview" style="margin-top:10px"><div class="kitShirt" id="kitDesignerPreview" style="--kit-color:${esc(k.color||kitColors[0].value)}"><span>${fmt(k.number||10)}</span></div><span>پیش‌نمایش</span></div>
+      <button class="btn" onclick="saveKitDesign()">ذخیره کیت</button>`);
+  };
+  window.selectKitColor=function(color,el){
+    const inp=document.getElementById('kitColor');if(inp)inp.value=color;
+    document.querySelectorAll('.kitColorChoice').forEach(x=>x.classList.remove('selected'));
+    if(el)el.classList.add('selected');
+    const p=document.getElementById('kitDesignerPreview');if(p)p.style.setProperty('--kit-color',color);
+  };
+  window.saveKitDesign=function(){
+    state.kit=state.kit||{};
+    state.kit.color=document.getElementById('kitColor')?.value||'#18b875';
+    state.kit.number=Math.max(1,Math.min(99,Number(document.getElementById('kitNumber')?.value||10)));
+    save();closeModal();renderSponsor();drawPitch();render();toast('رنگ کیت تغییر کرد 👕');
+  };
+
+  // Ranking labels: players show POWER and followers show COUNT, not score.
+  const oldRankTypeUI9=window.rankType;
+  window.rankType=function(type){
+    if(typeof oldRankTypeUI9==='function')oldRankTypeUI9(type);
+    const th=document.querySelector('#ranking thead');
+    if(th){
+      const cells=th.querySelectorAll('th');
+      if(cells[2])cells[2].textContent=type==='player'?'قدرت':type==='followers'?'تعداد':type==='shares'?'سهام':'امتیاز';
+    }
+  };
+  // Player ranking profile: show shares inside the player's profile.
+  window.openPlayerRanking=function(i){
+    const rows=rankingRows('player'),r=rows[i];if(!r)return;
+    const p=defaultPlayers.concat(market).find(x=>x.name===r[1]);
+    if(!p){toast('بازیکن پیدا نشد');return}
+    const img=state.playerImages?.[p.num]||state.playerImages?.['m'+p.num]||'';
+    const shareValue=Math.max(0,Number(p.rating||0)*12+(Number(p.goals||0)*8)+(Number(p.assists||0)*4));
+    const shareRank=Math.max(1,Math.min(100,101-Math.round((Number(p.rating||0)-50)*1.5)));
+    openModal(`<div class="playerRankProfile">
+      ${img?`<img class="playerRankBigAvatar" src="${img}">`:`<div class="playerRankBigAvatar" style="display:grid;place-items:center;font-size:25px">⚽</div>`}
+      <div><h2 style="margin:0">${esc(p.name)}</h2><div class="sub">${esc(p.pos||'—')} • قدرت ${fmt(p.rating||0)} • شماره ${fmt(p.num||0)}</div><div class="sub">پروفایل بازیکن</div></div>
+    </div>
+    <div class="playerSharesBox">
+      <div class="miniStat"><b>${fmt(p.rating||0)}</b><span>قدرت</span></div>
+      <div class="miniStat"><b>${fmt(shareValue)}</b><span>سهام</span></div>
+      <div class="miniStat"><b>${fmt(shareRank)}</b><span>رتبه سهام</span></div>
+    </div>
+    <div class="card" style="margin-top:10px"><b>📈 وضعیت بازیکن</b><div class="statGrid compactStats" style="margin-top:8px">
+      <div class="miniStat"><b>${fmt(p.form||0)}</b><span>فرم</span></div>
+      <div class="miniStat"><b>${fmt(p.fitness||0)}</b><span>آمادگی</span></div>
+      <div class="miniStat"><b>${fmt(p.goals||0)}</b><span>گل</span></div>
+    </div></div>`);
+  };
+
+  // Make academy cards compact; tapping the player opens the radar.
+  const oldRenderAcademy=window.renderAcademy;
+  window.renderAcademy=function(){
+    if(typeof oldRenderAcademy==='function')oldRenderAcademy();
+    const box=document.getElementById('academyList');if(!box)return;
+    box.querySelectorAll('.academyCardV2').forEach((card,i)=>{
+      const p=state.academyPlayers?.[i];
+      if(!p)return;
+      card.onclick=function(e){
+        if(e.target.closest('input'))return;
+        const radar=academyRadarSVG(p);
+        openModal(`<div class="heroRow"><div class="academyFace" style="width:72px!important;height:72px!important">${state.academyImages?.[p.id]?`<img src="${state.academyImages[p.id]}" style="width:100%;height:100%;object-fit:cover;border-radius:15px">`:'🌱'}</div><div><h2 style="margin:0">${esc(p.name)}</h2><div class="sub">${p.age} سال • ${esc(p.pos)} • قدرت ${fmt(p.power)}</div></div></div>
+          <div class="card" style="margin-top:10px"><b>📊 رادار بازیکن</b>${radar}<div class="statGrid compactStats" style="margin-top:8px"><div class="miniStat"><b>${fmt(p.power)}</b><span>قدرت</span></div><div class="miniStat"><b>${fmt(p.form)}</b><span>فرم</span></div><div class="miniStat"><b>${fmt(p.fitness)}</b><span>آمادگی</span></div></div></div>`);
+      };
+    });
+  };
+
+  // Admin-managed background images for every section. Hidden from normal players.
+  const sectionNames={
+    home:'خانه',team:'تیم',matches:'مسابقات',club:'باشگاه',tactics:'تاکتیک',alliance:'اتحاد',market:'بازار',
+    stadium:'ورزشگاه',academy:'آکادمی',ranking:'رتبه‌بندی',notifications:'اعلان‌ها',shop:'فروشگاه',
+    postsFeed:'پست‌ها',clubShares:'سهام',profile:'پروفایل',contracts:'قراردادها',coaches:'مربی تمرین',
+    sponsor:'اسپانسر',medical:'مرکز پزشکی',transferHistory:'تاریخچه نقل‌وانتقالات',news:'خبر'
+  };
+  state.adminSectionImages=state.adminSectionImages||{};
+  window.setSectionBackground=function(key,e){
+    const f=e.target.files?.[0];if(!f)return;
+    const r=new FileReader();r.onload=()=>{state.adminSectionImages[key]=r.result;save();applySectionBackgrounds();toast('تصویر بخش ذخیره شد')};r.readAsDataURL(f);
+  };
+  window.applySectionBackgrounds=function(){
+    Object.keys(sectionNames).forEach(key=>{
+      const el=document.getElementById(key);if(!el)return;
+      const img=state.adminSectionImages?.[key];
+      el.classList.toggle('sectionBackgroundApplied',Boolean(img));
+      if(img)el.style.backgroundImage=`linear-gradient(180deg,#07100d55,#07100dee),url("${img}")`;
+      else el.style.removeProperty('background-image');
+      let ctl=el.querySelector(':scope > .adminSectionBg');
+      if(state.adminMode){
+        if(!ctl){
+          ctl=document.createElement('div');ctl.className='adminSectionBg adminOnlyControl';
+          ctl.innerHTML=`<label>تصویر این بخش</label><input class="input sectionBgFile" type="file" accept="image/*" onchange="setSectionBackground('${key}',event)">`;
+          el.insertBefore(ctl,el.firstElementChild);
+        }
+      }else if(ctl){ctl.remove();}
+    });
+  };
+
+  // New-player onboarding: club name must be chosen before the game is usable.
+  window.ensureClubNameBeforePlay=function(){
+    if(String(state.team||'').trim())return true;
+    createTeam();
+    return false;
+  };
+  const oldCreateTeam=window.createTeam;
+  window.createTeam=function(){
+    openModal(`<h2>🏟️ انتخاب نام باشگاه</h2><p class="sub">قبل از ورود به بازی، ابتدا نام باشگاهت را انتخاب کن.</p><div class="field"><label>نام باشگاه</label><input id="teamInput" class="input" maxlength="24" placeholder="مثلاً PersepolisFC" oninput="checkTeam()"><div id="teamMsg" class="msg"></div></div><button class="btn" onclick="submitTeam()">ورود به بازی ⚽</button>`);
+  };
+  const oldShow=window.show;
+  window.show=function(id,push=true){
+    document.body.classList.toggle('profile-open',id==='profile');
+    if(!state.team && id!=='home' && id!=='profile'){
+      createTeam();return;
+    }
+    const out=oldShow(id,push);
+    setTimeout(()=>applySectionBackgrounds(),0);
+    return out;
+  };
+  const oldRender=window.render;
+  window.render=function(){
+    if(typeof oldRender==='function')oldRender();
+    applySectionBackgrounds();
+  };
+  // Initial application.
+  setTimeout(applySectionBackgrounds,0);
 })();
 </script>
 </body>
