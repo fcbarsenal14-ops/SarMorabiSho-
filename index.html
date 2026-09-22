@@ -132,7 +132,7 @@ body,button,input,textarea,select{font-family:var(--game-font)!important}
 <body>
 <div class="app">
 <header class="top">
-  <div class="brand" id="topBrand"><button class="brandLogo" onclick="changeBrandLogo()" aria-label="لوگوی بازی"><span id="brandLogoMark"></span></button><div><span class="brandTitle">سرمربی شو</span><small id="welcomeName">مدیر باشگاه</small></div><input id="brandLogoInput" type="file" accept="image/*" style="display:none" onchange="setBrandLogo(event)"></div>
+  <div class="brand" id="topBrand"><div><span class="brandTitle">سرمربی شو</span><small id="welcomeName">مدیر باشگاه</small></div><input id="brandLogoInput" type="file" accept="image/*" style="display:none" onchange="setBrandLogo(event)"></div>
   <div class="row"><button class="iconbtn" onclick="show('shop')" aria-label="فروشگاه">🛒</button><button class="iconbtn dailyRewardBtn" onclick="openDailyReward()" aria-label="جوایز روزانه">🏅<span id="dailyRewardDot" class="dailyRewardDot"></span></button><button class="iconbtn" onclick="show('notifications')" aria-label="اعلان‌ها">🔔</button><button class="avatarBtn" onclick="show('profile')" aria-label="پروفایل"><img id="topAvatar" class="avatar" src="" alt=""></button></div>
 </header>
 
@@ -142,16 +142,15 @@ body,button,input,textarea,select{font-family:var(--game-font)!important}
   <div id="homeSearchResults" class="homeSearchResults"></div>
   <div class="homeDivider"></div>
   <div class="grid">
-    <div class="tile team" onclick="show('team')"><h3><span class="homeIconGlass iconTeam" aria-hidden="true"></span> <span id="homeTeamTileTitle">تیم من</span></h3><p>سرمربی: <span id="homeTeamTileManager">مربی شما</span></p></div>
-    <div class="tile matches" onclick="show('matches')"><h3><span class="homeIconGlass iconTrophy" aria-hidden="true"></span> مسابقات</h3><p>لیگ، تیم ملی و کلاسیک</p></div><div class="tile newsTile" onclick="show('news')"><h3><span class="homeIconGlass iconNews" aria-hidden="true"></span> خبر</h3><p>اخبار، نتایج و نقل‌وانتقالات</p></div>
-    <div class="tile club" onclick="show('club')"><h3><span class="homeIconGlass iconClub" aria-hidden="true"></span> باشگاه</h3><p>امکانات، تمرین و مدیریت باشگاه</p></div>
-    <div class="tile alliance" onclick="show('alliance')"><h3><span class="homeIconGlass iconAlliance" aria-hidden="true"></span> اتحاد</h3><p>اعضا، لوگو و رتبه اتحادها</p></div>
-    <div class="tile tactics" onclick="show('tactics')"><h3><span class="homeIconGlass iconTactics" aria-hidden="true"></span> تاکتیک</h3><p>سبک بازی، پرس، پاس و دفاع</p></div>
-    <div class="tile stadium" onclick="show('stadium')"><h3><span class="homeIconGlass iconStadium" aria-hidden="true"></span> ورزشگاه</h3><p>۱۰ سطح و تصویر اختصاصی</p></div>
-    <div class="tile academy" onclick="show('academy')"><h3><span class="homeIconGlass iconAcademy" aria-hidden="true"></span> آکادمی جوانان</h3><p>استعداد های ۱۲ تا ۱۸ ساله</p></div>
-    <div class="tile" style="background-image:url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=700&q=80')" onclick="show('medical')"><h3><span class="homeIconGlass iconMedical" aria-hidden="true"></span> بیمارستان</h3><p>پزشکان و وضعیت مصدومان</p></div>
+    <div class="tile matches" onclick="show('matches')"><h3><span class="homeIconGlass" aria-hidden="true">🏆</span> مسابقات</h3><p>لیگ، تیم ملی و کلاسیک</p></div><div class="tile newsTile" onclick="show('news')"><h3><span class="homeIconGlass" aria-hidden="true">📰</span> خبر</h3><p>اخبار، نتایج و نقل‌وانتقالات</p></div>
+    <div class="tile club" onclick="show('club')"><h3><span class="homeIconGlass" aria-hidden="true">🏢</span> باشگاه</h3><p>امکانات، تمرین و مدیریت باشگاه</p></div>
+    <div class="tile alliance" onclick="show('alliance')"><h3><span class="homeIconGlass" aria-hidden="true">🤝</span> اتحاد</h3><p>اعضا، لوگو و رتبه اتحادها</p></div>
+    <div class="tile tactics" onclick="show('tactics')"><h3><span class="homeIconGlass" aria-hidden="true">⚙️</span> تاکتیک</h3><p>سبک بازی، پرس، پاس و دفاع</p></div>
+    <div class="tile stadium" onclick="show('stadium')"><h3><span class="homeIconGlass" aria-hidden="true">🏟️</span> ورزشگاه</h3><p>۱۰ سطح و تصویر اختصاصی</p></div>
+    <div class="tile academy" onclick="show('academy')"><h3><span class="homeIconGlass" aria-hidden="true">🌱</span> آکادمی جوانان</h3><p>استعداد های ۱۲ تا ۱۸ ساله</p></div>
+    <div class="tile" style="background-image:url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=700&q=80')" onclick="show('medical')"><h3><span class="homeIconGlass" aria-hidden="true">🩺</span> بیمارستان</h3><p>پزشکان و وضعیت مصدومان</p></div>
     <div class="tile" style="background-image:url('https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=700&q=80')" onclick="show('coaches')"><h3><span class="homeIconGlass iconCoach" aria-hidden="true"></span> مربی‌ها</h3><p>۲۰ سرمربی و جستجوی مربی</p></div>
-    <div class="tile sponsorTile" onclick="show('sponsor')"><h3><span class="homeIconGlass iconAlliance" aria-hidden="true"></span> اسپانسر</h3><p>قرارداد اسپانسر، کیت تیم و کیت‌های اختصاصی</p></div>
+    <div class="tile sponsorTile" onclick="show('sponsor')"><h3><span class="homeIconGlass" aria-hidden="true">🤝</span> اسپانسر</h3><p>قرارداد اسپانسر، کیت تیم و کیت‌های اختصاصی</p></div>
   </div>
   <div class="homeActionRow">
     <div class="homeFeatureCard predictionTile" id="predictionHomeCard" onclick="openPredictions()">
@@ -186,7 +185,7 @@ body,button,input,textarea,select{font-family:var(--game-font)!important}
 
 <section id="academy" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">🌱 آکادمی جوانان</div><span class="sub">سرمربی شو</span></div><div class="sub">استعدادهای اختصاصی هر تیم از ۱۲ تا ۱۸ سال؛ نام، سن، پست، قدرت، فرم، آمادگی، استعداد و قیمت. تصویر هر استعداد فقط توسط ادمین قابل مدیریت است.</div><div id="academyList"></div></section>
 
-<section id="ranking" class="page rankingPage"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">📊 رتبه‌بندی</div><span class="sub">سرمربی شو</span></div><div class="sub">۱۰۰ رتبه برای هر بخش؛ سه رتبه اول با مدال نمایش داده می‌شوند.</div><div class="tabs"><button class="btn sm" onclick="rankType('team')">🏟️ تیم‌ها</button><button class="btn alt sm" onclick="rankType('alliance')">🤝 اتحادها</button><button class="btn alt sm" onclick="rankType('player')">⚽ بازیکنان</button><button class="btn alt sm" onclick="rankType('followers')">👥 فالوورها</button></div><div class="card"><table class="table"><thead><tr><th>رتبه</th><th>پروفایل / نام</th><th>امتیاز</th></tr></thead><tbody id="rankBody"></tbody></table></div></section>
+<section id="ranking" class="page rankingPage"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">📊 رتبه‌بندی</div><span class="sub">سرمربی شو</span></div><div class="sub">۱۰۰ رتبه برای هر بخش؛ سه رتبه اول با مدال نمایش داده می‌شوند.</div><div class="tabs"><button class="btn sm" onclick="rankType('team')">🏟️ تیم‌ها</button><button class="btn alt sm" onclick="rankType('shares')">💱 رتبه سهام</button><button class="btn alt sm" onclick="rankType('alliance')">🤝 اتحادها</button><button class="btn alt sm" onclick="rankType('player')">⚽ بازیکنان</button><button class="btn alt sm" onclick="rankType('followers')">👥 فالوورها</button></div><div class="card"><table class="table"><thead><tr><th>رتبه</th><th>پروفایل / نام</th><th>امتیاز</th></tr></thead><tbody id="rankBody"></tbody></table></div></section>
 
 <section id="notifications" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">🔔 اعلان‌ها</div><span class="sub">سرمربی شو</span></div><div class="card"><div class="row"><div><b>مرکز اعلان‌ها</b><div class="sub">اخبار، مسابقات، نقل‌وانتقالات و فعالیت‌های اجتماعی</div></div><button class="btn alt sm" onclick="markNotificationsRead()">خوانده شد</button></div></div><div id="notificationList"></div></section>
 <section id="shop" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">🛒 فروشگاه</div><span class="sub">سرمربی شو</span></div><div class="sub">سه دسته فروشگاه. تصویر و زمان فعال بودن هر پک فقط توسط ادمین مدیریت می‌شود.</div><div class="tabs"><button class="btn sm" onclick="renderShop('players')">پک بازیکنان</button><button class="btn alt sm" onclick="renderShop('euros')">پک یورو</button><button class="btn alt sm" onclick="renderShop('diamonds')">پک الماس</button><button class="btn alt sm" onclick="renderShop('brandNames')">اسم تیم</button></div><div id="shopList"></div></section>
@@ -199,7 +198,7 @@ body,button,input,textarea,select{font-family:var(--game-font)!important}
 <section id="coaches" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">👔 مربی‌ها</div><span class="sub">سرمربی شو</span></div><div class="sub">۲۰ مربی آماده؛ عکس هر مربی بعداً قابل اضافه شدن است.</div><input id="coachSearch" class="input" placeholder="🔎 جستجوی سرمربی..." oninput="renderCoaches()" style="margin:10px 0"><div id="coachList" class="miniGrid"></div></section>
 <section id="sponsor" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">🤝 اسپانسر و کیت</div><span class="sub">سرمربی شو</span></div><div class="sponsorHero"><div><span class="pill">قرارداد باشگاه</span><h2 style="margin:8px 0 4px" id="sponsorName">بدون اسپانسر</h2><div class="sub" style="color:#eee" id="sponsorDesc">اسپانسر، کیت و مدت قرارداد را مدیریت کن.</div></div></div><div class="card"><div class="row"><div><b>💼 قرارداد اسپانسر</b><div class="sub" id="sponsorContractText">هنوز قراردادی بسته نشده است.</div></div><button class="btn" onclick="openSponsorContract()">قرارداد</button></div></div><div class="card"><b>👕 کیت تیم</b><div class="sub">بازیکن می‌تواند کیت خودش را طراحی کند و کیت‌های ویژه بعداً توسط ادمین اضافه می‌شوند.</div><div class="kitPreview" id="kitPreview">👕<span>کیت فعلی تیم</span></div><div class="positions"><button class="btn alt sm" onclick="openKitDesigner()">🎨 ساخت کیت</button><button class="btn alt sm" onclick="toast('جای کیت‌های مخصوص برای افزودن ادمین آماده است')">⭐ کیت‌های مخصوص</button></div></div><div class="card"><b>🖼️ جای کیت‌های مخصوص</b><div class="miniGrid"><div class="specialKitSlot">+<small>کیت ویژه ۱</small></div><div class="specialKitSlot">+<small>کیت ویژه ۲</small></div><div class="specialKitSlot">+<small>کیت ویژه ۳</small></div><div class="specialKitSlot">+<small>کیت ویژه ۴</small></div></div><div class="sub" style="margin-top:8px">تصاویر این قسمت بعداً توسط ادمین اضافه می‌شوند.</div></div></section><section id="medical" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">🩺 مرکز پزشکی</div><span class="sub">سرمربی شو</span></div><div class="card"><div class="row"><div><b>سطح مرکز پزشکی</b><div class="sub" id="medicalLevelText">سطح ۱ از ۵</div></div><button class="btn sm" onclick="upgradeMedical()">ارتقا</button></div></div><div id="doctorList" class="miniGrid"></div></section>
 <section id="transferHistory" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">🧾 تاریخچه نقل‌وانتقالات</div><span class="sub">سرمربی شو</span></div><div id="transferHistoryList"></div></section>
-<nav class="nav"><button onclick="show('home')" class="active"><b>⌂</b>خانه</button><button onclick="show('team')"><b>⚽</b>تیم</button><button onclick="show('ranking')"><b>🏆</b>رتبه</button><button onclick="show('market')"><b>💶</b>بازار</button><button onclick="show('clubShares')"><b>◫</b>سهام</button><button onclick="show('profile')"><b>👤</b>پروفایل</button></nav>
+<nav class="nav"><button onclick="show('home')" class="active"><b>⌂</b>خانه</button><button onclick="show('team')"><b>⚽</b>تیم</button><button onclick="show('ranking')"><b>🏆</b>رتبه</button><button onclick="show('market')"><b>💶</b>بازار</button><button onclick="show('clubShares')"><b>💱</b>سهام</button><button onclick="show('profile')"><b>👤</b>پروفایل</button></nav>
 </div>
 <div id="modal" class="modal"><div class="sheet"><button class="close" onclick="closeModal()">✕</button><div id="modalBody"></div></div></div><div id="toast" class="toast"></div>
 <script>
@@ -865,7 +864,7 @@ body{touch-action:pan-y}
   // Captain marker: always keep ©️ beside selected captain on pitch/list/modal.
   const oldDraw=window.drawPitch; window.drawPitch=function(){if(typeof oldDraw==='function')oldDraw();document.querySelectorAll('.pitch .player').forEach(el=>{const b=el.querySelector('b');if(!b)return;const name=b.textContent.replace('©️','').trim();if(state.captain===name&&!b.textContent.includes('©️'))b.insertAdjacentHTML('beforeend',' <span class="cap">©️</span>')})};
   // Team title on home and Telegram manager name.
-  window.updateHomeIdentity=function(){const t=state.team||'تیم من';const a=document.getElementById('homeTeamTileTitle');const m=document.getElementById('homeTeamTileManager');if(a)a.textContent=t;if(m)m.textContent=managerName||'مربی شما';const h=document.getElementById('homeName');if(h)h.textContent=managerName||'مربی شما';};
+  window.updateHomeIdentity=function(){const t=state.team||'تیم من';const h=document.getElementById('homeName');if(h)h.textContent=managerName||'مربی شما';};
   // Brand-name shop: official club/national names are reserved/locked and can only be unlocked from this shop.
   window.renderBrandNames=function(){const box=document.getElementById('shopList');if(!box)return;ensureExtras();box.innerHTML='<div class="card"><b>اسم تیم</b><div class="sub">نام‌های برند و ملی رزرو هستند و بدون خرید قابل انتخاب نیستند. قیمت پایه هر نام: '+fmt(BRAND_PRICE())+' تومان.</div></div>'+BRAND_NAMES.map((n,i)=>{const owned=state.unlockedBrandNames.includes(n);return '<div class="brandNameLocked"><div class="row"><div><b>'+esc(n)+'</b><div class="sub">'+(owned?'فعال و قابل استفاده':'نام رزرو شده')+'</div></div><div class="price">'+(owned?'خریداری شده':'🔒 '+fmt(BRAND_PRICE())+' تومان')+'</div></div><div class="positions" style="margin-top:8px"><button class="btn '+(owned?'alt':'gold')+' sm" onclick="buyBrandName('+JSON.stringify(n)+')">'+(owned?'انتخاب این نام':'خرید نام')+'</button></div></div>'}).join('')};
   window.buyBrandName=function(name){ensureExtras();if(!BRAND_NAMES.includes(name))return;if(state.unlockedBrandNames.includes(name)){state.team=name;save();render();toast('نام تیم انتخاب شد');return}toast('خرید آنلاین نام برند بعد از اتصال پرداخت/سرور فعال می‌شود؛ قیمت فعلی '+fmt(BRAND_PRICE())+' تومان است.')};
@@ -908,5 +907,92 @@ body{touch-action:pan-y}
   window.upgradeStadium=function(){const st=state.stadium||{level:1,name:'ورزشگاه شهر',capacity:15000,image:'',images:{}};const level=Math.max(1,Number(st.level||1));if(level>=10){toast('ورزشگاه به حداکثر سطح رسیده است');return}const costs=window.GAME_CATALOG?.stadium_upgrade_prices||[];const cost=Number(costs[level-1]??level*10000000);if(Number(state.euros||0)<cost){toast('موجودی تیم شما کافی نیست');return}state.euros-=cost;st.level=level+1;st.capacity=(stadiums[st.level-1]||stadiums[9]).capacity;st.name=(stadiums[st.level-1]||stadiums[9]).name;state.stadium=st;save();render();toast('ورزشگاه ارتقا پیدا کرد')};
   window.addEventListener('gameCatalogReady',function(){try{if(window.renderMarket)window.renderMarket();}catch(e){}});
 })();
-</script></body>
+</script>
+<style id="ui5-final-fixes">
+/* UI5 final polish */
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
+body{touch-action:pan-y}
+.app{height:100dvh;min-height:100dvh;overflow:hidden}
+.page{height:calc(100dvh - 62px);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scroll-behavior:smooth;padding-bottom:110px}
+.page.active{display:block}
+.nav{z-index:50}
+.top{z-index:60}
+.brandLogo{display:none!important}
+.brandTitle{font-size:18px!important}
+.brand small{font-size:10px!important}
+.tile h3{font-size:15px!important}
+.tile p{font-size:11px!important;line-height:1.7!important}
+.homeIconGlass{font-size:22px!important;color:inherit!important;line-height:1!important}
+.homeIconGlass:before,.homeIconGlass:after{content:none!important;display:none!important}
+.rankingPage .table thead th{color:#fff!important}
+.rankingPage .rankingTeamName{color:#fff!important}
+.rankingPage .managerHandle{color:rgba(255,255,255,.72)!important}
+.rankingPage .table td,.rankingPage .table th{color:#fff}
+.rankingPage .table td:last-child{color:#f4c95d!important;font-weight:900}
+.shareRankManager{font-size:10px;color:rgba(255,255,255,.72);margin-top:3px}
+.shareRankClub{color:#fff!important;font-weight:900}
+@media(max-width:380px){
+ .brandTitle{font-size:16px!important}
+ .tile h3{font-size:14px!important}
+ .tile p{font-size:10px!important}
+ .homeIconGlass{width:38px!important;height:38px!important;font-size:20px!important}
+}
+</style>
+<script>
+(function(){
+  // Stable content scrolling inside the Mini App; do not let a vertical content swipe
+  // accidentally minimize/close the Mini App when Telegram supports this API.
+  try{
+    if(window.Telegram?.WebApp?.disableVerticalSwipes) Telegram.WebApp.disableVerticalSwipes();
+  }catch(e){}
+
+  // The home identity is the user's selected club/team name; the manager name is
+  // the Telegram display name shown in the profile/manager fields.
+  function syncHomeIdentityFinal(){
+    const team=state.team||'تیم من';
+    const h=document.getElementById('homeTeam'); if(h) h.textContent=team;
+    const homeName=document.getElementById('homeName'); if(homeName) homeName.textContent=managerName||'مربی شما';
+    const pt=document.getElementById('profileTeam'); if(pt) pt.textContent=team;
+    const tt=document.getElementById('teamTitle'); if(tt) tt.textContent=team;
+  }
+  window.syncHomeIdentityFinal=syncHomeIdentityFinal;
+
+  // Add a shares ranking view: club name first, manager name underneath.
+  const baseRankingRows=window.rankingRows||function(){return[]};
+  window.rankingRows=function(type){
+    if(type!=='shares') return baseRankingRows(type);
+    const base=baseRankingRows('team');
+    return base.map((r,i)=>{
+      const team=r[1]||('باشگاه '+(i+1));
+      const manager=i===0?(managerName||'مربی شما'):((typeof managerHandleForTeam==='function'?managerHandleForTeam(team,i):'سرمربی '+(i+1)));
+      const income=i===0?Number((state.shareTasks&&state.shareTasks[new Date().toISOString().slice(0,10)])?0:0):0;
+      // Use a stable club-share score derived from team ranking; the real server value
+      // can replace this later without changing the UI.
+      const shareScore=Math.max(100,Number(r[2]||0)*10);
+      return [r[0],team,shareScore,manager];
+    });
+  };
+
+  const oldRankType=window.rankType;
+  window.rankType=function(type){
+    if(type!=='shares') return oldRankType(type);
+    const body=document.getElementById('rankBody'); if(!body)return;
+    const rows=window.rankingRows('shares');
+    body.innerHTML=rows.map((r,i)=>`<tr class="${i===0?'rankTop':i===1?'silver':i===2?'bronze':''} clickableRow" onclick='openTeamProfile(${JSON.stringify(r[1])})'>
+      <td class="medal">${i===0?'🥇':i===1?'🥈':i===2?'🥉':fmt(i+1)}</td>
+      <td><div class="rankProfile"><span><b class="rankingTeamName shareRankClub">${esc(r[1])}</b><div class="shareRankManager">سرمربی: ${esc(r[3])}</div></span></div></td>
+      <td>${fmt(r[2])}</td>
+    </tr>`).join('');
+  };
+
+  // Keep the existing home-card background customization feature intact.
+  // If the older admin image function exists, do not overwrite it.
+  const oldRender=window.render;
+  window.render=function(){
+    if(typeof oldRender==='function') oldRender.apply(this,arguments);
+    syncHomeIdentityFinal();
+  };
+})();
+</script>
+</body>
 </html>
