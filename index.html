@@ -265,7 +265,7 @@ body,button,input,textarea,select{font-family:var(--game-font)!important}
 
 <section id="clubShares" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">💱 سهام و تسک‌ها</div><span class="sub">الماس و درآمد</span></div><div class="card shareTopCard"><div class="row"><div><b>🎯 مرکز مأموریت‌ها</b><div class="sub">مثل کارت‌های نمونه؛ تصویر هر مأموریت را ادمین بعداً اضافه می‌کند.</div></div><span class="shareIncome" id="shareDailyIncome">💎 ۰</span></div><div class="shareProgress"><span id="shareProgressBar"></span></div><div class="sub" id="shareTaskSummary">۰ از ۷ تسک ثبت شده</div></div><div id="shareTaskList"></div></section>
 
-<section id="profile" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">👤 پروفایل مربی</div><span class="sub">سرمربی شو</span></div><div class="card"><div class="row"><div class="heroRow"><img id="profileAvatar" class="avatar" src=""><div><b id="profileName">مربی شما</b><div class="sub" id="profileTeam">تیم من</div><div class="sub" id="profileLeague">لیگ: لیگ ۶</div><div class="sub" id="profileAlliance">اتحاد: بدون اتحاد</div></div></div><div class="positions"><button id="followBtn" class="btn sm" onclick="follow()">➕ دنبال کردن</button></div></div><div class="stats"><div class="stat"><b id="profilePoints">⭐ 0</b><span>امتیاز</span></div><div class="stat"><b id="profileGames">🎮 0</b><span>بازی</span></div><div class="stat"><b id="profileWins">🟢 0</b><span>برد</span></div><div class="stat"><b id="profileDraws">🟡 0</b><span>مساوی</span></div><div class="stat"><b id="profileLosses">🔴 0</b><span>باخت</span></div><div class="stat"><b id="profileCups">🏆 0</b><span>جام</span></div></div></div><div class="card"><b>🏅 ویترین افتخارات</b><div class="medals" style="margin-top:10px"><div class="medalBox"><b>🥇</b>طلا × 0</div><div class="medalBox"><b>🥈</b>نقره × 0</div><div class="medalBox"><b>🥉</b>برنز × 0</div><div class="medalBox"><b>🏆</b>جام‌ها × <span id="profileTrophyShowcase">0</span></div></div></div><div class="card"><div class="row"><b>📝 پست‌ها</b><button class="btn sm" onclick="openPost()">＋ پست جدید</button></div><div id="posts"></div></div><div class="card"><b>🖼️ عکس پروفایل</b><input class="input" type="file" accept="image/*" onchange="setAvatar(event)" style="margin-top:9px"><div class="settingsBox"><b>⚙️ تنظیمات حساب</b><div class="sub" style="margin-top:5px">نام سرمربی از نام حساب تلگرام گرفته می‌شود و در اینجا قابل تغییر نیست.</div><div class="field"><label>نام تیم</label><input id="profileTeamRename" class="input" placeholder="نام تیم جدید" maxlength="24"></div><div class="positions"><button class="btn sm" onclick="renameTeamFromProfile()">💾 تغییر نام تیم</button><button class="btn red sm" onclick="logoutDemo()">🚪 خروج از حساب</button></div></div></div><div class="card adminOnlyControl" style="margin-top:12px"><div class="row"><div><b>ریست کامل بازی</b><div class="sub">فقط ادمین. برای پایان نسخه بتا و شروع فصل جدید استفاده می‌شود.</div></div><button class="btn red sm" onclick="adminResetGame()">ریست</button></div></div></section>
+<section id="profile" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">👤 پروفایل مربی</div><span class="sub">سرمربی شو</span></div><div class="card"><div class="row"><div class="heroRow"><img id="profileAvatar" class="avatar" src=""><div><b id="profileName">مربی شما</b><div class="sub" id="profileTeam">تیم من</div><div class="sub" id="profileLeague">لیگ: لیگ ۶</div><div class="sub" id="profileAlliance">اتحاد: بدون اتحاد</div></div></div><div class="positions"><button id="followBtn" class="btn sm" onclick="follow()">➕ دنبال کردن</button></div></div><div class="stats"><div class="stat"><b id="profilePoints">⭐ 0</b><span>امتیاز</span></div><div class="stat"><b id="profileGames">🎮 0</b><span>بازی</span></div><div class="stat"><b id="profileWins">🟢 0</b><span>برد</span></div><div class="stat"><b id="profileDraws">🟡 0</b><span>مساوی</span></div><div class="stat"><b id="profileLosses">🔴 0</b><span>باخت</span></div><div class="stat"><b id="profileCups">🏆 0</b><span>جام</span></div></div></div><div class="card"><b>🏅 ویترین افتخارات</b><div class="medals" style="margin-top:10px"><div class="medalBox"><b>🥇</b>طلا × 0</div><div class="medalBox"><b>🥈</b>نقره × 0</div><div class="medalBox"><b>🥉</b>برنز × 0</div><div class="medalBox"><b>🏆</b>جام‌ها × <span id="profileTrophyShowcase">0</span></div></div></div><div class="card"><div class="row"><b>📝 پست‌ها</b><button class="btn sm" onclick="openPost()">＋ پست جدید</button></div><div id="posts"></div></div><div class="card profileMediaCard"><b>🖼️ عکس پروفایل</b><input class="input profileFileInput" type="file" accept="image/*" onchange="setAvatar(event)" style="margin-top:9px"><div class="profileFrameMount"></div><div class="settingsBox"><b>⚙️ تنظیمات حساب</b><div class="sub" style="margin-top:5px">نام سرمربی از نام حساب تلگرام گرفته می‌شود و در اینجا قابل تغییر نیست.</div><div class="field"><label>نام تیم</label><input id="profileTeamRename" class="input" placeholder="نام تیم جدید" maxlength="24"></div><div class="positions"><button class="btn sm" onclick="renameTeamFromProfile()">💾 تغییر نام تیم</button><button class="btn red sm" onclick="logoutDemo()">🚪 خروج از حساب</button></div></div></div><div class="card adminOnlyControl" style="margin-top:12px"><div class="row"><div><b>ریست کامل بازی</b><div class="sub">فقط ادمین. برای پایان نسخه بتا و شروع فصل جدید استفاده می‌شود.</div></div><button class="btn red sm" onclick="adminResetGame()">ریست</button></div></div></section>
 
 <section id="contracts" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">📄 قراردادها</div><span class="sub">سرمربی شو</span></div><div class="sub">قرارداد هر بازیکن، حقوق و زمان باقی‌مانده را مدیریت کن.</div><div id="contractList"></div></section>
 <section id="coaches" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">🏋️ مربی تمرین</div><span class="sub">سرمربی شو</span></div><div class="sub">۱۰ مربی تمرین با سطح، اثر و قیمت.</div><div id="coachList" class="miniGrid trainingCoachGrid"></div></section>
@@ -338,7 +338,7 @@ function fmt(n){return Number(n||0).toLocaleString('fa-IR')}function money(n){re
 function show(id,push=true){const el=document.getElementById(id);if(!el)return;if(push&&window.currentPage!==id){window.pageHistory=window.pageHistory||[];if(window.currentPage)window.pageHistory.push(window.currentPage)}window.currentPage=id;document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));const map={home:0,team:1,ranking:2,market:3,profile:4};if(map[id]!=null)document.querySelectorAll('.nav button')[map[id]].classList.add('active');window.scrollTo(0,0);renderPage(id)}
 function goBack(){const h=window.pageHistory||[];const prev=h.pop()||'home';show(prev,false)}
 function renderPage(id){if(id==='matches'){renderMatchEngine();}if(id==='team'){renderFormationButtons();drawPitch();renderSquad()}if(id==='market'){renderMarket();renderPlayerListings();}if(id==='stadium')renderStadium();if(id==='club')renderClub();if(id==='tactics')renderTactics();if(id==='ranking')rankType('team');if(id==='academy')renderAcademy();if(id==='profile'){renderPosts();const tr=document.getElementById('profileTeamRename');if(tr)tr.value=state.team||'';}if(id==='contracts')renderContracts();if(id==='coaches')renderCoaches();if(id==='medical')renderMedical();if(id==='transferHistory')renderTransferHistory();if(id==='notifications')renderNotifications();if(id==='shop')renderShop('players')}
-function openModal(html){document.getElementById('modalBody').innerHTML=html;document.getElementById('modal').classList.add('open')}function closeModal(){document.getElementById('modal').classList.remove('open')}
+function openModal(html,center=false){const m=document.getElementById('modal');document.getElementById('modalBody').innerHTML=html;m.classList.toggle('centered',Boolean(center));m.classList.add('open')}function closeModal(){const m=document.getElementById('modal');m.classList.remove('open');m.classList.remove('centered')}
 function setAvatar(e){const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{state.avatar=r.result;save();window.pageHistory=[];window.currentPage=null;render();toast('عکس پروفایل ذخیره شد')};r.readAsDataURL(f)}
 function setClubLogo(e){const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{state.clubLogo=r.result;save();render();toast('لوگوی باشگاه ذخیره شد')};r.readAsDataURL(f)}
 function validateTeamName(v){v=v.trim();if(v.length<3)return'حداقل ۳ کاراکتر وارد کن';if(/[.\u200c\u200d]/.test(v))return'نقطه و فاصله/کاراکتر نامرئی مجاز نیست';if(/[^\u0600-\u06FFa-zA-Z0-9 _-]/.test(v))return'فقط حروف، عدد، فاصله معمولی، _ و - مجاز است';if(/ {2,}/.test(v))return'دو فاصله پشت سر هم مجاز نیست';return''}
@@ -1465,5 +1465,127 @@ html,body{overscroll-behavior:auto!important}body{touch-action:auto!important}.p
   setTimeout(applySectionBackgrounds,0);
 })();
 </script>
+<script id="ui10-requested-update">
+(function(){
+  const FRAME_BASE='assets/profile_frames/';
+  const profileFrames=[
+    {id:'italy',name:'ایتالیا',src:FRAME_BASE+'italy.png'},
+    {id:'tiger_gold',name:'ببر طلایی',src:FRAME_BASE+'tiger_gold.png'},
+    {id:'lion_gold',name:'شیر طلایی',src:FRAME_BASE+'lion_gold.png'},
+    {id:'dragon_white',name:'اژدهای سفید',src:FRAME_BASE+'dragon_white.png'},
+    {id:'dragon_gold',name:'اژدهای طلایی',src:FRAME_BASE+'dragon_gold.png'},
+    {id:'dragon_fire',name:'اژدهای آتشین',src:FRAME_BASE+'dragon_fire.png'}
+  ];
+  state.profileFrame=state.profileFrame||'';
+
+  const css=document.createElement('style');css.textContent=`
+    /* UI10 — centered important sheets */
+    .modal.centered{align-items:center!important;padding:18px!important}
+    .modal.centered .sheet{margin:auto!important;width:min(520px,100%)!important;max-height:min(88vh,760px)!important;border-radius:27px!important;padding:17px!important}
+    .modal.centered .sheet #modalBody{max-height:calc(88vh - 35px);overflow:auto;padding-top:2px}
+
+    /* Compact mission cards: large image, short copy */
+    .missionList{gap:8px!important}
+    .missionCard{min-height:104px!important;padding:10px 11px!important;grid-template-columns:72px 1fr auto!important;gap:9px!important;border-radius:18px!important}
+    .missionImage{width:70px!important;height:70px!important;border-radius:17px!important;font-size:23px!important}
+    .missionBody h3{font-size:13px!important;margin:0 0 2px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .missionBody p{font-size:9px!important;line-height:1.38!important;margin:0!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .missionBody small{font-size:7.5px!important;margin-top:3px!important;line-height:1.2!important}
+    .missionReward{min-width:60px!important;border-radius:13px!important;padding:7px 5px!important}
+    .missionReward b{font-size:13px!important}.missionReward span{font-size:7px!important}
+    .missionActions{grid-column:2/-1!important;gap:5px!important;margin-top:-1px}
+    .missionActions .btn{padding:6px 8px!important;font-size:10px!important;border-radius:10px!important}
+
+    /* Profile photo + decorative frame */
+    .avatarFrameWrap{position:relative;display:inline-block;flex:0 0 auto;line-height:0}
+    .avatarFrameWrap .avatarBase{position:relative;z-index:1;display:block}
+    .avatarFrameWrap .avatarFrame{position:absolute;inset:-10%;width:120%;height:120%;object-fit:contain;z-index:2;pointer-events:none}
+    .homeAvatarFrame{width:112px;height:112px}.homeAvatarFrame .avatarBase{width:102px!important;height:102px!important;border-radius:28px!important}
+    .profileAvatarFrame{width:128px;height:128px}.profileAvatarFrame .avatarBase{width:112px!important;height:112px!important;border-radius:31px!important}
+    .topAvatarFrame{width:48px;height:48px}.topAvatarFrame .avatarBase{width:44px!important;height:44px!important}
+    .modalAvatarFrame{width:92px;height:92px}.modalAvatarFrame .avatarBase{width:78px!important;height:78px!important;border-radius:22px!important}
+    .framePicker{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:9px}
+    .frameChoice{position:relative;min-height:108px;border:1px solid #ffffff18;border-radius:17px;background:linear-gradient(145deg,#ffffff08,#0003);padding:5px;display:grid;place-items:center;cursor:pointer;overflow:hidden}
+    .frameChoice img{width:92px;height:92px;object-fit:contain}.frameChoice span{position:absolute;bottom:5px;right:5px;left:5px;text-align:center;font-size:8px;background:#0009;border-radius:8px;padding:3px;color:#fff}
+    .frameChoice.selected{border-color:var(--gold);box-shadow:0 0 0 2px #f4c95d22,0 8px 20px #0007}
+    .frameChoice.selected:after{content:'✓';position:absolute;top:5px;left:5px;width:22px;height:22px;border-radius:50%;background:var(--gold);color:#211a08;display:grid;place-items:center;font-weight:900;font-size:13px}
+    .profileUploadBox{margin-top:10px;border:1px dashed #ffffff30;border-radius:18px;padding:12px;background:linear-gradient(145deg,#ffffff07,#0003)}
+    .profileUploadPreview{display:flex;align-items:center;gap:11px}.profileUploadPreview .profileUploadFrame{width:72px;height:72px}.profileUploadPreview .profileUploadFrame .avatarBase{width:64px!important;height:64px!important;border-radius:18px!important}.profileUploadPreview .profileUploadFrame .avatarFrame{inset:-11%;width:122%;height:122%}
+    .profileFileInput{display:none!important}.profileFileLabel{display:inline-flex;align-items:center;gap:7px;margin-top:9px;padding:9px 12px;border-radius:12px;background:#ffffff0b;border:1px solid #ffffff20;font-size:11px;font-weight:800;cursor:pointer}
+
+    /* Club header uses the selected manager profile photo */
+    .clubHeaderAvatar{width:62px;height:62px;border-radius:18px;object-fit:cover;background:#ffffff0d;border:1px solid #fff2}
+    .clubHeaderFrame{width:70px;height:70px}.clubHeaderFrame .clubHeaderAvatar{width:58px;height:58px;border-radius:17px}.clubHeaderFrame .avatarFrame{inset:-8%;width:116%;height:116%}
+    
+    @media(max-width:390px){.framePicker{gap:6px}.frameChoice{min-height:96px}.frameChoice img{width:80px;height:80px}.missionCard{grid-template-columns:68px 1fr auto!important;padding:9px!important}.missionImage{width:66px!important;height:66px!important}.missionBody h3{font-size:12px!important}.missionBody p{font-size:8.5px!important}.missionReward{min-width:56px!important}}
+  `;document.head.appendChild(css);
+
+  function frameById(id){return profileFrames.find(x=>x.id===id)||null}
+  function currentFrame(){return frameById(state.profileFrame)||null}
+  function frameImg(frameClass,src,frame){
+    const fr=frame||currentFrame();
+    return `<div class="avatarFrameWrap ${frameClass}"><img class="avatarBase" src="${src||''}" alt="پروفایل">${fr?`<img class="avatarFrame" src="${fr.src}" alt="قاب">`:''}</div>`;
+  }
+  window.profileFrameHtml=frameImg;
+
+  function applyAvatarFrames(){
+    const ids=[['topAvatar','topAvatarFrame'],['homeAvatar','homeAvatarFrame'],['profileAvatar','profileAvatarFrame']];
+    ids.forEach(([id,cls])=>{
+      const img=document.getElementById(id);if(!img)return;
+      const fr=img.parentElement?.classList.contains('avatarFrameWrap')?img.parentElement:null;
+      if(fr){fr.className='avatarFrameWrap '+cls;const old=fr.querySelector('.avatarFrame');if(old)old.remove();const f=currentFrame();if(f){const x=document.createElement('img');x.className='avatarFrame';x.src=f.src;x.alt='قاب';fr.appendChild(x)}return}
+      const wrap=document.createElement('div');wrap.className='avatarFrameWrap '+cls;
+      img.parentNode.insertBefore(wrap,img);wrap.appendChild(img);img.classList.add('avatarBase');
+      const f=currentFrame();if(f){const x=document.createElement('img');x.className='avatarFrame';x.src=f.src;x.alt='قاب';wrap.appendChild(x)}
+    });
+  }
+
+  function decorateModalProfiles(html){
+    return String(html).replace(/<img class="profileModalAvatar" src="([^"]*)"([^>]*)>/g,(m,src,rest)=>{
+      const f=currentFrame();
+      return `<div class="avatarFrameWrap modalAvatarFrame"><img class="profileModalAvatar avatarBase" src="${src}"${rest}>${f?`<img class="avatarFrame" src="${f.src}" alt="قاب">`:''}</div>`;
+    });
+  }
+
+  /* Daily rewards and kit selection are centered instead of opening as low bottom sheets. */
+  const baseOpenModal=window.openModal;
+  window.openModal=function(html,center){
+    const useCenter=Boolean(center||window.__centerNextModal);
+    window.__centerNextModal=false;
+    return baseOpenModal(decorateModalProfiles(html),useCenter);
+  };
+  const baseCloseModal=window.closeModal;
+  window.closeModal=function(){window.__centerNextModal=false;return baseCloseModal()};
+  const oldDaily=window.openDailyReward;
+  if(typeof oldDaily==='function')window.openDailyReward=function(){window.__centerNextModal=true;return oldDaily()};
+  const oldKit=window.openKitDesigner;
+  if(typeof oldKit==='function')window.openKitDesigner=function(){window.__centerNextModal=true;return oldKit()};
+
+  /* Profile upload UI + frame selector. */
+  function mountProfileEditor(){
+    const card=[...document.querySelectorAll('#profile .card')].find(x=>(x.textContent||'').includes('عکس پروفایل'));
+    if(!card)return;
+    const input=card.querySelector('.profileFileInput');
+    if(input){
+      input.id='profilePhotoInput';
+      let label=card.querySelector('.profileFileLabel');
+      if(!label){label=document.createElement('label');label.className='profileFileLabel';label.htmlFor='profilePhotoInput';label.textContent='📷 انتخاب عکس پروفایل';input.insertAdjacentElement('afterend',label)}
+    }
+    let mount=card.querySelector('.profileFrameMount');if(!mount)return;
+    mount.innerHTML=`<div class="profileUploadBox"><div class="profileUploadPreview">${frameImg('profileUploadFrame',state.avatar||'https://ui-avatars.com/api/?name='+encodeURIComponent(managerName||'Coach')+'&background=183d2c&color=fff')}</div><div style="margin-top:7px"><b>🖼️ انتخاب قاب</b><div class="sub">قاب انتخابی دور عکس پروفایل نمایش داده می‌شود.</div></div><div class="framePicker">${profileFrames.map(f=>`<button type="button" class="frameChoice ${state.profileFrame===f.id?'selected':''}" onclick="selectProfileFrame('${f.id}')"><img src="${f.src}" alt=""><span>${f.name}</span></button>`).join('')}</div><button type="button" class="btn alt sm" style="margin-top:8px" onclick="selectProfileFrame('')">بدون قاب</button></div>`;
+  }
+  window.selectProfileFrame=function(id){state.profileFrame=frameById(id)?id:'';save();applyAvatarFrames();mountProfileEditor();renderClub();toast(state.profileFrame?'قاب پروفایل انتخاب شد ✨':'قاب پروفایل حذف شد')};
+
+  /* Make the selected profile picture appear next to the club name. */
+  const oldRenderClub=window.renderClub;
+  window.renderClub=function(){if(typeof oldRenderClub==='function')oldRenderClub();const logo=document.getElementById('clubLogo');if(logo){logo.src=state.avatar||'https://ui-avatars.com/api/?name='+encodeURIComponent(state.team||'Club')+'&background=183d2c&color=fff';logo.classList.add('clubHeaderAvatar')}};
+
+  /* Keep the important modals centered and the page content visible. */
+  const oldRender=window.render;
+  window.render=function(){if(typeof oldRender==='function')oldRender();applyAvatarFrames();mountProfileEditor();if(window.currentPage==='club')window.renderClub?.();if(!state.adminMode){document.querySelectorAll('#clubShares .missionBody small').forEach(x=>x.style.display='none');const h=document.querySelector('#clubShares .shareTopCard .sub');if(h)h.textContent='مأموریت‌های روزانه و پاداش‌های قابل دریافت';}};
+  setTimeout(()=>{applyAvatarFrames();mountProfileEditor();window.renderClub?.()},0);
+})();
+</script>
+
 </body>
 </html>
