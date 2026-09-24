@@ -1534,7 +1534,7 @@ html,body{overscroll-behavior:auto!important}body{touch-action:auto!important}.p
   save();
 
   function clubLogoFor(p){
-    const src=p.clubLogo||state.clubLogo||'';
+    const key=String(p.num); const src=p.teamLogo||p.clubLogo||state.playerTeamImages?.[key]||state.playerTeamImages?.['m'+key]||state.clubLogo||'';
     return src?`<img class="playerCardClub" src="${esc(src)}" alt="لوگوی تیم">`:`<span class="playerCardClubFallback">⚽</span>`;
   }
   function playerImageFor(p,isMarket){
@@ -1710,5 +1710,114 @@ html,body{overscroll-behavior:auto!important}body{touch-action:auto!important}.p
 <style>
 /* FINAL OVERRIDES - V1.14.1 */
 .modal.player-detail-modal{align-items:center!important;padding:14px 10px!important}.modal.player-detail-modal .sheet{width:min(500px,calc(100vw - 20px))!important;max-height:min(86vh,760px)!important;margin:auto!important;border-radius:26px!important;padding:14px!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}.modal.player-detail-modal #modalBody{min-height:0;overflow-y:auto;overflow-x:hidden;padding:2px 2px 10px;overscroll-behavior:contain}.modal.player-detail-modal .close{position:sticky;top:0;z-index:5;align-self:flex-start;margin-bottom:4px}.profileFixedModal{max-height:none!important;overflow:visible!important;width:100%;min-width:0}.playerDetailHeader{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0}.playerDetailHeader>div:first-child{min-width:0}.playerDetailHeader h2{font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.detailPos{font-size:16px;letter-spacing:.5px;color:#f4c95d}.playerDetailPhoto{display:block;width:96px;height:96px;object-fit:cover;border-radius:22px;margin:12px auto;border:2px solid #f4c95d;background:#ffffff08}.playerDetailPlaceholder{display:grid;place-items:center;font-size:44px}.radarTitle{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px}.radarTitle b{font-size:14px}.radarTitle .sub{font-size:9px;text-align:left}.playerRadar{margin:3px 0 0;position:relative}.playerRadar svg{width:min(270px,100%);height:auto;overflow:visible}.radarLabel{fill:#dce6e1;font-size:8px;font-weight:800}.radarValueRow{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:-3px}.radarValueRow span{background:#ffffff06;border:1px solid #fff1;border-radius:10px;padding:5px 3px;text-align:center;font-size:8px;color:#9eaaa5}.radarValueRow b{display:block;color:#fff;font-size:11px}.playerDetailActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.pitch .pitchPlayerCard{width:64px!important;height:76px!important;min-width:0!important;padding:0!important;border-radius:13px!important;background:linear-gradient(160deg,#7142bd,#4e2c91)!important;border:1px solid #ffffff45!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;box-shadow:0 7px 18px #0008!important;font-size:9px!important}.pitch .pitchPlayerCard.selectedPitch{outline:2px solid #18b875!important;box-shadow:0 0 0 4px #18b87522,0 7px 18px #0008!important}.pitch .pitchCardPos{position:absolute;top:4px;left:5px;right:5px;text-align:center;font-size:11px!important;font-weight:1000!important;color:#fff!important;letter-spacing:.4px;text-shadow:0 2px 4px #000!important;z-index:3}.pitch .pitchCardPhoto{width:48px;height:48px;margin-top:17px;border-radius:10px;overflow:hidden;display:grid;place-items:center;background:#ffffff12;border:1px solid #ffffff28;z-index:1}.pitch .pitchCardPhoto img{width:100%;height:100%;object-fit:cover}.pitch .pitchCardPhoto span{font-size:24px}.pitch .pitchCardRating{margin-top:2px;font-size:15px!important;font-weight:1000!important;color:#f4c95d!important;text-shadow:0 2px 4px #000!important;line-height:1}.pitch .pitchCaptain{position:absolute;right:4px;bottom:3px;color:#fff;font-size:10px;font-weight:1000;z-index:4}.pitch .pitchPlayerCard .cap{display:none!important}.playerCardPos{font-size:15px!important;font-weight:1000!important;letter-spacing:.6px!important;text-transform:uppercase}@media(max-width:390px){.modal.player-detail-modal{padding:8px 6px!important}.modal.player-detail-modal .sheet{width:calc(100vw - 12px)!important;max-height:88vh!important;border-radius:22px!important;padding:11px!important}.playerDetailPhoto{width:82px;height:82px}.radarTitle{display:block}.radarTitle .sub{margin-top:2px}.radarValueRow{grid-template-columns:repeat(2,1fr)}.pitch .pitchPlayerCard{width:58px!important;height:70px!important}.pitch .pitchCardPhoto{width:43px;height:43px}.pitch .pitchCardPos{font-size:10px!important}.pitch .pitchCardRating{font-size:14px!important}}</style>
+
+<script>
+/* V1.14.2 FINAL PATCH */
+(function(){
+  const css=document.createElement('style');css.textContent=`
+    .pitch .pitchPlayerCard.wrongPosition{background:linear-gradient(160deg,#8d2830,#5d1720)!important;border-color:#ff6b73!important;box-shadow:0 0 0 2px #ff6b7338,0 7px 18px #0008!important}
+    .pitch .pitchPlayerCard.wrongPosition .pitchCardPos{color:#ffd6d8!important}
+    .modal.open .sheet{max-height:calc(100dvh - 18px)!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important}
+    .modal.open{padding:9px 0!important}
+    .modal.open .sheet{width:min(540px,calc(100vw - 12px));margin:auto!important;border-radius:24px!important}
+    .modal.player-detail-modal .sheet{max-height:calc(100dvh - 18px)!important}
+    .playerRadar svg{width:min(190px,100%)!important}
+    .radarValueRow{grid-template-columns:repeat(3,1fr)!important}
+    @media(max-width:390px){.radarValueRow{grid-template-columns:repeat(2,1fr)!important}.playerRadar svg{width:175px!important}}
+    .adminTeamLogoBox{margin-top:8px;padding:9px;border:1px solid #ffffff18;border-radius:12px;background:#ffffff05}
+  `;document.head.appendChild(css);
+
+  // Wrong-position cards on the pitch are visibly red. Exact natural position is the only green/normal state.
+  const oldDraw=window.drawPitch;
+  window.drawPitch=function(){
+    if(typeof oldDraw==='function')oldDraw();
+    document.querySelectorAll('.pitch .pitchPlayerCard').forEach(el=>{
+      const i=Number(el.dataset.slotIndex);
+      const starters=typeof getStarters==='function'?getStarters():[];
+      const p=starters[i]?.player; const slot=starters[i]?.slot;
+      const wrong=p&&slot&&String(p.pos||'').toUpperCase()!==String(slot||'').toUpperCase();
+      el.classList.toggle('wrongPosition',Boolean(wrong));
+      el.title=wrong?'پست بازیکن با جایگاه انتخاب‌شده یکسان نیست':'پست طبیعی';
+    });
+  };
+
+  // The pitch player detail uses the same standard radar as market players.
+  window.showPlayerDetails=function(num){
+    if(typeof window.openUnifiedPlayerDetails==='function') return window.openUnifiedPlayerDetails(Number(num),false);
+  };
+
+  // Daily reward and every other modal get a real internal scroll so bottom actions remain reachable.
+  const oldOpen=window.openModal;
+  window.openModal=function(html){
+    oldOpen(html);
+    const m=document.getElementById('modal');
+    if(m)m.classList.add('safe-scroll-modal');
+  };
+  const oldClose=window.closeModal;
+  window.closeModal=function(){if(typeof oldClose==='function')oldClose();document.getElementById('modal')?.classList.remove('safe-scroll-modal')};
+
+  // Only player posts belonging to Premier League / Division 1 are shown. Everyone can still like/comment.
+  const eligibleLeague=s=>{const x=String(s||'').toLowerCase();return x.includes('لیگ برتر')||x.includes('لیگ ۱')||x.includes('لیگ 1')||x.includes('premier')||x.includes('division 1')};
+  window.renderPlayerPosts=function(){
+    const box=document.getElementById('playerPostsFeed'); if(!box)return;
+    state.coachPosts=Array.isArray(state.coachPosts)?state.coachPosts:[];
+    const sample=['برای بازی بعدی آماده‌ایم ⚽🔥','تمرین امروز فوق‌العاده بود 💪','هدف ما سه امتیاز بازی بعدی است 🏆','از حمایت هواداران ممنونم ❤️','روز مسابقه نزدیک است؛ تمرکز کامل 🎯'];
+    const teams=typeof leagueTeamsBase!=='undefined'?leagueTeamsBase.slice(0,12):[];
+    teams.forEach((team,i)=>{
+      const tier=i<4?1:2; const id='coach_post_'+i;
+      if(!state.coachPosts.some(x=>x.id===id)) state.coachPosts.push({id,author:typeof managerHandleForTeam==='function'?managerHandleForTeam(team,i):('مربی '+(i+1)),team,league:tier===1?'لیگ برتر':'لیگ ۱',tier,text:sample[i%sample.length],time:'امروز',likes:12+i*3,liked:false,comments:[]});
+    });
+    if(Number(state.leagueTier||6)<=2){
+      const id='coach_post_me'; if(!state.coachPosts.some(x=>x.id===id)) state.coachPosts.unshift({id,author:managerName,team:state.team||'تیم من',league:Number(state.leagueTier||1)===1?'لیگ برتر':'لیگ ۱',tier:Number(state.leagueTier||1),text:'آخرین خبر تیم من ⚽',time:'امروز',likes:0,liked:false,comments:[]});
+    }
+    const posts=state.coachPosts.filter(p=>Number(p.tier)<=2);
+    box.innerHTML=posts.map(p=>{
+      const comments=(p.comments||[]).map(c=>`<div class="postComment"><b>${esc(c.name||'مربی')}</b> ${esc(c.text)}</div>`).join('');
+      return `<div class="playerPostCard"><div class="playerPostHead"><div class="playerPostAvatar">👤</div><div><b>${esc(p.author)}</b><div class="sub">${esc(p.team)} • ${esc(p.league)} • ${esc(p.time)}</div></div></div><div class="playerPostBody">${esc(p.text)}</div><div class="playerPostActions"><button class="btn alt sm" onclick="toggleCoachPostLike('${p.id}')">${p.liked?'❤️':'🤍'} ${fmt(p.likes)}</button><button class="btn alt sm" onclick="focusCoachPostComment('${p.id}')">💬 ${fmt((p.comments||[]).length)}</button></div><div class="postComments">${comments||'<div class="sub">هنوز نظری ثبت نشده.</div>'}<div class="postCommentInput"><input id="coach_comment_${p.id}" class="input" placeholder="نظر شما..."><button class="btn sm" onclick="addCoachPostComment('${p.id}')">ارسال</button></div></div></div>`;
+    }).join('')||'<div class="empty">فعلاً پستی از مربیان لیگ برتر و لیگ ۱ وجود ندارد.</div>';
+  };
+  window.toggleCoachPostLike=function(id){const p=(state.coachPosts||[]).find(x=>x.id===id);if(!p)return;p.liked=!p.liked;p.likes=Math.max(0,Number(p.likes||0)+(p.liked?1:-1));save();renderPlayerPosts()};
+  window.addCoachPostComment=function(id){const p=(state.coachPosts||[]).find(x=>x.id===id);const el=document.getElementById('coach_comment_'+id);const t=(el?.value||'').trim();if(!p||!t)return;p.comments=Array.isArray(p.comments)?p.comments:[];p.comments.push({name:managerName,text:t});save();renderPlayerPosts();toast('کامنت ثبت شد 💬')};
+  window.focusCoachPostComment=function(id){setTimeout(()=>document.getElementById('coach_comment_'+id)?.focus(),50)};
+
+  // Admin-only team logo for every player card.
+  window.setPlayerTeamLogo=function(e,num,isMarket){
+    if(!state.adminMode){toast('فقط ادمین می‌تواند لوگوی تیم کارت را تغییر دهد');return}
+    const f=e.target.files?.[0]; if(!f)return;
+    const r=new FileReader(); r.onload=()=>{
+      state.playerTeamImages=state.playerTeamImages||{};
+      state.playerTeamImages[isMarket?'m'+num:String(num)]=r.result;
+      save(); closeModal();
+      if(isMarket&&typeof renderMarket==='function')renderMarket();
+      if(!isMarket&&typeof renderSquad==='function')renderSquad();
+      toast('لوگوی تیم کارت ذخیره شد 🛡️');
+    }; r.readAsDataURL(f);
+  };
+  const oldUnified=window.openUnifiedPlayerDetails;
+  window.openUnifiedPlayerDetails=function(num,isMarket){
+    oldUnified(num,isMarket);
+    if(!state.adminMode)return;
+    const body=document.getElementById('modalBody'); if(!body)return;
+    const box=document.createElement('div'); box.className='adminTeamLogoBox adminOnlyControl';
+    box.innerHTML='<b>🛡️ لوگوی تیم روی کارت</b><div class="sub">این تصویر روی کارت بازیکن نمایش داده می‌شود.</div><input class="input" type="file" accept="image/*">';
+    box.querySelector('input').addEventListener('change',e=>setPlayerTeamLogo(e,Number(num),Boolean(isMarket)));
+    body.querySelector('.playerDetailContent')?.appendChild(box);
+  };
+
+  // Basic client-side anti-copy deterrence. Real protection requires server-side authorization and never exposing secrets in JS.
+  try{
+    document.addEventListener('contextmenu',e=>{if(e.target.closest('img,.playerGameCard,.pitchPlayerCard,.packImage'))e.preventDefault()},{passive:false});
+    document.addEventListener('dragstart',e=>{if(e.target.tagName==='IMG')e.preventDefault()},{passive:false});
+    document.addEventListener('keydown',e=>{
+      const k=String(e.key).toLowerCase();
+      if((e.ctrlKey||e.metaKey)&&['u','s','c'].includes(k)){e.preventDefault();toast('این بخش برای حفاظت از بازی قفل است 🔒')}
+      if(e.key==='F12'){e.preventDefault();toast('حفاظت بازی فعال است 🔒')}
+    });
+  }catch(_){}
+
+  // Initial repaint for an already-open/visible pitch.
+  setTimeout(()=>{try{window.drawPitch()}catch(_){ }},80);
+})();
+</script>
 </body>
 </html>
