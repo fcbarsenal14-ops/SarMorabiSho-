@@ -199,6 +199,42 @@ body,button,input,textarea,select{font-family:var(--game-font)!important}
   .kitColorList{gap:5px}.kitColorChoice{height:36px}
 }
 </style>
+
+<style id="player-card-system-css">
+.playerCardGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:10px}
+.playerCard{position:relative;min-height:205px;border-radius:20px;overflow:hidden;border:1px solid #ffffff25;background:linear-gradient(145deg,var(--card-a,#193328),var(--card-b,#07110d));box-shadow:0 12px 30px #0007;isolation:isolate;cursor:pointer}
+.playerCard:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 10%,#fff5,transparent 28%),linear-gradient(135deg,#fff1,transparent 35%,#0005 85%);z-index:-1}
+.playerCard:after{content:"";position:absolute;inset:5px;border:1px solid var(--card-accent,#f4c95d99);border-radius:16px;pointer-events:none}
+.playerCard .pcTop{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 10px 0;color:#fff}
+.playerCard .pcRating{font-size:24px;font-weight:1000;line-height:.9;text-shadow:0 2px 8px #000}
+.playerCard .pcPos{font-size:9px;font-weight:900;opacity:.95;margin-top:4px}
+.playerCard .pcType{font-size:8px;font-weight:900;padding:5px 7px;border-radius:999px;background:#0007;border:1px solid var(--card-accent,#f4c95d66);color:#fff}
+.playerCard .pcPhoto{height:105px;display:flex;align-items:flex-end;justify-content:center;margin-top:-2px}
+.playerCard .pcPhoto img{width:92px;height:105px;object-fit:contain;filter:drop-shadow(0 7px 7px #0008)}
+.playerCard .pcPhoto .pcFallback{font-size:72px;line-height:1;filter:drop-shadow(0 7px 7px #0008)}
+.playerCard .pcClub{position:absolute;left:10px;top:79px;width:28px;height:28px;border-radius:8px;background:#fff;border:1px solid #fff8;display:grid;place-items:center;overflow:hidden;box-shadow:0 3px 8px #0008}
+.playerCard .pcClub img{width:100%;height:100%;object-fit:contain}
+.playerCard .pcClub span{font-size:15px}
+.playerCard .pcBottom{padding:6px 10px 10px;text-align:center}
+.playerCard .pcName{font-size:12px;font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.playerCard .pcStats{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:5px}
+.playerCard .pcStat{font-size:8px;color:#dfe9e3}.playerCard .pcStat b{display:block;color:#fff;font-size:10px}
+.playerCard.gold{--card-a:#8d4f08;--card-b:#1c0f04;--card-accent:#ffd96a}
+.playerCard.purple{--card-a:#6d146f;--card-b:#16061b;--card-accent:#f26cff}
+.playerCard.blue{--card-a:#103e79;--card-b:#061326;--card-accent:#39a8ff}
+.playerCard.legend{--card-a:#b96b16;--card-b:#241004;--card-accent:#fff0a3}
+.playerCard.red{--card-a:#7b1520;--card-b:#180609;--card-accent:#ff6673}
+.cardPreviewWrap{max-width:210px;margin:8px auto}
+.cardAdminGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.cardAdminType{border:1px solid var(--line);border-radius:14px;padding:9px;background:#ffffff05}
+.cardAdminType .miniCardSwatch{height:70px;border-radius:11px;background:linear-gradient(145deg,var(--a),var(--b));border:1px solid var(--ac);display:grid;place-items:center;font-size:11px;font-weight:900}
+.cardAdminType .sub{margin-top:5px}
+.adminCardList{display:grid;gap:8px;margin-top:8px}
+.adminPlayerRow{display:flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:13px;padding:8px;background:#ffffff05}
+.adminPlayerRow img{width:44px;height:44px;border-radius:10px;object-fit:cover;background:#20332b}
+.adminPlayerRow .grow{flex:1;min-width:0}
+@media(max-width:390px){.playerCardGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.playerCard{min-height:190px}.playerCard .pcPhoto{height:94px}.playerCard .pcPhoto img{width:82px;height:94px}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -238,6 +274,7 @@ body,button,input,textarea,select{font-family:var(--game-font)!important}
   <div class="card"><div class="row"><div><b id="teamTitle">تیم من</b><div class="sub">کاپیتان: <span id="captainText">انتخاب نشده</span></div></div><button class="btn sm" onclick="openCaptain()">©️ انتخاب کاپیتان</button></div></div>
   <div class="card"><b>⚽ ترکیب اصلی</b><div class="sub">بازیکن را بکش و روی بازیکن دیگر رها کن؛ سپس ثبت و ذخیره را بزن.</div><div class="positions" id="formationButtons"></div><button class="btn sm lineupSaveBtn" onclick="saveLineup()">ثبت و ذخیره ترکیب</button></div>
   <div class="pitch" id="pitch"><div class="pitchCircle"></div></div>
+  <div class="card"><div class="row"><div><b>🃏 کارت بازیکنان</b><div class="sub">نمایش کارت‌های بازیکنان با نوع کارت، عکس، قدرت و پست.</div></div><span class="pill">۱۶ کارت</span></div><div id="playerCardShowcase" class="playerCardGrid"></div></div>
   <div class="card"><div class="row"><div><b>📋 ترکیب و نیمکت</b><div class="sub">بازیکن را نگه دار و روی بازیکن دیگر رها کن تا جابه‌جا شوند.</div></div><span class="pill">۱۶ نفر</span></div><div class="sectionLabel"><b>🟢 ترکیب اصلی</b><span class="sub">۱۱ بازیکن</span></div><div class="playerList" id="starterList"></div><div class="sectionLabel"><b>🪑 بازیکنان ذخیره</b><span class="benchBadge">قابل جابه‌جایی</span></div><div class="playerList" id="benchList"></div></div>
 </section>
 
@@ -265,7 +302,7 @@ body,button,input,textarea,select{font-family:var(--game-font)!important}
 
 <section id="clubShares" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">💱 سهام و تسک‌ها</div><span class="sub">الماس و درآمد</span></div><div class="card shareTopCard"><div class="row"><div><b>🎯 مرکز مأموریت‌ها</b><div class="sub">مثل کارت‌های نمونه؛ تصویر هر مأموریت را ادمین بعداً اضافه می‌کند.</div></div><span class="shareIncome" id="shareDailyIncome">💎 ۰</span></div><div class="shareProgress"><span id="shareProgressBar"></span></div><div class="sub" id="shareTaskSummary">۰ از ۷ تسک ثبت شده</div></div><div id="shareTaskList"></div></section>
 
-<section id="profile" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">👤 پروفایل مربی</div><span class="sub">سرمربی شو</span></div><div class="card"><div class="row"><div class="heroRow"><img id="profileAvatar" class="avatar" src=""><div><b id="profileName">مربی شما</b><div class="sub" id="profileTeam">تیم من</div><div class="sub" id="profileLeague">لیگ: لیگ ۶</div><div class="sub" id="profileAlliance">اتحاد: بدون اتحاد</div></div></div><div class="positions"><button id="followBtn" class="btn sm" onclick="follow()">➕ دنبال کردن</button></div></div><div class="stats"><div class="stat"><b id="profilePoints">⭐ 0</b><span>امتیاز</span></div><div class="stat"><b id="profileGames">🎮 0</b><span>بازی</span></div><div class="stat"><b id="profileWins">🟢 0</b><span>برد</span></div><div class="stat"><b id="profileDraws">🟡 0</b><span>مساوی</span></div><div class="stat"><b id="profileLosses">🔴 0</b><span>باخت</span></div><div class="stat"><b id="profileCups">🏆 0</b><span>جام</span></div></div></div><div class="card"><b>🏅 ویترین افتخارات</b><div class="medals" style="margin-top:10px"><div class="medalBox"><b>🥇</b>طلا × 0</div><div class="medalBox"><b>🥈</b>نقره × 0</div><div class="medalBox"><b>🥉</b>برنز × 0</div><div class="medalBox"><b>🏆</b>جام‌ها × <span id="profileTrophyShowcase">0</span></div></div></div><div class="card"><div class="row"><b>📝 پست‌ها</b><button class="btn sm" onclick="openPost()">＋ پست جدید</button></div><div id="posts"></div></div><div class="card"><b>🖼️ عکس پروفایل</b><input class="input" type="file" accept="image/*" onchange="setAvatar(event)" style="margin-top:9px"><div class="settingsBox"><b>⚙️ تنظیمات حساب</b><div class="sub" style="margin-top:5px">نام سرمربی از نام حساب تلگرام گرفته می‌شود و در اینجا قابل تغییر نیست.</div><div class="field"><label>نام تیم</label><input id="profileTeamRename" class="input" placeholder="نام تیم جدید" maxlength="24"></div><div class="positions"><button class="btn sm" onclick="renameTeamFromProfile()">💾 تغییر نام تیم</button><button class="btn red sm" onclick="logoutDemo()">🚪 خروج از حساب</button></div></div></div><div class="card adminOnlyControl" style="margin-top:12px"><div class="row"><div><b>ریست کامل بازی</b><div class="sub">فقط ادمین. برای پایان نسخه بتا و شروع فصل جدید استفاده می‌شود.</div></div><button class="btn red sm" onclick="adminResetGame()">ریست</button></div></div></section>
+<section id="profile" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">👤 پروفایل مربی</div><span class="sub">سرمربی شو</span></div><div class="card"><div class="row"><div class="heroRow"><img id="profileAvatar" class="avatar" src=""><div><b id="profileName">مربی شما</b><div class="sub" id="profileTeam">تیم من</div><div class="sub" id="profileLeague">لیگ: لیگ ۶</div><div class="sub" id="profileAlliance">اتحاد: بدون اتحاد</div></div></div><div class="positions"><button id="followBtn" class="btn sm" onclick="follow()">➕ دنبال کردن</button></div></div><div class="stats"><div class="stat"><b id="profilePoints">⭐ 0</b><span>امتیاز</span></div><div class="stat"><b id="profileGames">🎮 0</b><span>بازی</span></div><div class="stat"><b id="profileWins">🟢 0</b><span>برد</span></div><div class="stat"><b id="profileDraws">🟡 0</b><span>مساوی</span></div><div class="stat"><b id="profileLosses">🔴 0</b><span>باخت</span></div><div class="stat"><b id="profileCups">🏆 0</b><span>جام</span></div></div></div><div class="card"><b>🏅 ویترین افتخارات</b><div class="medals" style="margin-top:10px"><div class="medalBox"><b>🥇</b>طلا × 0</div><div class="medalBox"><b>🥈</b>نقره × 0</div><div class="medalBox"><b>🥉</b>برنز × 0</div><div class="medalBox"><b>🏆</b>جام‌ها × <span id="profileTrophyShowcase">0</span></div></div></div><div class="card"><div class="row"><b>📝 پست‌ها</b><button class="btn sm" onclick="openPost()">＋ پست جدید</button></div><div id="posts"></div></div><div class="card"><b>🖼️ عکس پروفایل</b><input class="input" type="file" accept="image/*" onchange="setAvatar(event)" style="margin-top:9px"><div class="settingsBox"><b>⚙️ تنظیمات حساب</b><div class="sub" style="margin-top:5px">نام سرمربی از نام حساب تلگرام گرفته می‌شود و در اینجا قابل تغییر نیست.</div><div class="field"><label>نام تیم</label><input id="profileTeamRename" class="input" placeholder="نام تیم جدید" maxlength="24"></div><div class="positions"><button class="btn sm" onclick="renameTeamFromProfile()">💾 تغییر نام تیم</button><button class="btn red sm" onclick="logoutDemo()">🚪 خروج از حساب</button></div></div></div><div id="cardAdminPanel" class="adminOnlyControl" style="margin-top:12px"></div><div class="card adminOnlyControl" style="margin-top:12px"><div class="row"><div><b>ریست کامل بازی</b><div class="sub">فقط ادمین. برای پایان نسخه بتا و شروع فصل جدید استفاده می‌شود.</div></div><button class="btn red sm" onclick="adminResetGame()">ریست</button></div></div></section>
 
 <section id="contracts" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">📄 قراردادها</div><span class="sub">سرمربی شو</span></div><div class="sub">قرارداد هر بازیکن، حقوق و زمان باقی‌مانده را مدیریت کن.</div><div id="contractList"></div></section>
 <section id="coaches" class="page"><div class="backBar"><span class="sub">سرمربی شو</span><button class="backBtn" onclick="goBack()">⬅️ برگشت</button></div><div class="pageTitleBar"><div class="title">🏋️ مربی تمرین</div><span class="sub">سرمربی شو</span></div><div class="sub">۱۰ مربی تمرین با سطح، اثر و قیمت.</div><div id="coachList" class="miniGrid trainingCoachGrid"></div></section>
@@ -1463,6 +1500,94 @@ html,body{overscroll-behavior:auto!important}body{touch-action:auto!important}.p
   };
   // Initial application.
   setTimeout(applySectionBackgrounds,0);
+})();
+</script>
+
+<script id="player-card-system-js">
+(function(){
+  // Frontend card engine. Data is stored locally for this UI build; the same schema is ready for the real VPS/API.
+  const defaultCardTypes=[
+    {id:'standard',name:'معمولی',className:'blue',accent:'#39a8ff',a:'#103e79',b:'#061326'},
+    {id:'special',name:'ویژه',className:'purple',accent:'#f26cff',a:'#6d146f',b:'#16061b'},
+    {id:'gold',name:'طلایی',className:'gold',accent:'#ffd96a',a:'#8d4f08',b:'#1c0f04'},
+    {id:'legend',name:'لجند',className:'legend',accent:'#fff0a3',a:'#b96b16',b:'#241004'},
+    {id:'event',name:'رویدادی',className:'red',accent:'#ff6673',a:'#7b1520',b:'#180609'}
+  ];
+  state.cardTypes=Array.isArray(state.cardTypes)&&state.cardTypes.length?state.cardTypes:defaultCardTypes;
+  state.playerCardTypes=state.playerCardTypes||{};
+  // Seed a few premium-looking cards so the new card UI is visible immediately.
+  (state.players||[]).forEach(p=>{if(!state.playerCardTypes[p.num]) state.playerCardTypes[p.num]=(Number(p.rating||0)>=77?'gold':Number(p.rating||0)>=74?'special':'standard')});
+  state.customPlayers=Array.isArray(state.customPlayers)?state.customPlayers:[];
+  state.customPlayerSeq=Number(state.customPlayerSeq||1000);
+
+  function cardTypeFor(p){return state.cardTypes.find(c=>c.id===(p.cardType||state.playerCardTypes[p.num]))||state.cardTypes[0]}
+  function playerPhoto(p){return state.playerImages?.[p.num]||state.playerImages?.['m'+p.num]||p.image||''}
+  function clubLogo(p){return state.clubLogo||''}
+  window.renderPlayerCard=function(p,compact){
+    const c=cardTypeFor(p),img=playerPhoto(p),logo=clubLogo(p),cls=esc(c.className||'blue');
+    return `<div class="playerCard ${cls}" style="--card-a:${esc(c.a||'#193328')};--card-b:${esc(c.b||'#07110d')};--card-accent:${esc(c.accent||'#f4c95d')};" onclick="openPlayerCard(${Number(p.num)})">
+      <div class="pcTop"><div><div class="pcRating">${fmt(p.rating||0)}</div><div class="pcPos">${esc(p.pos||'—')}</div></div><span class="pcType">${esc(c.name||'کارت')}</span></div>
+      <div class="pcPhoto">${img?`<img src="${esc(img)}" alt="${esc(p.name||'بازیکن')}">`:'<span class="pcFallback">⚽</span>'}</div>
+      <div class="pcClub">${logo?`<img src="${esc(logo)}" alt="">`:'<span>⚽</span>'}</div>
+      <div class="pcBottom"><div class="pcName">${esc(p.name||'بازیکن')}</div><div class="pcStats"><div class="pcStat"><b>${fmt(p.form||0)}</b>فرم</div><div class="pcStat"><b>${fmt(p.fitness||0)}</b>آمادگی</div><div class="pcStat"><b>${fmt(p.apps||0)}</b>بازی</div></div></div>
+    </div>`;
+  };
+  window.openPlayerCard=function(num){
+    const all=(state.players||[]).concat(state.customPlayers||[]).concat(typeof market!=='undefined'?market:[]);
+    const p=all.find(x=>Number(x.num)===Number(num));if(!p)return;
+    const c=cardTypeFor(p);
+    openModal(`<div class="cardPreviewWrap">${renderPlayerCard(p)}</div><div class="card"><div class="row"><div><b>${esc(p.name)}</b><div class="sub">${esc(p.pos||'—')} • کارت ${esc(c.name||'معمولی')}</div></div><span class="pill">قدرت ${fmt(p.rating||0)}</span></div><div class="statGrid"><div class="miniStat"><b>${fmt(p.rating||0)}</b><span>قدرت</span></div><div class="miniStat"><b>${fmt(p.form||0)}</b><span>فرم</span></div><div class="miniStat"><b>${fmt(p.fitness||0)}%</b><span>آمادگی</span></div><div class="miniStat"><b>${fmt(p.goals||0)}</b><span>گل</span></div><div class="miniStat"><b>${fmt(p.assists||0)}</b><span>پاس گل</span></div><div class="miniStat"><b>${fmt(p.apps||0)}</b><span>بازی</span></div></div></div>`);
+  };
+  function renderShowcase(){
+    const box=document.getElementById('playerCardShowcase');if(!box)return;
+    const list=(state.players||[]).slice().sort((a,b)=>Number(b.rating||0)-Number(a.rating||0));
+    box.innerHTML=list.map(p=>renderPlayerCard(p,true)).join('');
+  }
+  window.renderPlayerCardShowcase=renderShowcase;
+  const oldSquad=window.renderSquad;window.renderSquad=function(){if(typeof oldSquad==='function')oldSquad();renderShowcase()};
+
+  function adminCardPanel(){
+    const box=document.getElementById('cardAdminPanel');if(!box)return;
+    if(!state.adminMode){box.innerHTML='';return}
+    const types=state.cardTypes||[];
+    const players=(state.players||[]).concat(state.customPlayers||[]);
+    box.innerHTML=`<div class="card"><div class="row"><div><b>🛡️ مدیریت کارت و بازیکن</b><div class="sub">نسخه آماده مدیریت؛ فعلاً ذخیره در مرورگر است و بعداً به API متصل می‌شود.</div></div><span class="pill">ادمین</span></div>
+      <div class="positions" style="margin-top:9px"><button class="btn sm" onclick="openCardTypeEditor()">➕ نوع کارت جدید</button><button class="btn alt sm" onclick="openAdminPlayerEditor()">⚽ بازیکن جدید</button></div>
+      <div class="cardAdminGrid" style="margin-top:9px">${types.map(c=>`<div class="cardAdminType"><div class="miniCardSwatch" style="--a:${esc(c.a||'#193328')};--b:${esc(c.b||'#07110d')};--ac:${esc(c.accent||'#f4c95d')};background:linear-gradient(145deg,var(--a),var(--b));border-color:var(--ac)">${esc(c.name)}</div><div class="sub">${esc(c.id)}</div><button class="btn alt sm" style="margin-top:6px;width:100%" onclick="openCardTypeEditor('${esc(c.id)}')">ویرایش</button></div>`).join('')}</div>
+      <div class="adminCardList">${players.slice(-12).map(p=>`<div class="adminPlayerRow"><img src="${esc(playerPhoto(p)||'https://ui-avatars.com/api/?name='+encodeURIComponent(p.name||'Player')+'&background=20332b&color=fff')}" alt=""><div class="grow"><b>${esc(p.name)}</b><div class="sub">${esc(p.pos||'—')} • قدرت ${fmt(p.rating||0)} • کارت ${esc(cardTypeFor(p).name)}</div></div><button class="btn alt sm" onclick="openAdminPlayerEditor(${Number(p.num)})">ویرایش</button></div>`).join('')}</div></div>`;
+  }
+  window.renderCardAdminPanel=adminCardPanel;
+
+  window.openCardTypeEditor=function(id){
+    if(!state.adminMode){toast('فقط ادمین');return}
+    const c=id?(state.cardTypes||[]).find(x=>x.id===id):{id:'card_'+Date.now(),name:'کارت جدید',className:'blue',accent:'#39a8ff',a:'#103e79',b:'#061326'};
+    if(!c)return;
+    openModal(`<h2>🃏 ${id?'ویرایش':'ساخت'} نوع کارت</h2><div class="field"><label>شناسه</label><input id="ctId" class="input" value="${esc(c.id)}" ${id?'readonly':''}></div><div class="field"><label>نام کارت</label><input id="ctName" class="input" value="${esc(c.name||'')}"></div><div class="field"><label>کلاس ظاهری</label><select id="ctClass" class="select"><option value="blue">آبی</option><option value="purple">بنفش</option><option value="gold">طلایی</option><option value="legend">لجند</option><option value="red">رویدادی</option></select></div><div class="field"><label>رنگ اصلی</label><input id="ctA" class="input" type="text" value="${esc(c.a||'#103e79')}"></div><div class="field"><label>رنگ دوم</label><input id="ctB" class="input" type="text" value="${esc(c.b||'#061326')}"></div><div class="field"><label>رنگ قاب</label><input id="ctAccent" class="input" type="text" value="${esc(c.accent||'#39a8ff')}"></div><div class="cardPreviewWrap" id="ctPreview"></div><button class="btn" onclick="saveCardType('${esc(c.id)}')">💾 ذخیره نوع کارت</button>`);
+    const sel=document.getElementById('ctClass');if(sel)sel.value=c.className||'blue';
+    const preview=document.getElementById('ctPreview');if(preview){const demo={name:'بازیکن نمونه',pos:'ST',rating:87,form:90,fitness:95,apps:12,goals:8,assists:4,num:999};preview.innerHTML=renderPlayerCard({...demo,cardType:c.id})}
+  };
+  window.saveCardType=function(oldId){
+    if(!state.adminMode)return;
+    const id=(document.getElementById('ctId')?.value||oldId||'').trim();const name=(document.getElementById('ctName')?.value||'کارت جدید').trim();if(!id||!name){toast('شناسه و نام کارت الزامی است');return}
+    const data={id,name,className:document.getElementById('ctClass')?.value||'blue',a:(document.getElementById('ctA')?.value||'#103e79').trim(),b:(document.getElementById('ctB')?.value||'#061326').trim(),accent:(document.getElementById('ctAccent')?.value||'#39a8ff').trim()};
+    const i=state.cardTypes.findIndex(x=>x.id===oldId);if(i>=0)state.cardTypes[i]=data;else state.cardTypes.push(data);save();closeModal();renderCardAdminPanel();renderShowcase();toast('نوع کارت ذخیره شد 🃏');
+  };
+  window.openAdminPlayerEditor=function(num){
+    if(!state.adminMode){toast('فقط ادمین');return}
+    const existing=(state.players||[]).concat(state.customPlayers||[]).find(x=>Number(x.num)===Number(num));
+    const p=existing||{num:++state.customPlayerSeq,name:'بازیکن جدید',pos:'ST',rating:70,age:20,form:70,fitness:100,apps:0,goals:0,assists:0,value:50000000,salary:1000000,starter:0,cardType:state.cardTypes[0]?.id||'standard'};
+    const opts=(state.cardTypes||[]).map(c=>`<option value="${esc(c.id)}" ${(p.cardType||'standard')===c.id?'selected':''}>${esc(c.name)}</option>`).join('');
+    openModal(`<h2>⚽ ${existing?'ویرایش':'افزودن'} بازیکن</h2><div class="field"><label>نام بازیکن</label><input id="apName" class="input" value="${esc(p.name||'')}"></div><div class="field"><label>پست</label><select id="apPos" class="select">${['GK','LB','CB','RB','DM','CM','CAM','LM','RM','LW','RW','ST'].map(x=>`<option ${x===(p.pos||'ST')?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>قدرت</label><input id="apRating" class="input" type="number" min="1" max="120" value="${Number(p.rating||70)}"></div><div class="field"><label>سن</label><input id="apAge" class="input" type="number" min="12" max="45" value="${Number(p.age||20)}"></div><div class="field"><label>نوع کارت</label><select id="apCard" class="select">${opts}</select></div><div class="field"><label>محل قرارگیری</label><select id="apDest" class="select"><option value="team">تیم من</option><option value="market">بازار نقل‌وانتقالات</option></select></div><div class="field"><label>عکس بازیکن</label><input id="apImage" class="input" type="file" accept="image/*"></div><button class="btn" onclick="saveAdminPlayer(${Number(p.num)},${existing?'true':'false'})">💾 ذخیره بازیکن</button>`);
+  };
+  window.saveAdminPlayer=function(num,existing){
+    if(!state.adminMode)return;
+    const name=(document.getElementById('apName')?.value||'بازیکن جدید').trim();const pos=document.getElementById('apPos')?.value||'ST';const rating=Math.max(1,Math.min(120,Number(document.getElementById('apRating')?.value||70)));const age=Math.max(12,Math.min(45,Number(document.getElementById('apAge')?.value||20)));const cardType=document.getElementById('apCard')?.value||state.cardTypes[0]?.id||'standard';const dest=document.getElementById('apDest')?.value||'team';
+    const finish=(img)=>{let p=(state.players||[]).concat(state.customPlayers||[]).find(x=>Number(x.num)===Number(num));if(!p){p={num:Number(num),starter:0,goals:0,assists:0,apps:0,clean:0,form:rating,fitness:100,value:rating*rating*10000,salary:rating*20000};state.customPlayers.push(p)}Object.assign(p,{name,pos,rating,age,form:rating,fitness:100,cardType});if(img){state.playerImages=state.playerImages||{};state.playerImages[num]=img}state.playerCardTypes[num]=cardType;if(!existing&&dest==='team'&&!state.players.some(x=>Number(x.num)===Number(num)))state.players.push(p);if(!existing&&dest==='market'){if(typeof market!=='undefined'&&!market.some(x=>Number(x.num)===Number(num)))market.push(p)}save();closeModal();render();renderCardAdminPanel();toast('بازیکن ذخیره شد ⚽')};
+    const f=document.getElementById('apImage')?.files?.[0];if(f){const r=new FileReader();r.onload=()=>finish(r.result);r.readAsDataURL(f)}else finish('');
+  };
+  const oldRender=window.render;window.render=function(){if(typeof oldRender==='function')oldRender();renderCardAdminPanel();renderShowcase()};
+  const oldRenderPage=window.renderPage;window.renderPage=function(id){if(typeof oldRenderPage==='function')oldRenderPage(id);if(id==='team')renderShowcase();if(id==='profile')renderCardAdminPanel()};
+  setTimeout(()=>{renderShowcase();renderCardAdminPanel()},50);
 })();
 </script>
 </body>
