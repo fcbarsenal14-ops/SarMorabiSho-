@@ -1819,176 +1819,65 @@ html,body{overscroll-behavior:auto!important}body{touch-action:auto!important}.p
   setTimeout(()=>{try{window.drawPitch()}catch(_){ }},80);
 })();
 </script>
-
-
-<style id="team-pack-card-v3-style">
-/* ===== Team Pack player cards V3 ===== */
-.teamPackPlayerGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
-.teamPackPlayerCard{position:relative;aspect-ratio:.69;min-width:0;overflow:hidden;border-radius:18px;border:1px solid #e4bb55aa;background:linear-gradient(150deg,#bd063e 0%,#f10a72 46%,#7e002d 100%);box-shadow:0 10px 24px #0008;isolation:isolate;cursor:pointer}
-.teamPackPlayerCard:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,#ff8ac455,transparent 38%),linear-gradient(180deg,#ffffff12,transparent 40%,#18000a88 100%);z-index:0;pointer-events:none}
-.teamPackPlayerCard .packCardPos{position:absolute;top:8px;left:9px;z-index:5;color:#fff;font-size:20px;font-weight:1000;line-height:1;text-shadow:0 2px 5px #000;letter-spacing:.5px}
-.teamPackPlayerCard .packCardOverall{position:absolute;top:30px;left:9px;z-index:5;color:#fff;font-size:26px;font-weight:1000;line-height:1;text-shadow:0 2px 5px #000;letter-spacing:-1px}
-.teamPackPlayerCard .packCardPower{position:absolute;right:8px;bottom:42px;z-index:5;min-width:31px;height:27px;padding:0 6px;display:grid;place-items:center;border-radius:9px;background:#101010aa;border:1px solid #fff5;color:#f7d66b;font-size:12px;font-weight:1000;text-shadow:0 1px 3px #000}
-.teamPackPlayerCard .packCardPhoto{position:absolute;left:5%;right:5%;top:12%;height:69%;z-index:1;display:grid;place-items:end center;overflow:hidden}
-.teamPackPlayerCard .packCardPhoto img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:saturate(1.03);}
-.teamPackPlayerCard .packCardPhoto .empty{font-size:62px;margin-bottom:18%;filter:drop-shadow(0 4px 5px #0008)}
-.teamPackPlayerCard .packLogo{position:absolute;z-index:6;width:38px;height:38px;border-radius:50%;padding:5px;object-fit:contain;background:#fff;border:2px solid #f6d46b;box-shadow:0 3px 10px #0009}
-.teamPackPlayerCard .packBrandLogo{left:9px;bottom:48px}
-.teamPackPlayerCard .packTeamLogo{right:9px;bottom:48px}
-.teamPackPlayerCard .packLogoFallback{display:grid;place-items:center;font-size:15px;color:#26362f}
-.teamPackPlayerCard .packCardName{position:absolute;left:8px;right:8px;bottom:10px;z-index:7;text-align:center;color:#fff;font-size:11px;font-weight:1000;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 5px #000}
-.teamPackPlayerCard .packCardEdit{position:absolute;top:8px;right:8px;z-index:8;width:28px;height:28px;border-radius:9px;border:1px solid #fff5;background:#0007;color:#fff;font-size:13px;display:grid;place-items:center}
-.teamPackPlayerCard .packCardBrandLabel{position:absolute;left:8px;bottom:30px;z-index:7;font-size:7px;color:#fff;opacity:.85;text-shadow:0 1px 3px #000}
-.teamPackAdminUploadGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.teamPackUploadBox{border:1px dashed #ffffff35;border-radius:12px;padding:8px;background:#ffffff05}
-.teamPackUploadBox label{display:block;font-size:9px;color:#9eb1a8;margin-bottom:5px}
-.teamPackUploadPreview{width:48px;height:48px;border-radius:10px;object-fit:contain;background:#fff;margin-top:6px;border:1px solid #fff2}
-.teamPackEditRow{display:flex;gap:7px;align-items:center;margin-top:9px}
-.teamPackEditRow .btn{flex:1}
-@media(min-width:600px){.teamPackPlayerGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:360px){.teamPackPlayerGrid{gap:7px}.teamPackPlayerCard{border-radius:15px}.teamPackPlayerCard .packCardPos{font-size:17px}.teamPackPlayerCard .packCardOverall{font-size:23px}.teamPackPlayerCard .packLogo{width:33px;height:33px}.teamPackPlayerCard .packCardName{font-size:9px}}
+\n<style id="pitch-card-v143-style">
+/* PITCH CARDS V1.14.3 — square cards matching the normal squad-card palette */
+.pitch .pitchPlayerCard{
+  width:72px!important;height:72px!important;min-width:72px!important;min-height:72px!important;
+  aspect-ratio:1/1!important;padding:0!important;border-radius:16px!important;
+  background:linear-gradient(145deg,#203a30 0%,#0c1512 72%)!important;
+  border:1px solid #c8a64b99!important;overflow:visible!important;display:block!important;
+  box-shadow:0 10px 24px #0007!important;position:absolute!important;font-size:9px!important;
+}
+.pitch .pitchPlayerCard:before{content:"";position:absolute;inset:0;border-radius:15px;pointer-events:none;background:radial-gradient(circle at 50% 45%,#1e7b5144,transparent 52%),linear-gradient(180deg,#ffffff0b,transparent 35%,#000b 100%);z-index:0}
+.pitch .pitchPlayerCard.wrongPosition{background:linear-gradient(145deg,#203a30 0%,#0c1512 72%)!important;border-color:#c8a64b99!important;box-shadow:0 10px 24px #0007!important}
+.pitch .pitchCardPos{position:absolute!important;top:3px!important;left:4px!important;right:4px!important;text-align:center!important;font-size:11px!important;font-weight:1000!important;color:#fff!important;letter-spacing:.5px;text-shadow:0 2px 4px #000!important;z-index:5!important;line-height:1!important}
+.pitch .pitchCardRating{position:absolute!important;top:16px!important;left:4px!important;right:4px!important;margin:0!important;text-align:center!important;font-size:15px!important;font-weight:1000!important;color:#f4c95d!important;text-shadow:0 2px 4px #000!important;line-height:1!important;z-index:5!important}
+.pitch .pitchCardBrandLogo{position:absolute!important;top:29px!important;left:50%!important;transform:translateX(-50%)!important;width:20px!important;height:20px!important;border-radius:50%!important;padding:2px!important;object-fit:contain!important;background:#fff!important;border:1px solid #f4c95d!important;box-shadow:0 2px 7px #0009!important;z-index:5!important}
+.pitch .pitchCardBrandFallback{position:absolute!important;top:29px!important;left:50%!important;transform:translateX(-50%)!important;width:20px!important;height:20px!important;border-radius:50%!important;display:grid!important;place-items:center!important;background:#fff!important;color:#183d2c!important;border:1px solid #f4c95d!important;font-size:9px!important;box-shadow:0 2px 7px #0009!important;z-index:5!important}
+.pitch .pitchCardPhoto{position:absolute!important;left:11%!important;right:11%!important;bottom:4%!important;top:48%!important;width:auto!important;height:auto!important;margin:0!important;border-radius:50% 50% 38% 38%!important;overflow:hidden!important;display:grid!important;place-items:center!important;background:radial-gradient(circle,#ffffff12,#0004 72%)!important;border:1px solid #ffffff25!important;z-index:2!important}
+.pitch .pitchCardPhoto img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center top!important}
+.pitch .pitchCardPhoto span{font-size:20px!important}
+.pitch .pitchCaptainC{position:absolute!important;right:-8px!important;top:50%!important;transform:translateY(-50%)!important;width:19px!important;height:19px!important;border-radius:6px!important;display:grid!important;place-items:center!important;background:#fff!important;color:#0b1712!important;border:2px solid #f4c95d!important;font-size:12px!important;font-weight:1000!important;line-height:1!important;z-index:9!important;box-shadow:0 3px 8px #0009!important}
+.pitch .pitchPlayerCard.wrongPosition .pitchCardRating{color:#f4c95d!important}
+.pitch .pitchPlayerCard.wrongPosition .pitchCardPos{color:#fff!important}
+.pitch .pitchPlayerCard.selectedPitch{outline:2px solid #18b875!important;box-shadow:0 0 0 4px #18b87522,0 10px 24px #0007!important}
+@media(max-width:390px){
+  .pitch .pitchPlayerCard{width:60px!important;height:60px!important;min-width:60px!important;min-height:60px!important;border-radius:14px!important}
+  .pitch .pitchCardPos{font-size:9px!important;top:3px!important}
+  .pitch .pitchCardRating{font-size:13px!important;top:14px!important}
+  .pitch .pitchCardBrandLogo,.pitch .pitchCardBrandFallback{width:17px!important;height:17px!important;top:25px!important;font-size:8px!important}
+  .pitch .pitchCaptainC{width:17px!important;height:17px!important;right:-7px!important;font-size:10px!important}
+}
 </style>
 <script>
-/* ===== Team Pack custom player card V3 ===== */
 (function(){
-  state.packPlayers=Array.isArray(state.packPlayers)?state.packPlayers:[];
-
-  const escT=window.esc||function(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))};
-  const posList=['GK','CB','LB','RB','DM','CM','CAM','LM','RM','LW','RW','ST'];
-
-  function fileToData(input){
-    return new Promise(resolve=>{
-      const f=input?.files?.[0];
-      if(!f){resolve('');return}
-      const r=new FileReader();
-      r.onload=()=>resolve(String(r.result||''));
-      r.onerror=()=>resolve('');
-      r.readAsDataURL(f);
-    });
-  }
-
-  function imagePreview(src,label){
-    return src?`<img class="teamPackUploadPreview" src="${escT(src)}" alt="${escT(label)}">`:`<div class="teamPackUploadPreview" style="display:grid;place-items:center;color:#6e8078;font-size:20px">🖼️</div>`;
-  }
-
-  function teamPackCard(p,edit=false){
-    const photo=p.photo||p.image||'';
-    const brand=p.brandLogo||'';
-    const team=p.teamLogo||'';
-    const name=p.nameEn||p.name||'Player';
-    const pos=String(p.pos||'ST').toUpperCase();
-    const overall=Number(p.rating??p.overall??0)||0;
-    const power=Number(p.power??overall)||0;
-    return `<div class="teamPackPlayerCard" onclick="openTeamPackPlayer('${escT(p.id)}')">
-      <div class="packCardPos">${escT(pos)}</div>
-      <div class="packCardOverall">${fmt(overall)}</div>
-      ${photo?`<div class="packCardPhoto"><img src="${escT(photo)}" alt="${escT(name)}"></div>`:`<div class="packCardPhoto"><span class="empty">👤</span></div>`}
-      ${brand?`<img class="packLogo packBrandLogo" src="${escT(brand)}" alt="Brand logo">`:`<span class="packLogo packBrandLogo packLogoFallback">★</span>`}
-      ${team?`<img class="packLogo packTeamLogo" src="${escT(team)}" alt="Team logo">`:`<span class="packLogo packTeamLogo packLogoFallback">⚽</span>`}
-      <span class="packCardBrandLabel">BRAND</span>
-      <span class="packCardPower">${fmt(power)}</span>
-      <div class="packCardName" dir="ltr">${escT(name)}</div>
-      ${edit?`<button type="button" class="packCardEdit" onclick="event.stopPropagation();openAdminPackPlayer('${escT(p.packId||'')}','${escT(p.id)}')">✏️</button>`:''}
-    </div>`;
-  }
-
-  function playerForm(packId,player){
-    const p=player||{};
-    const pos=String(p.pos||'ST').toUpperCase();
-    const options=posList.map(x=>`<option value="${x}" ${x===pos?'selected':''}>${x}</option>`).join('');
-    const title=player?'ویرایش کارت بازیکن پک':'افزودن کارت بازیکن به پک';
-    const action=player?`saveTeamPackPlayer('${escT(packId)}','${escT(player.id)}')`:`saveTeamPackPlayer('${escT(packId)}','')`;
-    openModal(`<h2>🛡️ ${title}</h2>
-      <div class="sub">کارت پک تیم با ظاهر اختصاصی ساخته می‌شود. نام روی کارت به انگلیسی نمایش داده می‌شود.</div>
-      <div class="field"><label>اسم بازیکن به انگلیسی</label><input id="teamPackNameEn" class="input" dir="ltr" value="${escT(p.nameEn||p.name||'')}" placeholder="مثلاً Alessandro Nesta"></div>
-      <div class="field"><label>پست بازیکن</label><select id="teamPackPos" class="select" dir="ltr">${options}</select></div>
-      <div class="statGrid"><div class="field"><label>اورال</label><input id="teamPackOverall" class="input" type="number" min="1" max="99" value="${Number(p.rating??p.overall??75)}"></div><div class="field"><label>قدرت</label><input id="teamPackPower" class="input" type="number" min="1" max="99" value="${Number(p.power??p.rating??75)}"></div><div class="field"><label>سن</label><input id="teamPackAge" class="input" type="number" min="12" max="50" value="${Number(p.age||22)}"></div></div>
-      <div class="teamPackAdminUploadGrid">
-        <div class="teamPackUploadBox"><label>عکس بازیکن</label><input id="teamPackPhoto" class="input playerAdminUpload" type="file" accept="image/*">${imagePreview(p.photo||p.image,'عکس بازیکن')}</div>
-        <div class="teamPackUploadBox"><label>لوگوی برند</label><input id="teamPackBrand" class="input playerAdminUpload" type="file" accept="image/*">${imagePreview(p.brandLogo,'لوگوی برند')}</div>
-        <div class="teamPackUploadBox"><label>لوگوی تیم</label><input id="teamPackTeam" class="input playerAdminUpload" type="file" accept="image/*">${imagePreview(p.teamLogo,'لوگوی تیم')}</div>
-      </div>
-      <div class="teamPackEditRow"><button class="btn" style="width:100%" onclick="${action}">${player?'ذخیره تغییرات':'افزودن بازیکن به پک'}</button></div>`);
-  }
-
-  window.openAdminPackPlayer=function(packId,playerId){
-    if(!state.adminMode){toast('فقط ادمین');return}
-    const pack=state.packs.find(x=>String(x.id)===String(packId));
-    if(!pack){toast('پک پیدا نشد');return}
-    const player=playerId?state.packPlayers.find(x=>String(x.id)===String(playerId)):null;
-    if(player)player.packId=String(packId);
-    playerForm(String(packId),player);
+  const oldDrawPitchCardUpdate=window.drawPitch;
+  window.drawPitch=function(){
+    const pitch=document.getElementById('pitch');
+    if(!pitch)return;
+    const layout=typeof getStarters==='function'?getStarters():[];
+    const brand=(state&&state.brandLogo)?String(state.brandLogo):'';
+    pitch.innerHTML='<div class="pitchCircle"></div>'+layout.map((s,i)=>{
+      const p=s&&s.player;if(!p)return '';
+      const natural=String(p.pos||'').toUpperCase();
+      const slot=String(s.slot||p.pos||'').toUpperCase();
+      const wrong=natural!==slot;
+      const baseOverall=Number(p.rating||p.power||0);
+      const displayOverall=wrong?Math.max(1,Math.round(baseOverall/2)):baseOverall;
+      const img=state.playerImages?.[p.num]||'';
+      const cap=state.captain===p.name?'<span class="pitchCaptainC">C</span>':'';
+      const brandHtml=brand?`<img class="pitchCardBrandLogo" src="${esc(brand)}" alt="Brand">`:'<span class="pitchCardBrandFallback">★</span>';
+      return `<div class="player pitchPlayerCard ${window.selectedPitchIndex===i?'selectedPitch':''} ${wrong?'wrongPosition':''}" draggable="true" data-slot-index="${i}" data-num="${p.num}" title="${wrong?'پست اشتباه؛ اورال و قدرت نصف شده':'پست طبیعی'}" style="left:${s.x}%;top:${s.y}%;--kit-color:${esc((state.kit&&state.kit.color)||'#183d2c')}" ondragstart="dragPitch(event,${i},${p.num})" ondragover="allowPitchDrop(event,${i})" ondragleave="leavePitchDrop(event)" ondrop="dropPitch(event,${i},${p.num})" onclick="selectPitchPlayer(${i},${p.num})">
+        <div class="pitchCardPos">${esc(slot)}</div>
+        <div class="pitchCardRating">${fmt(displayOverall)}</div>
+        ${brandHtml}
+        <div class="pitchCardPhoto">${img?`<img src="${img}" alt="">`:'<span>👤</span>'}</div>
+        ${cap}
+      </div>`;
+    }).join('');
   };
-
-  window.saveTeamPackPlayer=async function(packId,playerId){
-    if(!state.adminMode)return;
-    const pack=state.packs.find(x=>String(x.id)===String(packId));
-    if(!pack)return;
-    const nameEn=(document.getElementById('teamPackNameEn')?.value||'').trim();
-    if(!nameEn){toast('اسم انگلیسی بازیکن را وارد کن');return}
-    const overall=Math.max(1,Math.min(99,Number(document.getElementById('teamPackOverall')?.value||75)));
-    const power=Math.max(1,Math.min(99,Number(document.getElementById('teamPackPower')?.value||overall)));
-    const age=Math.max(12,Math.min(50,Number(document.getElementById('teamPackAge')?.value||22)));
-    const photo=await fileToData(document.getElementById('teamPackPhoto'));
-    const brandLogo=await fileToData(document.getElementById('teamPackBrand'));
-    const teamLogo=await fileToData(document.getElementById('teamPackTeam'));
-    state.packPlayers=Array.isArray(state.packPlayers)?state.packPlayers:[];
-    let player=playerId?state.packPlayers.find(x=>String(x.id)===String(playerId)):null;
-    if(!player){player={id:'pack_player_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)};state.packPlayers.push(player)}
-    player.nameEn=nameEn;
-    player.name=nameEn;
-    player.pos=String(document.getElementById('teamPackPos')?.value||'ST').toUpperCase();
-    player.rating=overall;
-    player.overall=overall;
-    player.power=power;
-    player.age=age;
-    if(photo)player.photo=photo;
-    if(brandLogo)player.brandLogo=brandLogo;
-    if(teamLogo)player.teamLogo=teamLogo;
-    player.packId=String(packId);
-    pack.playerIds=Array.isArray(pack.playerIds)?pack.playerIds:[];
-    if(!pack.playerIds.some(x=>String(x)===String(player.id)))pack.playerIds.push(player.id);
-    save();closeModal();renderShop('players');toast(playerId?'تغییرات کارت ذخیره شد ✅':'کارت بازیکن به پک اضافه شد 🃏');
-  };
-
-  window.openTeamPackPlayer=function(playerId){
-    const p=state.packPlayers.find(x=>String(x.id)===String(playerId));
-    if(!p)return;
-    openModal(`<div style="display:flex;justify-content:center">${teamPackCard(p,false)}</div><div style="text-align:center;margin-top:8px"><b dir="ltr">${escT(p.nameEn||p.name||'Player')}</b><div class="sub">${escT(String(p.pos||'ST').toUpperCase())} • اورال ${fmt(p.rating||0)} • قدرت ${fmt(p.power||p.rating||0)}</div></div>${state.adminMode?`<button class="btn" style="width:100%;margin-top:10px" onclick="closeModal();openAdminPackPlayer('${escT(p.packId||'')}','${escT(p.id)}')">✏️ ویرایش کارت</button>`:''}`);
-  };
-
-  window.openPackPlayers=function(packId){
-    const pack=state.packs.find(x=>String(x.id)===String(packId));if(!pack)return;
-    const ids=new Set(pack.playerIds||[]);
-    const list=state.packPlayers.filter(x=>ids.has(x.id)).map(x=>({...x,packId:String(packId)}));
-    openModal(`<h2>🃏 کارت‌های «${escT(pack.name)}»</h2><div class="sub">کارت‌های پک تیم با طراحی اختصاصی</div>${list.length?`<div class="teamPackPlayerGrid">${list.map(p=>teamPackCard(p,Boolean(state.adminMode))).join('')}</div>`:'<div class="empty" style="margin-top:12px">هنوز بازیکنی به این پک اضافه نشده است.</div>'}${state.adminMode?`<button class="btn" style="width:100%;margin-top:12px" onclick="closeModal();openAdminPackPlayer('${escT(String(packId))}')">＋ افزودن کارت بازیکن</button>`:''}`);
-  };
-
-  /* Ensure the shop's player-pack card shows the new management entry point without removing old features. */
-  const oldRenderShopV3=window.renderShop;
-  window.renderShop=function(type='players'){
-    if(type!=='players'){return oldRenderShopV3(type)}
-    ensureShopPacks();
-    const box=document.getElementById('shopList');if(!box)return;
-    const list=state.packs.filter(x=>x.type===type);
-    const adminHead=state.adminMode?`<div class="card adminOnlyControl"><div class="row"><div><b>🛡️ مدیریت پک تیم</b><div class="sub">ساخت پک، افزودن کارت و ویرایش عکس/لوگو/اورال/قدرت بازیکنان</div></div><button class="btn sm" onclick="openAdminPack()">＋ پک جدید</button></div></div>`:'';
-    box.innerHTML=adminHead+list.map(p=>{
-      const ids=new Set(p.playerIds||[]);const count=state.packPlayers.filter(x=>ids.has(x.id)).length;
-      return `<div class="packCard ${p.type==='players'?'shopTeamPackImage':''}">${p.image?`<img class="packImage" src="${escT(p.image)}">`:`<div class="packImage packImageEmpty">🖼️ تصویر پک</div>`}<div class="row"><span class="packIcon">⚽</span><span class="tag">${escT(p.currency)}</span></div><b style="display:block;margin-top:7px">${escT(p.name)}</b><div class="sub">پاداش: ${escT(p.reward)}</div><div class="sub">🃏 تعداد کارت‌ها: ${fmt(count)}</div><div class="sub">⏱️ مدت: ${escT(p.duration||'قابل تنظیم توسط ادمین')}</div><div class="row" style="margin-top:8px"><button class="btn alt sm" onclick="openPackPlayers('${escT(String(p.id))}')">🃏 مشاهده کارت‌ها</button>${state.adminMode?`<button class="btn sm" onclick="openAdminPackPlayer('${escT(String(p.id))}')">＋ کارت</button>`:''}</div>${state.adminMode?`<div class="adminOnlyControl" style="margin-top:8px"><input class="input playerAdminUpload" type="file" accept="image/*" onchange="setShopPackImage(event,'${escT(String(p.id))}')"></div>`:''}<div class="row" style="margin-top:9px"><strong>${fmt(p.price)} ${escT(p.currency)}</strong><button class="btn sm" onclick="toast('پرداخت این پک در نسخه Backend فعال می‌شود')">خرید</button></div></div>`;
-    }).join('')||'<div class="card"><div class="sub">پکی در این دسته ثبت نشده است.</div></div>';
-  };
-
-  /* Normalize old pack players so older saved cards can be edited in the new editor. */
-  state.packPlayers.forEach(p=>{
-    p.nameEn=p.nameEn||p.name||'Player';
-    p.rating=Number(p.rating||p.overall||75);
-    p.overall=Number(p.overall||p.rating||75);
-    p.power=Number(p.power||p.rating||75);
-    p.pos=String(p.pos||'ST').toUpperCase();
-  });
-  save();
 })();
 </script>
-
+<!-- PITCH CARD UPDATE V1.14.3 -->
 </body>
 </html>
