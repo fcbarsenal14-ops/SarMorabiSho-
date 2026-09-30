@@ -1660,5 +1660,153 @@ html,body{overscroll-behavior:auto!important}body{touch-action:auto!important}.p
 })();
 </script>
 
+
+<style id="ui14-fixes">
+/* UI_14 requested fixes */
+.playerCardPos{top:8px!important;font-size:17px!important;line-height:1.05!important;letter-spacing:.3px!important}
+.playerCardPower{top:31px!important;font-size:29px!important;letter-spacing:0!important}
+.playerCardBrand{top:67px!important}
+.playerCardPhoto{top:16%!important;height:74%!important}
+.playerCardName{font-size:12px!important}
+.pitchPlayerCard .pitchPos{top:4px!important;font-size:10px!important}
+.pitchPlayerCard .pitchPower{top:17px!important;font-size:16px!important}
+.pitchPlayerCard .pitchBrand{top:37px!important}
+.pitchPlayerCard .pitchPhoto{top:6%!important;height:94%!important}
+.playerCardGrid,.marketPlayerGrid{padding-bottom:18px}
+.marketPlayerGrid,.playerCardGrid{overflow:visible}
+.playerListCards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.playerListCardWrap{min-width:0}
+.playerListCardWrap .marketBuyRow{margin-top:6px}
+.playerRadarStats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px auto 0;max-width:440px}
+.playerRadarStats .miniStat{text-align:center}
+.radarLabels{font-size:9px;fill:#dce7e1;font-weight:800}
+.radarCenter{display:grid;place-items:center;text-align:center}
+.profileFixedModal{width:100%;max-width:500px;margin:0 auto;max-height:72vh;overflow-y:auto;overflow-x:hidden;padding:2px 2px 12px}
+.modal.postCenter{align-items:center!important}
+.modal.postCenter .sheet{margin:auto!important;width:min(540px,calc(100% - 28px))!important;max-height:82vh!important;border-radius:25px!important}
+.profileCityBox{margin-top:10px}
+@media(max-width:360px){.playerCardPos{font-size:15px!important}.playerCardPower{font-size:26px!important}.playerListCards,.marketPlayerGrid,.playerCardGrid{gap:7px}.playerRadarStats{grid-template-columns:repeat(2,1fr)}}
+</style>
+<script id="ui14-requested-fixes">
+(function(){
+  const fmtEn=n=>Number(n||0).toLocaleString('en-US');
+  window.fmtEn=fmtEn;
+
+  /* 1) Formation: when formation changes, automatically reassign starters to the new roles. */
+  function rebuildFormationSlots(f){
+    const layout=formationLayouts[f]||formationLayouts['4-2-3-1'];
+    let pool=state.players.filter(p=>p.starter);
+    if(pool.length<11) pool=state.players.slice();
+    const used=new Set(), chosen=[];
+    layout.forEach(slot=>{
+      let best=null,bestScore=-1;
+      pool.forEach(p=>{
+        if(used.has(Number(p.num))) return;
+        const score=roleScore(String(p.pos||'').toUpperCase(),String(slot[0]||'').toUpperCase())*100 + Number(p.rating||p.power||0);
+        if(score>bestScore){bestScore=score;best=p;}
+      });
+      if(best){used.add(Number(best.num));chosen.push(best);}
+    });
+    if(chosen.length<11){state.players.forEach(p=>{if(chosen.length<11&&!used.has(Number(p.num))){used.add(Number(p.num));chosen.push(p);}})}
+    state.players.forEach(p=>p.starter=false);
+    chosen.slice(0,11).forEach(p=>p.starter=true);
+    state.pitchSlots=chosen.slice(0,11).map(p=>Number(p.num));
+    state.formation=f;
+    save();
+  }
+  window.formation=function(f){if(!formationLayouts[f])return;rebuildFormationSlots(f);window.selectedPitchIndex=null;renderFormationButtons();drawPitch();renderSquad();toast('آرایش '+f+' فعال شد؛ بازیکنان بر اساس پست چیده شدند ⚽')};
+
+  /* 2) Fix the square lineup cards being stuck in the top corner: give them the formation coordinates. */
+  window.pitchPlayerCardHtml=function(p,index){
+    const img=playerImageFor(p,false),brand=brandImageFor(p),layout=formationLayouts[state.formation]||formationLayouts['4-2-3-1'],slot=layout[index]||['ST',50,50];
+    const natural=String(p.pos||'').toUpperCase()===String(slot[0]||'').toUpperCase();
+    const extra=natural?'':' outOfPosition';
+    const cap=state.captain===p.name?' ©️':'';
+    return `<div class="pitchPlayerCard${extra}" style="left:${slot[1]}%;top:${slot[2]}%" draggable="true" data-slot-index="${index}" data-num="${Number(p.num)}" ondragstart="dragPitch(event,${index},${Number(p.num)})" ondragover="allowPitchDrop(event,${index})" ondragleave="leavePitchDrop(event)" ondrop="dropPitch(event,${index},${Number(p.num)})" onclick="selectPitchPlayer(${index},${Number(p.num)})"><div class="pitchPos">${esc(p.pos||'—')}${cap}</div><div class="pitchPower">${fmtEn(p.rating||p.power||0)}</div><div class="pitchBrand">${brand?`<img src="${esc(brand)}" alt="برند">`:'<span>⚽</span>'}</div><div class="pitchPhoto">${img?`<img src="${esc(img)}" alt="${esc(p.name||'بازیکن')}">`:'<span class="placeholder">👤</span>'}</div></div>`;
+  };
+
+  /* 3) English numerals + larger position text in market/player-list cards. */
+  const oldPlayerCardHtml=window.playerCardHtml;
+  window.playerCardHtml=function(p,opts={}){
+    const isMarket=Boolean(opts.market),img=playerImageFor(p,isMarket),brand=brandImageFor(p),logo=clubLogoFor(p),dragNum=Number(p.num);
+    const dragAttr=opts.draggable===false?'':'draggable="true" ondragstart="dragPlayerCard(event,'+dragNum+','+String(isMarket)+')"';
+    return `<div class="playerGameCard" ${dragAttr} onclick="openUnifiedPlayerDetails(${dragNum},${isMarket})"><div class="playerCardPos">${esc(String(p.pos||'—').toUpperCase())}</div><div class="playerCardPower">${fmtEn(p.rating||p.power||0)}</div><div class="playerCardBrand">${brand?`<img src="${esc(brand)}" alt="برند">`:'<span>⚽</span>'}</div><div class="playerCardPhoto">${img?`<img src="${esc(img)}" alt="${esc(p.name||'بازیکن')}">`:'<span class="placeholder">👤</span>'}</div><div class="playerCardLogo">${logo?`<img src="${esc(logo)}" alt="لوگوی تیم">`:'<span>⚽</span>'}</div><div class="playerCardName">${esc(p.name||'بازیکن')}</div></div>`;
+  };
+
+  /* 4) Player-list cards use the same visual card and can scroll with the page. */
+  window.renderPlayerListings=function(){
+    const box=document.getElementById('playerListings');if(!box)return;
+    if(!state.playerListings.length){box.innerHTML='<div class="sub">هنوز بازیکنی برای فروش ثبت نشده است.</div>';return;}
+    const cards=state.playerListings.map(l=>{
+      const p=state.players.find(x=>Number(x.num)===Number(l.num))||market.find(x=>Number(x.num)===Number(l.num))||{...l,normalCard:true};
+      return `<div class="playerListCardWrap">${window.playerCardHtml(p,{market:false,draggable:false})}<div class="marketBuyRow"><span class="price">${money(l.value||p.value||0)}</span><button class="btn sm" onclick="openUnifiedPlayerDetails(${Number(p.num)},false)">مشاهده</button></div></div>`;
+    }).join('');
+    box.innerHTML='<div class="playerListCards">'+cards+'</div>';
+  };
+
+  /* 5) Radar: centered, standard size, with attack/defense + other football attributes. */
+  function radarValues(p){
+    const r=Math.max(1,Math.min(100,Number(p.rating||p.power||70))),form=Math.max(0,Math.min(100,Number(p.form||r))),fit=Math.max(0,Math.min(100,Number(p.fitness??100))),pos=String(p.pos||'').toUpperCase();
+    const attackBase={GK:30,CB:48,LB:58,RB:58,DM:65,CM:73,CAM:84,AM:84,LM:78,RM:78,LW:88,RW:88,ST:94}[pos]??r;
+    const defenseBase={GK:92,CB:88,LB:80,RB:80,DM:84,CM:70,CAM:58,AM:58,LM:56,RM:56,LW:45,RW:45,ST:42}[pos]??r;
+    const shooting=Math.max(25,Math.min(100,attackBase+(Number(p.goals||0)*1.8)+r*.12));
+    const passing=Math.max(30,Math.min(100,r*.82+Number(p.assists||0)*2.2+8));
+    const speed=Math.max(30,Math.min(100,r*.88+(pos==='ST'||pos==='LW'||pos==='RW'?7:0)));
+    const dribble=Math.max(25,Math.min(100,r*.78+(pos==='CAM'||pos==='LW'||pos==='RW'?10:0)));
+    const physical=Math.max(30,Math.min(100,r*.84+(pos==='CB'||pos==='ST'?6:0)));
+    return [
+      Math.round((attackBase+r*.15)/1.15),Math.round((defenseBase+r*.12)/1.12),Math.round(shooting),Math.round(passing),Math.round(speed),Math.round(dribble),Math.round(physical),Math.round(fit*0.75+form*0.25)
+    ];
+  }
+  const radarLabels=['حمله','دفاع','شوت','پاس','سرعت','دریبل','فیزیکی','آمادگی'];
+  function radarHtml(p){
+    const vals=radarValues(p),cx=105,cy=105,R=72,n=vals.length;
+    const pt=(v,i,rad=R)=>{const a=-Math.PI/2+i*(2*Math.PI/n),rr=rad*(Math.max(0,Math.min(100,v))/100);return [cx+Math.cos(a)*rr,cy+Math.sin(a)*rr]};
+    const poly=vals.map((v,i)=>pt(v,i).join(',')).join(' ');
+    const outer=vals.map((_,i)=>pt(100,i).join(',')).join(' ');
+    const axes=vals.map((_,i)=>{const q=pt(100,i);return `<line class="radarAxis" x1="${cx}" y1="${cy}" x2="${q[0]}" y2="${q[1]}"/>`}).join('');
+    const dots=vals.map((v,i)=>{const q=pt(v,i);return `<circle class="radarDot" cx="${q[0]}" cy="${q[1]}" r="3"/>`}).join('');
+    const labels=radarLabels.map((t,i)=>{const q=pt(100,i,92);return `<text class="radarLabels" x="${q[0]}" y="${q[1]}" text-anchor="middle" dominant-baseline="middle">${t}</text>`}).join('');
+    return `<div class="radarWrap"><svg viewBox="0 0 210 210" aria-label="رادار بازیکن"><polygon class="radarGrid" points="${outer}"/>${axes}<polygon class="radarShape" points="${poly}"/>${dots}${labels}</svg></div>`;
+  }
+  window.openUnifiedPlayerDetails=function(num,isMarket){
+    const p=isMarket?(market.find(x=>Number(x.num)===Number(num))):(state.players.find(x=>Number(x.num)===Number(num))||market.find(x=>Number(x.num)===Number(num)));if(!p)return;
+    const image=playerImageFor(p,isMarket), idx=market.findIndex(x=>Number(x.num)===Number(p.num));
+    const upload=state.adminMode?`<div class="card adminOnlyControl"><b>🛡️ مدیریت تصاویر کارت</b><div class="sub">عکس بازیکن، برند و لوگوی تیم از اینجا قابل تنظیم است.</div><div class="field"><label>عکس بازیکن</label><input class="input playerAdminUpload" type="file" accept="image/*" onchange="setUnifiedPlayerImage(event,${Number(p.num)},${Boolean(isMarket)})"></div><div class="field"><label>تصویر برند دایره‌ای</label><input class="input playerAdminUpload" type="file" accept="image/*" onchange="setPlayerBrandImage(event,${Number(p.num)})"></div><div class="field"><label>لوگوی تیم</label><input class="input playerAdminUpload" type="file" accept="image/*" onchange="setPlayerTeamLogo(event,${Number(p.num)})"></div></div>`:'';
+    const placement=!isMarket?`<button class="btn" style="width:100%;margin-top:10px" onclick="openPitchPlacement(${Number(p.num)})">⚽ ${p.starter?'تغییر جای بازیکن روی زمین':'قرار دادن بازیکن روی زمین'}</button>`:'';
+    const vals=radarValues(p);
+    const statItems=radarLabels.map((label,i)=>`<div class="miniStat"><b>${fmtEn(vals[i])}</b><span>${label}</span></div>`).join('');
+    openModal(`<div class="profileFixedModal"><div class="row"><div><h2 style="margin:0">⚽ ${esc(p.name)}</h2><div class="sub">${esc(String(p.pos||'—').toUpperCase())} • شماره ${fmtEn(p.num)} • ${fmtEn(p.age||0)} سال</div></div><span class="pill">${isMarket?'بازار':'تیم من'}</span></div>${image?`<img src="${esc(image)}" style="display:block;width:92px;height:92px;object-fit:cover;border-radius:22px;margin:12px auto;border:2px solid #f4c95d">`:'<div style="width:92px;height:92px;border-radius:22px;margin:12px auto;display:grid;place-items:center;background:#ffffff08;border:1px solid #ffffff18;font-size:45px">👤</div>'}${radarHtml(p)}<div class="playerRadarStats">${statItems}</div><div class="card"><div class="facility"><span>اورال</span><b>${fmtEn(p.rating||p.power||0)}</b></div><div class="facility"><span>فرم</span><b>${fmtEn(p.form||0)}</b></div><div class="facility"><span>آمادگی</span><b>${fmtEn(p.fitness??100)}%</b></div><div class="facility"><span>بازی</span><b>${fmtEn(p.apps||0)}</b></div><div class="facility"><span>گل</span><b>${fmtEn(p.goals||0)}</b></div><div class="facility"><span>پاس گل</span><b>${fmtEn(p.assists||0)}</b></div></div><div class="card"><div class="facility"><span>ارزش</span><b>${money(p.value||p.price||0)}</b></div><div class="facility"><span>حقوق</span><b>${money(p.salary||0)}</b></div><div class="facility"><span>وضعیت</span><b>${p.suspended?'محروم':p.injured?'مصدوم':'آماده'}</b></div></div>${isMarket?`<div class="positions"><button class="btn" onclick="buyMarketPlayer(${idx})">خرید بازیکن</button><button class="btn alt" onclick="sendOffer(${idx})">📨 پیشنهاد خرید</button></div>`:''}${placement}${upload}<button class="btn alt" style="width:100%;margin-top:10px" onclick="closeModal()">بستن</button></div>`);
+  };
+  window.showPlayerDetails=function(num){window.openUnifiedPlayerDetails(num,false)};
+
+  /* 6) Profile post modal: truly centered and scrollable. */
+  const oldClose=window.closeModal;
+  window.closeModal=function(){document.getElementById('modal')?.classList.remove('postCenter');return oldClose();};
+  window.openPost=function(){openModal(`<div class="profileFixedModal"><h2 style="text-align:center;margin-top:2px">📝 پست جدید</h2><div class="field"><label>متن پست</label><textarea id="newProfilePostText" class="textarea" rows="7" maxlength="500" placeholder="خبر تیم، نتیجه تمرین یا هر چیزی که می‌خواهی..."></textarea></div><button class="btn" style="width:100%" onclick="addProfilePost()">انتشار پست</button></div>`);document.getElementById('modal')?.classList.add('postCenter');setTimeout(()=>document.getElementById('newProfilePostText')?.focus(),50)};
+
+  /* 7) City in profile; duplicates are allowed. */
+  state.city=typeof state.city==='string'?state.city:'';
+  function ensureCityUi(){
+    const settings=document.querySelector('#profile .settingsBox');if(!settings)return;
+    if(!document.getElementById('profileCity')){
+      const wrap=document.createElement('div');wrap.className='field profileCityBox';wrap.innerHTML='<label>🏙️ شهر</label><input id="profileCity" class="input" maxlength="40" placeholder="مثلاً تهران یا تبریز"><button class="btn sm" style="margin-top:8px" onclick="saveProfileCity()">💾 ذخیره شهر</button><div class="sub">می‌توانی هر شهری را انتخاب کنی؛ چند بازیکن می‌توانند یک شهر داشته باشند.</div>';
+      settings.appendChild(wrap);
+    }
+    const city=document.getElementById('profileCity');if(city&&document.activeElement!==city)city.value=state.city||'';
+  }
+  window.saveProfileCity=function(){const v=(document.getElementById('profileCity')?.value||'').trim();state.city=v;save();render();toast(v?'شهر ذخیره شد 🏙️':'شهر پاک شد')};
+  const oldRenderPage14=window.renderPage;window.renderPage=function(id){if(typeof oldRenderPage14==='function')oldRenderPage14(id);if(id==='profile')setTimeout(ensureCityUi,0)};
+  const oldRender14=window.render;window.render=function(){if(typeof oldRender14==='function')oldRender14();setTimeout(ensureCityUi,0)};
+
+  /* 8) Shop team-name tab: famous club + national names, each 400 تومان. */
+  const TEAM_NAMES=['رئال مادرید','بارسلونا','منچستریونایتد','منچسترسیتی','لیورپول','آرسنال','چلسی','بایرن مونیخ','بوروسیا دورتموند','پاری سن ژرمن','اینتر میلان','آث میلان','یوونتوس','اتلتیکو مادرید','تاتنهام','آژاکس','ایران','برزیل','آرژانتین','فرانسه','اسپانیا','آلمان','انگلیس','پرتغال','ایتالیا','هلند','بلژیک','ژاپن','کره جنوبی','مراکش','ترکیه','آمریکا'];
+  window.renderTeamNamesShop=function(){const box=document.getElementById('shopList');if(!box)return;state.unlockedBrandNames=Array.isArray(state.unlockedBrandNames)?state.unlockedBrandNames:[];box.innerHTML='<div class="card"><b>🏷️ اسم تیم‌های معروف</b><div class="sub">اسم باشگاهی و ملی • قیمت هر اسم: <b>۴۰۰ تومان</b></div></div>'+TEAM_NAMES.map(n=>{const owned=state.unlockedBrandNames.includes(n);return `<div class="brandNameLocked"><div class="row"><div><b>${esc(n)}</b><div class="sub">${owned?'فعال و قابل استفاده':'نام آماده خرید'}</div></div><div class="price">${owned?'خریداری شده':'۴۰۰ تومان'}</div></div><div class="positions"><button class="btn ${owned?'alt':'gold'} sm" onclick="buyTeamNameShop(${JSON.stringify(n)})">${owned?'انتخاب این نام':'خرید ۴۰۰ تومان'}</button></div></div>`}).join('');};
+  window.buyTeamNameShop=function(name){state.unlockedBrandNames=Array.isArray(state.unlockedBrandNames)?state.unlockedBrandNames:[];if(state.unlockedBrandNames.includes(name)){state.team=name;save();render();toast('نام تیم انتخاب شد ⚽');return}toast('خرید آنلاین در اتصال پرداخت/Backend فعال می‌شود؛ قیمت این نام ۴۰۰ تومان است.')};
+  const __baseRenderShop=window.renderShop;
+  window.renderShop=function(type='players'){if(type==='brandNames'){renderTeamNamesShop();return}if(typeof __baseRenderShop==='function')__baseRenderShop(type);};
+})();
+</script>
+
 </body>
 </html>
