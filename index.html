@@ -1988,77 +1988,140 @@ html,body{overscroll-behavior:auto!important}body{touch-action:auto!important}.p
 })();
 </script>
 
-<style id="live-3d-connected-style">
-.live3dModal{position:fixed;inset:0;z-index:99999;background:#050806f8;display:none;flex-direction:column;padding:8px;overflow:auto}.live3dModal.open{display:flex}
-.live3dTop{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 3px;z-index:3}.live3dTop b{font-size:13px}
-.liveTeamsBar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;padding:7px;background:linear-gradient(180deg,#101a17,#08100d);border:1px solid #ffffff18;border-radius:16px;margin-bottom:7px}
-.liveTeamProfile{display:flex;align-items:center;gap:8px;min-width:0}.liveTeamProfile.away{justify-content:flex-end;text-align:right}.liveTeamLogo{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid #f4c95d;background:#17382b;box-shadow:0 3px 12px #0008}.liveTeamName{font-size:11px;font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.liveTeamCoach{font-size:8px;color:#9ca9a4;margin-top:2px}.liveScoreCenter{text-align:center;min-width:74px}.liveScoreCenter .liveScore{font-size:22px;font-weight:1000;color:#f4c95d;line-height:1}.liveScoreCenter .liveState{font-size:8px;color:#ff9da3;margin-top:4px}
-.live3dCanvasWrap{position:relative;height:min(67vh,610px);min-height:370px;border:1px solid #ffffff20;border-radius:18px;overflow:hidden;background:#07120d;box-shadow:0 12px 35px #0009}#live3dCanvas{width:100%;height:100%;display:block}
-.live3dHud{position:absolute;left:10px;right:10px;top:10px;display:flex;align-items:center;justify-content:space-between;pointer-events:none;z-index:2}.liveMinute{background:#ef444422;border:1px solid #ef6b7366;color:#ff9da3;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:1000}.livePoss{background:#07100dcc;border:1px solid #ffffff18;border-radius:10px;padding:6px 9px;font-size:9px;color:#d9e2de}
-.liveReportOutside{margin-top:7px;background:#07100d;border:1px solid #ffffff18;border-radius:16px;padding:9px}.liveReportTitle{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:1000;margin-bottom:6px}.liveReportList{max-height:190px;overflow:auto;display:flex;flex-direction:column;gap:5px}.liveReportRow{display:grid;grid-template-columns:35px 24px 1fr;align-items:center;gap:5px;padding:6px 7px;border-radius:10px;background:#ffffff06;border-bottom:1px solid #ffffff08;font-size:9px}.liveReportMin{color:#f4c95d;font-weight:1000}.liveReportIcon{font-size:14px;text-align:center}.liveReportText{color:#e4ebe8;line-height:1.65}.live3dControls{display:flex;gap:7px;overflow:auto;padding:8px 0 2px}.live3dControls .btn{white-space:nowrap}.liveFinish{background:#ef6b73!important;color:#fff!important}.livePause{background:#f4c95d!important;color:#251d08!important}
-.liveMatchItem{border:1px solid #ffffff18;background:#ffffff06;border-radius:15px;padding:11px;margin-top:8px}.liveMatchScore{font-size:20px;font-weight:1000;color:#f4c95d}.livePulse{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;background:#ef444422;border:1px solid #ef6b7366;color:#ff8f96;font-weight:1000;font-size:10px}.livePulse:before{content:'';width:6px;height:6px;border-radius:50%;background:#ff5a65;box-shadow:0 0 8px #ff5a65}
-@media(max-width:520px){.live3dModal{padding:5px}.liveTeamLogo{width:38px;height:38px}.liveTeamName{font-size:10px}.live3dCanvasWrap{height:58vh;min-height:330px}.liveReportList{max-height:155px}}
+<style id="live-broadcast-v4-style">
+/* ===== LIVE BROADCAST V4 ===== */
+.live4Modal{position:fixed;inset:0;z-index:100000;background:#030506;display:none;flex-direction:column;overflow:auto;padding:0;color:#eef5f1}
+.live4Modal.open{display:flex}
+.live4Top{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,#080a0b,#050607);border-bottom:1px solid #ffffff16;padding:8px 10px 7px}
+.live4Title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
+.live4Title b{font-size:12px}.live4Close{flex:0 0 auto}
+.live4Score{display:grid;grid-template-columns:1fr 100px 1fr;align-items:center;gap:8px;max-width:900px;margin:auto}
+.live4Team{display:flex;align-items:center;gap:9px;min-width:0}.live4Team.away{justify-content:flex-end;text-align:right}.live4Logo{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid #f4c95d;background:#14231d;box-shadow:0 3px 16px #000b}.live4TeamName{font-size:12px;font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.live4Coach{font-size:8px;color:#8fa39b;margin-top:3px}.live4ScoreCenter{text-align:center}.live4ScoreNum{font-size:31px;font-weight:1000;line-height:1;color:#fff}.live4ScoreNum span{color:#7b8581;margin:0 5px}.live4Minute{font-size:10px;color:#ff858e;font-weight:1000;margin-top:5px}.live4Main{width:min(1100px,100%);margin:0 auto;padding:7px 8px 18px}
+.live4Pitch{position:relative;height:min(58vh,620px);min-height:390px;border-radius:18px;overflow:hidden;background:#0c1411;border:1px solid #ffffff1a;box-shadow:0 15px 45px #000b}
+#live4Canvas{width:100%;height:100%;display:block}
+.live4Hud{position:absolute;inset:9px 10px auto;display:flex;justify-content:space-between;gap:7px;pointer-events:none;z-index:3}.live4Badge{padding:6px 9px;border-radius:999px;background:#070a0add;border:1px solid #ffffff18;font-size:9px;font-weight:1000}.live4Badge.live{color:#ff8c94;border-color:#ff5f6b66}.live4Badge.poss{color:#dbe7e1}
+.live4Stats{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:7px}.live4Stat{background:#09110e;border:1px solid #ffffff12;border-radius:11px;padding:7px 4px;text-align:center}.live4Stat b{display:block;font-size:11px;color:#f4c95d}.live4Stat span{display:block;font-size:7px;color:#8d9b95;margin-top:2px}
+.live4Report{margin-top:8px;background:#080f0c;border:1px solid #ffffff13;border-radius:16px;padding:9px}.live4ReportHead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:7px}.live4ReportHead b{font-size:12px}.live4ReportList{display:flex;flex-direction:column;gap:5px;max-height:270px;overflow:auto}.live4Event{display:grid;grid-template-columns:38px 27px 1fr;gap:6px;align-items:center;padding:7px;border-radius:10px;background:#ffffff05;border-bottom:1px solid #ffffff08}.live4EventMin{color:#f4c95d;font-weight:1000;font-size:9px}.live4EventIcon{font-size:15px;text-align:center}.live4EventText{font-size:9px;line-height:1.65;color:#e1e9e5}.live4EventText b{color:#fff}.live4Timeline{margin-top:8px;background:#080f0c;border:1px solid #ffffff13;border-radius:14px;padding:9px}.live4TimelineTrack{position:relative;height:24px;margin:4px 4px 0;border-top:3px solid #525c58}.live4Mark{position:absolute;top:-10px;transform:translateX(-50%);font-size:11px}.live4Mark span{display:block;font-size:7px;color:#aab7b1;margin-top:4px;text-align:center}.live4Controls{display:flex;gap:7px;overflow:auto;margin-top:8px}.live4Controls .btn{white-space:nowrap}.live4NoManual{font-size:8px;color:#8fa39b;text-align:center;margin-top:5px}
+.cupLiveButton{width:100%;margin-top:6px}.cupLiveButton.replay{background:#ffffff0a!important}.cupMatch.liveReady{border-color:#ef6b7388!important;box-shadow:0 0 0 1px #ef6b7322,0 8px 22px #0007}
+@media(max-width:620px){.live4Score{grid-template-columns:1fr 82px 1fr;gap:5px}.live4Logo{width:42px;height:42px}.live4TeamName{font-size:10px}.live4ScoreNum{font-size:27px}.live4Pitch{height:54vh;min-height:350px}.live4Stats{grid-template-columns:repeat(3,1fr)}.live4ReportList{max-height:235px}.live4Main{padding:5px 5px 15px}}
 </style>
 
-<div id="live3dModal" class="live3dModal">
-  <div class="live3dTop"><b>🔴 پخش زنده • مسابقه سه‌بعدی</b><button class="btn alt sm" onclick="closeLive3D()">✕ بستن</button></div>
-  <div class="liveTeamsBar">
-    <div class="liveTeamProfile"><img id="liveHomeLogo" class="liveTeamLogo" src="" alt=""><div><div id="liveHomeName" class="liveTeamName">تیم من</div><div id="liveHomeCoach" class="liveTeamCoach">سرمربی</div></div></div>
-    <div class="liveScoreCenter"><div class="liveScore"><span id="liveHomeScore">0</span> - <span id="liveAwayScore">0</span></div><div id="liveState" class="liveState">🔴 LIVE</div></div>
-    <div class="liveTeamProfile away"><div><div id="liveAwayName" class="liveTeamName">حریف</div><div id="liveAwayCoach" class="liveTeamCoach">سرمربی حریف</div></div><img id="liveAwayLogo" class="liveTeamLogo" src="" alt=""></div>
+<div id="live4Modal" class="live4Modal">
+  <div class="live4Top">
+    <div class="live4Title"><b id="live4CompetitionTitle">🔴 پخش زنده • لیگ</b><button class="btn alt sm live4Close" onclick="closeLive3D()">✕ بستن</button></div>
+    <div class="live4Score">
+      <div class="live4Team"><img id="live4HomeLogo" class="live4Logo" src=""><div><div id="live4HomeName" class="live4TeamName">تیم من</div><div id="live4HomeCoach" class="live4Coach">سرمربی</div></div></div>
+      <div class="live4ScoreCenter"><div class="live4ScoreNum"><b id="live4HomeScore">0</b><span>:</span><b id="live4AwayScore">0</b></div><div id="live4Minute" class="live4Minute">🔴 LIVE • 1'</div></div>
+      <div class="live4Team away"><div><div id="live4AwayName" class="live4TeamName">حریف</div><div id="live4AwayCoach" class="live4Coach">سرمربی حریف</div></div><img id="live4AwayLogo" class="live4Logo" src=""></div>
+    </div>
   </div>
-  <div class="live3dCanvasWrap">
-    <canvas id="live3dCanvas"></canvas>
-    <div class="live3dHud"><div class="liveMinute" id="liveMinute">LIVE • 1'</div><div class="livePoss" id="livePoss">مالکیت 50٪ - 50٪</div></div>
+  <div class="live4Main">
+    <div class="live4Pitch"><canvas id="live4Canvas"></canvas><div class="live4Hud"><span id="live4LiveBadge" class="live4Badge live">🔴 LIVE</span><span id="live4Poss" class="live4Badge poss">مالکیت 50٪ - 50٪</span></div></div>
+    <div class="live4Stats">
+      <div class="live4Stat"><b id="live4ShotsH">0</b><span>شوت</span></div><div class="live4Stat"><b id="live4ShotsA">0</b><span>شوت</span></div>
+      <div class="live4Stat"><b id="live4PassH">0</b><span>پاس</span></div><div class="live4Stat"><b id="live4PassA">0</b><span>پاس</span></div>
+      <div class="live4Stat"><b id="live4CornersH">0</b><span>کرنر</span></div><div class="live4Stat"><b id="live4CornersA">0</b><span>کرنر</span></div>
+    </div>
+    <div class="live4Timeline"><div class="live4ReportHead"><b>⏱ روند بازی</b><span class="sub">۰ تا ۹۰ دقیقه</span></div><div id="live4TimelineTrack" class="live4TimelineTrack"></div></div>
+    <div class="live4Report"><div class="live4ReportHead"><b>📋 گزارش زنده بازی</b><span class="sub">گزارش فارسی • جزئیات هر دو تیم</span></div><div id="live4Events" class="live4ReportList"></div></div>
+    <div class="live4Controls"><button class="btn alt sm" onclick="setLiveSpeed(.5)">۰٫۵×</button><button class="btn sm" onclick="setLiveSpeed(1)">۱×</button><button class="btn alt sm" onclick="setLiveSpeed(2)">۲×</button><button id="live4PauseBtn" class="btn gold sm" onclick="toggleLivePause()">⏸ توقف</button></div>
   </div>
-  <div class="liveReportOutside"><div class="liveReportTitle"><span>📋 گزارش زنده بازی</span><span class="sub">اتفاقات به ترتیب زمان</span></div><div class="liveReportList" id="liveEvents"></div></div>
-  <div class="live3dControls"><button class="btn alt sm" onclick="setLiveSpeed(.5)">۰٫۵×</button><button class="btn sm" onclick="setLiveSpeed(1)">۱×</button><button class="btn alt sm" onclick="setLiveSpeed(2)">۲×</button><button id="livePauseBtn" class="btn gold sm" onclick="toggleLivePause()">⏸ توقف</button><button class="btn liveFinish sm" onclick="finishLive3D()">🏁 پایان و ثبت نتیجه</button></div>
 </div>
 <script>
+/* =========================================================
+   LIVE BROADCAST V4
+   HTML/CSS + JavaScript + Three.js/WebGL
+   Horizontal broadcast pitch, 11v11, procedural stadium,
+   player cards, ball carrier animation, Persian match report,
+   automatic result registration, separate league/cup modes.
+   ========================================================= */
 (function(){
-  const LIVE_KEY='sar_live_match_v3';
-  let live=null,scene=null,camera=null,renderer=null,anim=null,players3d=[],ball=null,speed=1,lastTs=0,goalAnim=null,foulAnim=null,textureCache={},carrier=null,carrierPhase=0;
-  const opponents=['پرسپولیس نوین','ستاره پارس','قهرمانان تهران','استقلال جوان'];
-  const tactical=(key,fallback)=>String((state.tactics||{})[key]||fallback);
-  const homeDefault=()=>state.team||'تیم من';
-  const safePlayers=()=>{const ps=Array.isArray(state.players)?state.players.filter(Boolean):[];return ps;};
-  const homeRoster=()=>{let ps=safePlayers().filter(p=>p.starter);if(ps.length<11)ps=safePlayers();return ps.slice(0,11)};
-  const opponentRoster=()=>['دروازه‌بان حریف','مدافع راست حریف','مدافع میانی حریف ۱','مدافع میانی حریف ۲','مدافع چپ حریف','هافبک دفاعی حریف','هافبک میانی حریف','هافبک هجومی حریف','وینگر راست حریف','وینگر چپ حریف','مهاجم حریف'].map((name,i)=>({num:900+i,name,pos:['GK','RB','CB','CB','LB','DM','CM','CAM','RW','LW','ST'][i],rating:72+(i%5)*3,fitness:100,form:80,image:''}));
-  const formationAnchors=()=>{const f=String(state.formation||'4-2-3-1');const maps={'4-2-3-1':[[0,-.90],[-.72,-.55],[-.25,-.62],[.25,-.62],[.72,-.55],[-.35,-.28],[.35,-.28],[-.72,.05],[0,.10],[.72,.05],[0,.48]],'4-3-3':[[0,-.90],[-.72,-.55],[-.25,-.62],[.25,-.62],[.72,-.55],[-.48,-.20],[0,-.05],[.48,-.20],[-.72,.32],[0,.52],[.72,.32]],'4-4-2':[[0,-.90],[-.72,-.55],[-.25,-.62],[.25,-.62],[.72,-.55],[-.75,-.12],[-.25,-.16],[.25,-.16],[.75,-.12],[-.35,.45],[.35,.45]],'3-5-2':[[0,-.90],[-.45,-.60],[0,-.66],[.45,-.60],[-.78,-.12],[-.35,-.20],[0,-.10],[.35,-.20],[.78,-.12],[-.32,.45],[.32,.45]],'5-3-2':[[0,-.90],[-.82,-.58],[-.40,-.64],[.40,-.64],[.82,-.58],[-.70,-.20],[0,-.15],[.70,-.20],[-.38,.45],[.38,.45],[0,.55]]};return maps[f]||maps['4-2-3-1']};
-  function buildLivePlayers(){const home=homeRoster(),away=opponentRoster(),anchors=formationAnchors();return [...Array(11)].map((_,i)=>({p:home[i]||{name:'بازیکن '+(i+1),pos:'CM',rating:70},home:true,idx:i,anchor:anchors[i]})).concat([...Array(11)].map((_,i)=>({p:away[i],home:false,idx:i,anchor:anchors[i]})));}
-  function ensureLive(){const raw=localStorage.getItem(LIVE_KEY);if(raw){try{live=JSON.parse(raw)}catch(_){live=null}}if(!live||live.status==='finished'){live={id:'live_'+Date.now(),home:homeDefault(),away:opponents[(state.matches?.length||0)%opponents.length],homeCoach:managerName||'سرمربی شما',awayCoach:'سرمربی حریف',homeScore:0,awayScore:0,minute:1,status:'live',engineVersion:2,paused:false,events:[{minute:1,icon:'🏟️',text:'سوت آغاز؛ ۱۱ بازیکن هر دو تیم با آرایش '+(state.formation||'4-2-3-1')+' وارد بازی شدند'}],homePoss:50,shotsH:0,shotsA:0,shotsOnH:0,shotsOnA:0,cornersH:0,cornersA:0,passesH:0,passesA:0,foulsH:0,foulsA:0,savesH:0,savesA:0,attacksH:0,attacksA:0,nextActionAt:3+Math.floor(Math.random()*3),elapsed:0,ball:{x:0,z:0},restart:null,scorers:[],cards:[],carrier:null,phase:'build-up',lastTeam:null};localStorage.setItem(LIVE_KEY,JSON.stringify(live))}return live}
-  if(live&&live.status==='live'&&live.engineVersion!==2){live.engineVersion=2;live.nextActionAt=Number(live.nextActionAt||live.nextEventAt||live.minute+2);live.shotsOnH=Number(live.shotsOnH||0);live.shotsOnA=Number(live.shotsOnA||0);live.cornersH=Number(live.cornersH||0);live.cornersA=Number(live.cornersA||0);live.passesH=Number(live.passesH||0);live.passesA=Number(live.passesA||0);live.foulsH=Number(live.foulsH||0);live.foulsA=Number(live.foulsA||0);live.savesH=Number(live.savesH||0);live.savesA=Number(live.savesA||0);live.attacksH=Number(live.attacksH||0);live.attacksA=Number(live.attacksA||0);live.phase=live.phase||'build-up';} 
-  function persist(){if(live)localStorage.setItem(LIVE_KEY,JSON.stringify(live))}
-  function addEvent(icon,text){if(!live)return;live.events=Array.isArray(live.events)?live.events:[];live.events.unshift({minute:live.minute,icon,text});live.events=live.events.slice(0,40);}
-  function renderLiveList(){const box=document.getElementById('liveMatchList');if(!box)return;const l=ensureLive();box.innerHTML=`<div class="liveMatchItem"><div class="row"><div><b><span class="livePulse">LIVE</span> ${esc(l.home)} — ${esc(l.away)}</b><div class="sub">دقیقه ${fmt(l.minute)} • مالکیت ${fmt(l.homePoss)}٪ / ${fmt(100-l.homePoss)}٪</div></div><div class="liveMatchScore">${fmt(l.homeScore)} - ${fmt(l.awayScore)}</div></div><button class="btn" style="width:100%;margin-top:9px" onclick="openLive3D()">🎥 تماشای بازی سه‌بعدی</button></div>`}
-  function loadThree(cb){if(window.THREE){cb();return}const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js';sc.onload=cb;sc.onerror=()=>toast('کتابخانه سه‌بعدی بارگذاری نشد؛ اینترنت را بررسی کن');document.head.appendChild(sc)}
-  function teamLogo(name,isHome){return isHome?(state.clubLogo||state.avatar||'https://ui-avatars.com/api/?name='+encodeURIComponent(name)+'&background=183d2c&color=fff'):('https://ui-avatars.com/api/?name='+encodeURIComponent(name)+'&background=7c1f32&color=fff')}
-  function roundedCardTexture(pl,home){const key=(home?'H':'A')+String(pl.p?.num||pl.idx);if(textureCache[key])return textureCache[key];const c=document.createElement('canvas');c.width=256;c.height=360;const x=c.getContext('2d');x.clearRect(0,0,c.width,c.height);x.fillStyle=home?'#0d5b3a':'#8e2534';x.beginPath();x.roundRect(8,8,240,344,28);x.fill();x.strokeStyle='#f4c95d';x.lineWidth=4;x.stroke();const imgSrc=home?(state.playerImages?.[pl.p?.num]||state.playerImages?.[String(pl.p?.num)]||''):(pl.p?.image||'');const draw=()=>{x.fillStyle='#ffffff14';x.fillRect(28,55,200,190);x.fillStyle='#fff';x.textAlign='center';x.font='900 27px Arial';x.fillText(String(pl.p?.pos||'CM').toUpperCase(),128,43);x.fillStyle='#f4c95d';x.font='900 34px Arial';x.fillText(String(pl.p?.rating||70),205,43);x.fillStyle='#fff';x.font='900 21px Arial';x.fillText(String(pl.p?.name||'بازیکن').slice(0,18),128,285);x.font='700 17px Arial';x.fillText(home?'HOME':'AWAY',128,318);x.textAlign='left'};if(imgSrc){const im=new Image();im.onload=()=>{x.save();x.beginPath();x.roundRect(28,55,200,190,20);x.clip();x.drawImage(im,28,55,200,190);x.restore();draw();texture.needsUpdate=true};im.onerror=draw;im.src=imgSrc}else draw();const texture=new THREE.CanvasTexture(c);texture.needsUpdate=true;textureCache[key]=texture;return texture}
-  function addGoal(z){const T=window.THREE,g=new T.Group(),white=new T.MeshStandardMaterial({color:0xf4f4f4,roughness:.65});[-4.2,4.2].forEach(x=>{const p=new T.Mesh(new T.CylinderGeometry(.16,.16,4.2,14),white);p.position.set(x,2.1,z);p.castShadow=true;g.add(p)});const bar=new T.Mesh(new T.CylinderGeometry(.16,.16,8.4,14),white);bar.rotation.z=Math.PI/2;bar.position.set(0,4.2,z);bar.castShadow=true;g.add(bar);const net=new T.Mesh(new T.PlaneGeometry(8.4,4.2),new T.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.16,side:T.DoubleSide}));net.position.set(0,2.1,z+(z>0?.8:-.8));g.add(net);scene.add(g)}
-  function addStadium(){const T=window.THREE;const standMat=new T.MeshStandardMaterial({color:0x202a27,roughness:1});const seatMat=new T.MeshStandardMaterial({color:0x44524d,roughness:1});for(let side of [-1,1]){for(let i=0;i<5;i++){const b=new T.Mesh(new T.BoxGeometry(52,1.7,5.5),standMat);b.position.set(0,0.9,side*(39+i*5));scene.add(b);const seats=new T.Mesh(new T.BoxGeometry(48,.55,4.4),seatMat);seats.position.set(0,2.0,side*(39+i*5));scene.add(seats)}}for(let side of [-1,1]){for(let i=0;i<4;i++){const b=new T.Mesh(new T.BoxGeometry(5.5,1.7,76),standMat);b.position.set(side*(26+i*5),.9,0);scene.add(b);const seats=new T.Mesh(new T.BoxGeometry(4.4,.55,72),seatMat);seats.position.set(side*(32+i*5),2,0);scene.add(seats)}}const roof=new T.Mesh(new T.BoxGeometry(88,1,92),new T.MeshStandardMaterial({color:0x0b1411,transparent:true,opacity:.28}));roof.position.y=7;scene.add(roof)}
-  function init3D(){const canvas=document.getElementById('live3dCanvas');if(!canvas||!window.THREE)return;const T=window.THREE;scene=new T.Scene();scene.background=new T.Color(0x07100c);camera=new T.PerspectiveCamera(42,1,.1,500);camera.position.set(0,48,52);camera.lookAt(0,0,0);renderer=new T.WebGLRenderer({canvas,antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.shadowMap.enabled=true;scene.add(new T.HemisphereLight(0xd8f4ff,0x17351f,2.3));const dl=new T.DirectionalLight(0xffffff,2.8);dl.position.set(0,50,8);dl.castShadow=true;scene.add(dl);addStadium();const field=new T.Mesh(new T.PlaneGeometry(42,68),new T.MeshStandardMaterial({color:0x238b4f,roughness:1}));field.rotation.x=-Math.PI/2;field.receiveShadow=true;scene.add(field);const lm=new T.MeshBasicMaterial({color:0xffffff});const line=(w,d,x,z)=>{const m=new T.Mesh(new T.BoxGeometry(w,.05,d),lm);m.position.set(x,.04,z);scene.add(m)};line(42,.12,0,-34);line(42,.12,0,34);line(.12,68,-21,0);line(.12,68,21,0);line(42,.12,0,0);line(.12,68,0,0);const circle=new T.Mesh(new T.RingGeometry(6.2,6.3,64),lm);circle.rotation.x=-Math.PI/2;circle.position.y=.05;scene.add(circle);addGoal(-34);addGoal(34);players3d=[];buildLivePlayers().forEach((pl,i)=>{const tex=roundedCardTexture(pl,pl.home),mat=new T.MeshBasicMaterial({map:tex,transparent:true,side:T.DoubleSide});const card=new T.Mesh(new T.PlaneGeometry(2.05,2.88),mat);const [ax,az]=pl.anchor,side=pl.home?1:-1;card.position.set(ax*15,1.65,az*28*side);card.lookAt(camera.position.x,1.65,camera.position.z);scene.add(card);players3d.push({...pl,mesh:card,phase:i*.83});});ball=new T.Mesh(new T.SphereGeometry(.48,20,16),new T.MeshStandardMaterial({color:0xffffff,roughness:.25,metalness:.05}));ball.position.set(0,.55,0);ball.castShadow=true;scene.add(ball);resize();window.addEventListener('resize',resize,{passive:true});lastTs=performance.now();anim=requestAnimationFrame(tick)}
-  function resize(){if(!renderer||!camera)return;const el=document.querySelector('.live3dCanvasWrap');if(!el)return;const w=el.clientWidth,h=el.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}
-  function tacticFactor(){const t=state.tactics||{};let press=t.press==='زیاد'?1.18:t.press==='کم'?.88:1;let tempo=t.tempo==='سریع'?1.14:t.tempo==='آهسته'?.88:1;let attack=t.style==='هجومی'?1.15:t.style==='دفاعی'?.88:1;let counter=t.counter==='روشن'?1.06:1;return press*tempo*attack*counter}
-  function chooseCarrier(home){const arr=players3d.filter(p=>p.home===home&&String(p.p?.pos||'').toUpperCase()!=='GK');if(!arr.length)return null;const attack=arr.filter(p=>['ST','LW','RW','CAM'].includes(String(p.p?.pos||'').toUpperCase()));return (attack.length?attack:arr)[Math.floor(Math.random()*(attack.length?attack:arr).length)]}
-  function setCarrier(home){carrier=chooseCarrier(home);if(!carrier)return;carrierPhase=0;live.carrier={home,name:carrier.p?.name||'بازیکن',num:carrier.p?.num||carrier.idx};addEvent('⚽',`${carrier.p?.name||'بازیکن'} توپ را در اختیار گرفت`);persist()}
-  function updatePlayerMovement(ts){const l=live;if(!l)return;const bx=Number(l.ball?.x||0),bz=Number(l.ball?.z||0);players3d.forEach(pl=>{const [ax,az]=pl.anchor,side=pl.home?1:-1;let targetX=ax*15,targetZ=az*28*side;const press=tactical('press','متوسط'),def=pl.home?tactical('def','متعادل'):'متعادل',pass=tactical('pass','ترکیبی'),mark=tactical('mark','منطقه‌ای'),style=pl.home?tactical('style','متعادل'):'متعادل',counter=pl.home?tactical('counter','خاموش'):'خاموش';targetZ+=Math.max(-8,Math.min(8,bz))*0.16*side;targetX+=Math.max(-8,Math.min(8,bx))*0.18;if(pl.home){const pressPush=press==='زیاد'?4:press==='کم'?-2:0;const depth=def==='عقب'?-4:def==='جلو'?4:0;const width=pass==='کوتاه'?.82:pass==='بلند'?1.18:1;targetX*=width;targetZ+=side*(pressPush+depth);if(mark==='نفر به نفر')targetX+=Math.max(-5,Math.min(5,bx-targetX))*.28;if(counter==='روشن'&&Math.abs(bz)>12)targetZ+=side*3.5;if(style==='هجومی')targetZ+=side*2.2;if(style==='دفاعی')targetZ-=side*2}else{targetZ+=side*Math.sin(ts*.0011+pl.phase)*1.5}if(String(pl.p?.pos||'').toUpperCase()==='ST')targetZ+=pl.home?3.5:-3.5;if(String(pl.p?.pos||'').toUpperCase()==='GK'){targetX*=.35;targetZ=side*30}if(carrier===pl&&!goalAnim&&!foulAnim){targetZ+=(pl.home?1:-1)*(2.5+2*Math.sin(carrierPhase*.9));targetX+=Math.sin(carrierPhase*.8)*3.5}const influence=pl.home?tacticFactor():1;const dx=targetX-pl.mesh.position.x,dz=targetZ-pl.mesh.position.z;const step=Math.min(1,.032*speed*influence);pl.mesh.position.x+=dx*step;pl.mesh.position.z+=dz*step;pl.mesh.position.y=1.65+Math.sin(ts*.006+pl.phase)*.025;pl.mesh.lookAt(camera.position.x,1.65,camera.position.z)});}
-  function chooseScorer(home){const arr=players3d.filter(p=>p.home===home).filter(p=>String(p.p?.pos||'').toUpperCase()!=='GK');if(!arr.length)return null;return arr[Math.floor(Math.random()*arr.length)]}
-  function triggerGoal(home){if(goalAnim||foulAnim||!live)return;const scorer=chooseScorer(home),l=live,name=scorer?.p?.name||'بازیکن';const assists=players3d.filter(p=>p.home===home&&p!==scorer&&String(p.p?.pos||'').toUpperCase()!=='GK');const assister=assists.length?assists[Math.floor(Math.random()*assists.length)]:null;l[home?'homeScore':'awayScore']++;l[home?'shotsH':'shotsA']++;l[home?'shotsOnH':'shotsOnA']++;l.scorers=l.scorers||[];l.scorers.push({minute:l.minute,name,team:home?l.home:l.away,assist:assister?.p?.name||null});addEvent('⚽',`گل برای ${home?l.home:l.away} • گلزن: ${name}${assister?' • پاس گل: '+assister.p.name:''}`);goalAnim={home,scorer,name,t:0,goalZ:home?34:-34};carrier=null;l.carrier=null;l.phase='goal';persist();updateLiveHud()}
-  function triggerYellow(){if(goalAnim||foulAnim||!live)return;const home=Math.random()<.5,arr=players3d.filter(p=>p.home===home&&String(p.p?.pos||'').toUpperCase()!=='GK'),offender=arr[Math.floor(Math.random()*arr.length)],x=offender?.mesh.position.x||0,z=offender?.mesh.position.z||0,l=live;l.cards=l.cards||[];l.cards.push({minute:l.minute,type:'yellow',name:offender?.p?.name||'بازیکن',team:home?l.home:l.away});l[home?'foulsH':'foulsA']++;l.restart={x:Math.max(-19,Math.min(19,x)),z:Math.max(-31,Math.min(31,z)),reason:'free-kick',home:!home};carrier=null;l.carrier=null;foulAnim={t:0,x:l.restart.x,z:l.restart.z,home,offender};l.phase='free-kick';addEvent('🟨',`کارت زرد برای ${offender?.p?.name||'بازیکن'} • خطا و ضربه آزاد از محل خطا`);persist();updateLiveHud()}
-  function choosePossessionTeam(){const style=tactical('style','متعادل'),press=tactical('press','متوسط');let h=.5;if(style==='هجومی')h+=.07;if(style==='دفاعی')h-=.03;if(press==='زیاد')h+=.025;return Math.random()<Math.max(.28,Math.min(.72,h+(Math.random()-.5)*.1));}
-  function nextMatchAction(){if(!live||live.status!=='live'||goalAnim||foulAnim)return;const home=choosePossessionTeam();live.lastTeam=home;live.phase=['build-up','progression','final-third'][Math.floor(Math.random()*3)];const arr=players3d.filter(p=>p.home===home&&String(p.p?.pos||'').toUpperCase()!=='GK');const c=arr[Math.floor(Math.random()*arr.length)];if(c){carrier=c;carrierPhase=0;live.carrier={home,name:c.p?.name||'بازیکن',num:c.p?.num||c.idx}}const r=Math.random(),factor=home?tacticFactor():1;if(r<.07){live[home?'cornersH':'cornersA']++;addEvent('🚩',`کرنر برای ${home?live.home:live.away}`);live.phase='corner'}else if(r<.17){live[home?'foulsH':'foulsA']++;if(Math.random()<.45)triggerYellow();else addEvent('🦶',`خطا به سود ${home?live.home:live.away} • ضربه آزاد`)}else if(r<.30){live[home?'shotsH':'shotsA']++;live[home?'shotsOnH':'shotsOnA']++;if(Math.random()<Math.max(.07,.12+(factor-1)*.1))triggerGoal(home);else{const keeper=players3d.find(p=>p.home!==home&&String(p.p?.pos||'').toUpperCase()==='GK');if(keeper)live[home?'savesA':'savesH']++;addEvent('🧤',`شوت ${home?live.home:live.away} • مهار دروازه‌بان`);live.phase='shot-saved'}}else if(r<.46){live[home?'attacksH':'attacksA']++;addEvent('🔥',`حمله خطرناک ${home?live.home:live.away} • پیشروی به یک‌سوم نهایی`)}else{if(home)live.passesH++;else live.passesA++;live.homePoss=Math.max(34,Math.min(66,live.homePoss+(home?1:-1)));addEvent('🔄',`تغییر مالکیت • ${home?live.home:live.away} توپ را کنترل کرد`)}live.nextActionAt=live.minute+1+Math.floor(Math.random()*3);persist();updateLiveHud()}
-  function tick(ts){if(!renderer)return;const dt=Math.min(.05,(ts-lastTs)/1000);lastTs=ts;const l=live;if(!l)return;if(!l.paused){if(goalAnim){goalAnim.t+=dt*speed*1.55;const a=Math.min(1,goalAnim.t),sx=goalAnim.scorer?.mesh.position.x||0,sz=goalAnim.scorer?.mesh.position.z||0;const gx=Math.max(-3.2,Math.min(3.2,sx*.35)),gz=goalAnim.goalZ;ball.position.x=sx*(1-a)+gx*a;ball.position.z=sz*(1-a)+gz*a;ball.position.y=.55+Math.sin(a*Math.PI)*1.7;if(a>=1){goalAnim=null;setTimeout(()=>{if(!live)return;live.ball={x:0,z:0};ball.position.set(0,.55,0);live.phase='kick-off';addEvent('🔄','شروع مجدد از وسط زمین؛ بازی ادامه دارد');live.nextActionAt=live.minute+2;persist();updateLiveHud()},Math.max(450,800/speed))}}else if(foulAnim){foulAnim.t+=dt*speed;ball.position.set(foulAnim.x,.55,foulAnim.z);if(foulAnim.t>.9){addEvent('🦶','ضربه آزاد زده شد و توپ دوباره در جریان قرار گرفت');const receiver=players3d.find(p=>p.home===!foulAnim.home&&String(p.p?.pos||'').toUpperCase()!=='GK');carrier=receiver||null;l.phase='free-kick';foulAnim=null;l.restart=null;l.nextActionAt=l.minute+1;persist()}}else{l.elapsed=(l.elapsed||0)+dt*speed*.68;l.minute=Math.min(90,1+Math.floor(l.elapsed));if(l.minute>=90){finishLive3D(true);return}if(!carrier||carrierPhase>5.5){setCarrier(choosePossessionTeam());carrierPhase=0}carrierPhase+=dt*speed;const c=carrier;if(c){const px=c.mesh.position.x,pz=c.mesh.position.z,dir=c.home?1:-1;const bx=px+Math.sin(carrierPhase*2)*.58,bz=pz+dir*.62;l.ball={x:bx,z:bz};ball.position.set(bx,.55,bz);if(Math.abs(pz)>30.8&&Math.abs(px)<4)triggerGoal(c.home)}if(l.minute>=l.nextActionAt)nextMatchAction();updatePlayerMovement(ts)}const camX=Math.sin(ts*.00009)*10;camera.position.x=camX;camera.position.z=48+Math.cos(ts*.00007)*7;camera.lookAt(0,0,0);renderer.render(scene,camera);updateLiveHud();persist()}else renderer.render(scene,camera);anim=requestAnimationFrame(tick)}
-  function updateLiveHud(){if(!live)return;const q=id=>document.getElementById(id);if(q('liveHomeName'))q('liveHomeName').textContent=live.home;if(q('liveAwayName'))q('liveAwayName').textContent=live.away;if(q('liveHomeScore'))q('liveHomeScore').textContent=live.homeScore;if(q('liveAwayScore'))q('liveAwayScore').textContent=live.awayScore;if(q('liveMinute'))q('liveMinute').textContent=`LIVE • ${fmt(live.minute)}'`;if(q('livePoss'))q('livePoss').textContent=`مالکیت ${fmt(live.homePoss)}٪ - ${fmt(100-live.homePoss)}٪`;if(q('liveState'))q('liveState').textContent=live.paused?'⏸ متوقف':'🔴 LIVE';const hi=q('liveHomeLogo'),ai=q('liveAwayLogo');if(hi)hi.src=teamLogo(live.home,true);if(ai)ai.src=teamLogo(live.away,false);const hc=q('liveHomeCoach'),ac=q('liveAwayCoach');if(hc)hc.textContent=live.homeCoach||'سرمربی';if(ac)ac.textContent=live.awayCoach||'سرمربی حریف';const ev=q('liveEvents');if(ev)ev.innerHTML=(live.events||[]).map(e=>`<div class="liveReportRow"><span class="liveReportMin">${fmt(e.minute)}'</span><span class="liveReportIcon">${e.icon||'•'}</span><span class="liveReportText">${esc(e.text||e)}</span></div>`).join('')||'<div class="sub">هنوز اتفاقی ثبت نشده است.</div>';const pb=q('livePauseBtn');if(pb)pb.textContent=live.paused?'▶️ ادامه':'⏸ توقف'}
-  window.setLiveSpeed=v=>{speed=Number(v)||1;toast(`سرعت پخش: ${v}×`)};
-  window.toggleLivePause=()=>{if(!live)return;live.paused=!live.paused;persist();updateLiveHud();toast(live.paused?'پخش متوقف شد':'پخش ادامه پیدا کرد')};
-  window.openLive3D=()=>{live=ensureLive();if(live.status==='finished')return;document.getElementById('live3dModal').classList.add('open');document.body.style.overflow='hidden';updateLiveHud();loadThree(()=>{if(!renderer)init3D();else resize()})};
-  window.closeLive3D=()=>{document.getElementById('live3dModal')?.classList.remove('open');document.body.style.overflow='';if(anim){cancelAnimationFrame(anim);anim=null}persist();renderLiveList()};
-  function syncLiveLeagueTable(match){state.liveLeagueResults=Array.isArray(state.liveLeagueResults)?state.liveLeagueResults:[];state.liveLeagueResults.push({id:match.id,home:match.homeTeam,away:match.awayTeam,hg:match.homeGoals,ag:match.awayGoals});}
-  window.finishLive3D=auto=>{if(!live||live.status==='finished')return;live.status='finished';live.paused=true;const home=live.homeScore,away=live.awayScore,result=home>away?'برد':home<away?'باخت':'مساوی',reward=result==='برد'?50000:result==='مساوی'?25000:0,points=result==='برد'?3:result==='مساوی'?1:0;state.managerStats=state.managerStats||{played:0,points:0,wins:0,draws:0,losses:0,goalsFor:0,goalsAgainst:0};state.managerStats.played++;state.managerStats.points+=points;state.managerStats.wins+=result==='برد'?1:0;state.managerStats.draws+=result==='مساوی'?1:0;state.managerStats.losses+=result==='باخت'?1:0;state.managerStats.goalsFor+=home;state.managerStats.goalsAgainst+=away;state.euros=(state.euros||0)+reward;state.matches=Array.isArray(state.matches)?state.matches:[];const match={id:live.id,homeGoals:home,awayGoals:away,homeTeam:live.home,awayTeam:live.away,result,reward,points,date:new Date().toLocaleString('fa-IR'),events:(live.events||[]).slice().reverse(),scorers:live.scorers||[],cards:live.cards||[],mvp:(live.scorers?.[0]?.name||'—'),live3d:true,stats:{shotsH:live.shotsH||0,shotsA:live.shotsA||0,shotsOnH:live.shotsOnH||0,shotsOnA:live.shotsOnA||0,cornersH:live.cornersH||0,cornersA:live.cornersA||0,foulsH:live.foulsH||0,foulsA:live.foulsA||0}};syncLiveLeagueTable(match);state.matches.unshift(match);save();persist();updateLiveHud();if(!auto)toast(`نتیجه رسمی ثبت شد: ${home}-${away} • جدول لیگ هم به‌روزرسانی شد`);setTimeout(()=>{closeLive3D();render()},auto?0:500)};
-  const oldRenderPage=window.renderPage;window.renderPage=function(id){if(typeof oldRenderPage==='function')oldRenderPage(id);if(id==='matches'){ensureLive();renderLiveList()}};const oldShow=window.show;window.show=function(id,push=true){if(typeof oldShow==='function')oldShow(id,push);if(id==='matches')setTimeout(()=>{ensureLive();renderLiveList()},0)};setTimeout(()=>{try{renderLiveList()}catch(_){ }},150);
+  const KEY='sar_live_broadcast_v4';
+  let L=null,scene=null,camera=null,renderer=null,raf=null,last=0,speedX=1,players=[],ball=null,carrier=null,passAnim=null,shotAnim=null,goalAnim=null,textureCache={};
+  const $=id=>document.getElementById(id);
+  const ex=v=>typeof esc==='function'?esc(v):String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const teamName=home=>home?(L?.home||'تیم من'):(L?.away||'حریف');
+  const pos=p=>String(p?.pos||'CM').toUpperCase();
+  const pname=p=>String(p?.name||'بازیکن');
+  const homeRoster=()=>{let ps=Array.isArray(state.players)?state.players.filter(Boolean):[];let s=ps.filter(p=>p.starter);if(s.length<11)s=ps;return s.slice(0,11)};
+  const awayRoster=()=>['دروازه‌بان حریف','مدافع راست حریف','مدافع میانی حریف ۱','مدافع میانی حریف ۲','مدافع چپ حریف','هافبک دفاعی حریف','هافبک میانی حریف','هافبک هجومی حریف','وینگر راست حریف','وینگر چپ حریف','مهاجم حریف'].map((name,i)=>({num:900+i,name,pos:['GK','RB','CB','CB','LB','DM','CM','CAM','RW','LW','ST'][i],rating:72+(i%5)*3,fitness:100,form:80}));
+  const anchors=[[-31,-20],[-16,-14],[-5,-17],[5,-17],[16,-14],[ -15,-3],[0,-5],[15,-3],[-18,9],[0,11],[18,9]];
+  const ensureRoster=ps=>{const a=ps.slice();while(a.length<11)a.push({num:700+a.length,name:'بازیکن '+(a.length+1),pos:['GK','RB','CB','CB','LB','DM','CM','CAM','ST','LW','RW'][a.length],rating:70,fitness:100,form:80});return a.slice(0,11)};
+  function cupMatchInfo(meta){if(!meta||!state.cups)return null;const c=state.cups.find(x=>x.id===meta.cupId);const m=c?.rounds?.[Number(meta.roundIndex)]?.[Number(meta.matchIndex)];if(!c||!m||!m.a||!m.b)return null;const a=(c.participants||[]).find(p=>p.team===m.a)||{team:m.a,coach:'سرمربی',avatar:''};const b=(c.participants||[]).find(p=>p.team===m.b)||{team:m.b,coach:'سرمربی',avatar:''};return {cup:c,m,a,b}};
+  function newLive(type='league',meta=null){
+    const cm=type==='cup'?cupMatchInfo(meta):null;
+    const h=cm?.a?.team||state.team||'تیم من',a=cm?.b?.team||'پرسپولیس نوین';
+    return {id:'broadcast_'+Date.now(),type, cupId:cm?.cup?.id||null, roundIndex:cm?Number(meta.roundIndex):null, matchIndex:cm?Number(meta.matchIndex):null,
+      home:h,away:a,homeCoach:cm?.a?.coach||managerName||'سرمربی',awayCoach:cm?.b?.coach||'سرمربی حریف',homeScore:0,awayScore:0,minute:1,elapsed:0,status:'live',paused:false,
+      homePoss:50,shotsH:0,shotsA:0,shotsOnH:0,shotsOnA:0,passesH:0,passesA:0,passAccH:0,passAccA:0,cornersH:0,cornersA:0,foulsH:0,foulsA:0,savesH:0,savesA:0,attacksH:0,attacksA:0,
+      events:[{minute:1,icon:'🏟️',text:`سوت آغاز؛ ${h} و ${a} با ۱۱ بازیکن وارد زمین شدند.`}],scorers:[],cards:[],timeline:[],nextAction:3+Math.floor(Math.random()*3),phase:'ساخت حمله',ball:{x:0,z:0}};
+  }
+  function persist(){if(L)try{localStorage.setItem(KEY,JSON.stringify(L))}catch(_){} }
+  function loadSaved(){try{const x=JSON.parse(localStorage.getItem(KEY)||'null');return x&&x.status==='live'?x:null}catch(_){return null}}
+  function makeLive(type='league',meta=null){
+    const saved=loadSaved();
+    if(saved && saved.type===type && (type!=='cup'||(saved.cupId===meta?.cupId&&Number(saved.roundIndex)===Number(meta?.roundIndex)&&Number(saved.matchIndex)===Number(meta?.matchIndex)))){L=saved;return L}
+    L=newLive(type,meta);persist();return L;
+  }
+  function addEvent(icon,text){if(!L)return;L.events=Array.isArray(L.events)?L.events:[];L.events.unshift({minute:L.minute,icon,text});L.events=L.events.slice(0,80);L.timeline.push({minute:L.minute,icon});}
+  function logoFor(team,home,meta){if(home&&team===(state.team||'تیم من'))return state.clubLogo||state.avatar||'';if(meta?.avatar)return meta.avatar;return 'https://ui-avatars.com/api/?name='+encodeURIComponent(team)+'&background=183d2c&color=fff&size=256'}
+  function playerImg(p,home){if(home)return state.playerImages?.[String(p.num)]||state.playerImages?.[p.num]||'';return ''}
+  function cardTexture(q){
+    if(!window.THREE)return null;const key=(q.home?'h':'a')+String(q.p.num);if(textureCache[key])return textureCache[key];
+    const cv=document.createElement('canvas');cv.width=256;cv.height=310;const c=cv.getContext('2d');
+    c.clearRect(0,0,256,310);c.fillStyle=q.home?'#0b6344':'#7e2737';c.beginPath();c.roundRect(7,7,242,296,28);c.fill();c.strokeStyle='#f4c95d';c.lineWidth=4;c.stroke();
+    c.fillStyle='#fff';c.font='900 25px Arial';c.textAlign='left';c.fillText(pos(q.p),20,38);c.font='900 28px Arial';c.fillText(String(q.p.rating||70),194,38);
+    const src=playerImg(q.p,q.home),finish=()=>{c.fillStyle='#fff';c.textAlign='center';c.font='900 16px Arial';c.fillText(pname(q.p).slice(0,18),128,283);c.font='700 12px Arial';c.fillStyle='#dbe7e1';c.fillText(q.home?'تیم من':'حریف',128,300);tex.needsUpdate=true};
+    const tex=new window.THREE.CanvasTexture(cv);tex.needsUpdate=true;textureCache[key]=tex;
+    if(src){const im=new Image();im.onload=()=>{c.save();c.beginPath();c.roundRect(25,55,206,185,18);c.clip();c.drawImage(im,25,55,206,185);c.restore();finish()};im.onerror=finish;im.src=src}else finish();
+    return tex;
+  }
+  function strength(home){if(home&&typeof lineupPower==='function')return Math.max(55,Math.min(96,Number(lineupPower()||72)));let h=0;for(const ch of String(L.away))h=(h*31+ch.charCodeAt(0))>>>0;return 67+(h%20)}
+  function initScene(){
+    const T=window.THREE,cv=$('live4Canvas');if(!T||!cv)return;
+    scene=new T.Scene();scene.background=new T.Color(0x050908);camera=new T.PerspectiveCamera(42,1,.1,300);camera.position.set(0,48,48);camera.lookAt(0,0,0);
+    renderer=new T.WebGLRenderer({canvas:cv,antialias:true,alpha:false});renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));renderer.shadowMap.enabled=true;
+    scene.add(new T.HemisphereLight(0xe8f4ff,0x16331f,2.7));const dl=new T.DirectionalLight(0xffffff,2.9);dl.position.set(0,55,10);dl.castShadow=true;scene.add(dl);
+    const stand=new T.MeshStandardMaterial({color:0x202825,roughness:1});for(const z of [-33,33])for(let i=0;i<7;i++){const b=new T.BoxGeometry(92,2.4,3.4),m=new T.Mesh(b,stand);m.position.set(0,1.2,z+(z>0?i*3.5:-i*3.5));scene.add(m)}for(const x of [-47,47])for(let i=0;i<6;i++){const m=new T.Mesh(new T.BoxGeometry(3.4,2.4,62),stand);m.position.set(x+(x>0?i*3.5:-i*3.5),1.2,0);scene.add(m)}
+    const field=new T.Mesh(new T.PlaneGeometry(86,52),new T.MeshStandardMaterial({color:0x258b4f,roughness:.9}));field.rotation.x=-Math.PI/2;field.receiveShadow=true;scene.add(field);
+    const stripe=new T.MeshStandardMaterial({color:0x1f7d47,roughness:1});for(let i=-8;i<8;i+=2){const m=new T.Mesh(new T.PlaneGeometry(5.35,52),stripe);m.rotation.x=-Math.PI/2;m.position.set(i*5.35+.0,.012,0);scene.add(m)}
+    const lm=new T.MeshBasicMaterial({color:0xffffff});const line=(w,d,x,z)=>{const m=new T.Mesh(new T.BoxGeometry(w,.055,d),lm);m.position.set(x,.06,z);scene.add(m)};
+    line(86,.12,0,-26);line(86,.12,0,26);line(.12,52,-43,0);line(.12,52,43,0);line(86,.12,0,0); /* only horizontal midfield */
+    line(16,.12,-35,-12);line(16,.12,-35,12);line(.12,24,-35,0);line(16,.12,35,-12);line(16,.12,35,12);line(.12,24,35,0);
+    const circle=new T.Mesh(new T.RingGeometry(6.3,6.42,72),lm);circle.rotation.x=-Math.PI/2;circle.position.y=.065;scene.add(circle);const spot=new T.Mesh(new T.CircleGeometry(.55,32),lm);spot.rotation.x=-Math.PI/2;spot.position.y=.066;scene.add(spot);
+    function goal(x){const g=new T.Group(),mat=new T.MeshStandardMaterial({color:0xf3f3f3,roughness:.5});const post1=new T.Mesh(new T.CylinderGeometry(.17,.17,5,14),mat),post2=post1.clone(),bar=new T.Mesh(new T.CylinderGeometry(.17,.17,10,14),mat);post1.position.set(x,2.5,-5);post2.position.set(x,2.5,5);bar.rotation.x=Math.PI/2;bar.position.set(x,5,0);g.add(post1,post2,bar);const net=new T.Mesh(new T.PlaneGeometry(4,10),new T.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.13,side:T.DoubleSide}));net.rotation.y=Math.PI/2;net.position.set(x+(x>0?.8:-.8),2.5,0);g.add(net);scene.add(g)}goal(-43);goal(43);
+    players=[];const hs=ensureRoster(homeRoster()),as=awayRoster();[...hs.map((p,i)=>({p,home:true,i})),...as.map((p,i)=>({p,home:false,i}))].forEach((q,k)=>{const tex=cardTexture(q),mat=new T.MeshBasicMaterial({map:tex,transparent:true,side:T.DoubleSide});const mesh=new T.Mesh(new T.PlaneGeometry(2.75,3.35),mat);const a=anchors[q.i],side=q.home?1:-1;mesh.position.set(a[0],1.7,a[1]*side);mesh.castShadow=true;mesh.lookAt(camera.position.x,1.7,camera.position.z);scene.add(mesh);players.push({...q,mesh,baseX:a[0],baseZ:a[1]*side,phase:k*.73})});
+    ball=new T.Mesh(new T.SphereGeometry(.5,24,18),new T.MeshStandardMaterial({color:0xffffff,roughness:.22,metalness:.05}));ball.position.set(0,.62,0);ball.castShadow=true;scene.add(ball);resize();window.addEventListener('resize',resize,{passive:true});last=performance.now();raf=requestAnimationFrame(loop);
+  }
+  function resize(){if(!renderer||!camera)return;const el=document.querySelector('.live4Pitch');if(!el)return;const w=el.clientWidth,h=el.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}
+  function chooseHome(){let x=.5;if(String(state.tactics?.style||'').includes('هجومی'))x+=.08;if(String(state.tactics?.press||'').includes('زیاد'))x+=.04;x+=(strength(true)-strength(false))/300;return Math.random()<Math.max(.28,Math.min(.72,x))}
+  function setCarrier(home){const arr=players.filter(p=>p.home===home&&pos(p.p)!=='GK');arr.sort((a,b)=>Math.hypot(a.mesh.position.x,b.mesh.position.x)-Math.hypot(b.mesh.position.x,a.mesh.position.x));carrier=arr[Math.floor(Math.random()*Math.max(1,Math.min(4,arr.length)))]||arr[0];if(carrier)L.carrier={home,name:pname(carrier.p),num:carrier.p.num}}
+  function nearest(from){const arr=players.filter(p=>p.home===from.home&&p!==from&&pos(p.p)!=='GK');arr.sort((a,b)=>Math.hypot(a.mesh.position.x-from.mesh.position.x,a.mesh.position.z-from.mesh.position.z)-Math.hypot(b.mesh.position.x-from.mesh.position.x,b.mesh.position.z-from.mesh.position.z));return arr[0]}
+  function pass(){if(!carrier)return;const to=nearest(carrier);if(!to)return;passAnim={from:carrier,to,t:0,d:.55};L[carrier.home?'passesH':'passesA']++;L[carrier.home?'passAccH':'passAccA']++;addEvent('🎯',`${pname(carrier.p)} پاس دقیق به ${pname(to.p)} • ${teamName(carrier.home)} در حال گردش توپ است.`)}
+  function shot(){if(!carrier)return;const h=carrier.home;L[h?'shotsH':'shotsA']++;const on=Math.random()<.67;L[h?'shotsOnH':'shotsOnA']+=on?1:0;const opp=strength(!h),pow=strength(h);const chance=.055+Math.max(0,pow-opp)/420;if(on&&Math.random()<chance){L[h?'homeScore':'awayScore']++;const ass=L.carrier?.name;L.scorers.push({minute:L.minute,name:pname(carrier.p),team:teamName(h),assist:ass&&ass!==pname(carrier.p)?ass:null});addEvent('⚽',`گل! ${pname(carrier.p)} با شوت ${Math.random()<.5?'زمینی':'قدرتی'} دروازه ${teamName(!h)} را باز کرد.`);goalAnim={home:h,t:0,from:carrier.mesh.position.clone(),gx:h?43:-43};}else{addEvent(on?'🧤':'↗️',on?`شوت ${pname(carrier.p)}؛ دروازه‌بان ${teamName(!h)} توپ را مهار کرد.`:`شوت ${pname(carrier.p)} از کنار دروازه بیرون رفت.`);if(on)L[h?'savesA':'savesH']++}L.nextAction=L.minute+1+Math.floor(Math.random()*3)}
+  function foul(){if(!carrier)return;const h=!carrier.home;L[h?'foulsH':'foulsA']++;addEvent('🦶',`خطا روی ${pname(carrier.p)} • ${teamName(h)} صاحب ضربه آزاد شد.`);L.nextAction=L.minute+1}
+  function action(){if(!L||passAnim||goalAnim)return;const h=chooseHome();if(!carrier||carrier.home!==h)setCarrier(h);if(!carrier)return;const r=Math.random();L.phase=r<.38?'ساخت حمله':r<.68?'پیشروی':r<.84?'یک‌سوم هجومی':'ضدحمله';if(r<.42){pass();return}if(r<.62){L[h?'attacksH':'attacksA']++;carrier.mesh.position.z+=(h?1:-1)*2.4;addEvent('🏃',`${pname(carrier.p)} با توپ پیشروی کرد؛ ${teamName(h)} فاز ${L.phase} را ادامه می‌دهد.`);return}if(r<.76){shot();return}if(r<.87){foul();return}L[h?'cornersH':'cornersA']++;addEvent('🚩',`توپ از خط دفاعی حریف به بیرون رفت • کرنر برای ${teamName(h)}.`);L.nextAction=L.minute+1}
+  function movePlayers(ts){if(!L)return;const bx=L.ball?.x||0,bz=L.ball?.z||0;players.forEach(p=>{const side=p.home?1:-1,role=pos(p.p);let tx=p.baseX,tz=p.baseZ;tx+=(bx-tx)*.10;tz+=(bz-tz)*.09;if(role==='GK'){tx*=.28;tz=side*21}else if(role==='ST')tz+=side*5;else if(role==='CAM')tz+=side*2.5;if(p.home&&String(state.tactics?.style||'')==='هجومی')tz+=side*2.2;if(carrier===p){tx+=Math.sin(ts*.004+p.phase)*1.2;tz+=side*1.2}p.mesh.position.x+=(tx-p.mesh.position.x)*.035*speedX;p.mesh.position.z+=(tz-p.mesh.position.z)*.035*speedX;p.mesh.position.y=1.7+Math.sin(ts*.006+p.phase)*.035;p.mesh.lookAt(camera.position.x,1.7,camera.position.z)})}
+  function loop(ts){if(!renderer||!L)return;const dt=Math.min(.05,(ts-last)/1000);last=ts;if(!L.paused){if(goalAnim){goalAnim.t+=dt*speedX*1.2;const a=Math.min(1,goalAnim.t),f=goalAnim.from,gx=goalAnim.gx;ball.position.x=f.x*(1-a)+gx*a;ball.position.z=f.z*(1-a);ball.position.y=.62+Math.sin(a*Math.PI)*2;if(a>=1){goalAnim=null;ball.position.set(0,.62,0);carrier=null;L.nextAction=L.minute+1}}else if(passAnim){passAnim.t+=dt*speedX;const a=Math.min(1,passAnim.t/passAnim.d),f=passAnim.from.mesh.position,t=passAnim.to.mesh.position;ball.position.x=f.x*(1-a)+t.x*a;ball.position.z=f.z*(1-a)+t.z*a;ball.position.y=.62+Math.sin(a*Math.PI)*.55;L.ball={x:ball.position.x,z:ball.position.z};if(a>=1){carrier=passAnim.to;passAnim=null;L.nextAction=L.minute+1}}else{L.elapsed+=dt*speedX*.72;L.minute=Math.min(90,1+Math.floor(L.elapsed));if(!carrier)setCarrier(chooseHome());if(carrier){const side=carrier.home?1:-1;const bx=carrier.mesh.position.x+Math.sin(ts*.004)*.55,bz=carrier.mesh.position.z+side*.72;L.ball={x:bx,z:bz};ball.position.set(bx,.62,bz)}if(L.minute>=L.nextAction)action();movePlayers(ts);if(L.minute>=90){finishLive3D(true);return}}camera.position.x=Math.sin(ts*.00008)*7;camera.position.z=48+Math.cos(ts*.00007)*5;camera.lookAt(0,0,0);renderer.render(scene,camera);updateHud()}else renderer.render(scene,camera);raf=requestAnimationFrame(loop)}
+  function updateHud(){if(!L)return;const set=(id,v)=>{const e=$(id);if(e)e.textContent=v};set('live4HomeName',L.home);set('live4AwayName',L.away);set('live4HomeScore',L.homeScore);set('live4AwayScore',L.awayScore);set('live4Minute',(L.status==='finished'?'FT':'🔴 LIVE')+' • '+L.minute+"'");set('live4Poss',`مالکیت ${Math.round(L.homePoss)}٪ - ${100-Math.round(L.homePoss)}٪`);set('live4ShotsH',L.shotsH);set('live4ShotsA',L.shotsA);set('live4PassH',L.passesH);set('live4PassA',L.passesA);set('live4CornersH',L.cornersH);set('live4CornersA',L.cornersA);set('live4PauseBtn',L.paused?'▶️ ادامه':'⏸ توقف');set('live4CompetitionTitle',L.type==='cup'?'🏆 پخش زنده • جام حذفی':'🔴 پخش زنده • لیگ');const hi=$('live4HomeLogo'),ai=$('live4AwayLogo');if(hi)hi.src=logoFor(L.home,true,L.type==='cup'?cupMatchInfo({cupId:L.cupId,roundIndex:L.roundIndex,matchIndex:L.matchIndex})?.a:null);if(ai)ai.src=logoFor(L.away,false,L.type==='cup'?cupMatchInfo({cupId:L.cupId,roundIndex:L.roundIndex,matchIndex:L.matchIndex})?.b:null);const ev=$('live4Events');if(ev)ev.innerHTML=(L.events||[]).map(e=>`<div class="live4Event"><span class="live4EventMin">${ex(e.minute)}'</span><span class="live4EventIcon">${e.icon||'•'}</span><span class="live4EventText">${ex(e.text||'')}</span></div>`).join('')||'<div class="sub">هنوز اتفاقی ثبت نشده است.</div>';const tr=$('live4TimelineTrack');if(tr)tr.innerHTML=(L.timeline||[]).slice(-20).map(e=>`<i class="live4Mark" style="left:${Math.min(100,(Number(e.minute)||0)/90*100)}%">${e.icon||'•'}<span>${e.minute}'</span></i>`).join('');}
+  function loadThree(cb){if(window.THREE){cb();return}const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js';sc.onload=cb;sc.onerror=()=>toast('کتابخانه گرافیکی سه‌بعدی بارگذاری نشد');document.head.appendChild(sc)}
+  window.setLiveSpeed=v=>{speedX=Number(v)||1;toast(`سرعت پخش: ${v}×`)};
+  window.toggleLivePause=()=>{if(!L)return;L.paused=!L.paused;persist();updateHud()};
+  window.openLive3D=function(arg){let type='league',meta=null;if(typeof arg==='string')type=arg;if(arg&&typeof arg==='object'){type=arg.type||'league';meta=arg}L=makeLive(type,meta);$('live4Modal')?.classList.add('open');document.body.style.overflow='hidden';updateHud();loadThree(()=>{if(!renderer)initScene();else resize();updateHud()})};
+  window.closeLive3D=function(){$('live4Modal')?.classList.remove('open');document.body.style.overflow='';if(raf){cancelAnimationFrame(raf);raf=null}persist();if(typeof renderLiveList==='function')renderLiveList()};
+  function leagueFinalize(){const h=L.homeScore,a=L.awayScore,result=h>a?'برد':h<a?'باخت':'مساوی',reward=result==='برد'?50000:result==='مساوی'?25000:0,points=result==='برد'?3:result==='مساوی'?1:0;state.managerStats=state.managerStats||{points:0,played:0,wins:0,draws:0,losses:0,goalsFor:0,goalsAgainst:0,trophies:0};state.managerStats.played++;state.managerStats.points+=points;state.managerStats.wins+=result==='برد'?1:0;state.managerStats.draws+=result==='مساوی'?1:0;state.managerStats.losses+=result==='باخت'?1:0;state.managerStats.goalsFor+=h;state.managerStats.goalsAgainst+=a;state.euros=(state.euros||0)+reward;state.liveLeagueResults=Array.isArray(state.liveLeagueResults)?state.liveLeagueResults:[];state.liveLeagueResults.push({id:L.id,home:L.home,away:L.away,hg:h,ag:a});state.matches=Array.isArray(state.matches)?state.matches:[];state.matches.unshift({id:L.id,homeTeam:L.home,awayTeam:L.away,homeGoals:h,awayGoals:a,result,reward,points,date:new Date().toLocaleString('fa-IR'),events:[...(L.events||[])].reverse(),scorers:L.scorers||[],cards:L.cards||[],mvp:L.scorers?.[0]?.name||'—',live3d:true,stats:{shotsH:L.shotsH,shotsA:L.shotsA,shotsOnH:L.shotsOnH,shotsOnA:L.shotsOnA,cornersH:L.cornersH,cornersA:L.cornersA,foulsH:L.foulsH,foulsA:L.foulsA,passesH:L.passesH,passesA:L.passesA,passAccH:L.passAccH,passAccA:L.passAccA}})}
+  function cupFinalize(){const cm=cupMatchInfo({cupId:L.cupId,roundIndex:L.roundIndex,matchIndex:L.matchIndex});if(!cm)return;const m=cm.m;m.ga=L.homeScore;m.gb=L.awayScore;m.played=true;m.penalties=false;m.winner=L.homeScore===L.awayScore?(Math.random()<.5?m.a:m.b):(L.homeScore>L.awayScore?m.a:m.b);cm.cup.history=Array.isArray(cm.cup.history)?cm.cup.history:[];cm.cup.history.push({round:Number(L.roundIndex),match:m.id,a:m.a,b:m.b,ga:m.ga,gb:m.gb,winner:m.winner,penalties:false,date:new Date().toLocaleString('fa-IR')});
+    const round=cm.cup.rounds[Number(L.roundIndex)]||[];if(round.every(x=>x.played)){const wins=round.map(x=>x.winner);if(Number(L.roundIndex)===0)cm.cup.rounds[1]=[{id:cm.cup.id+'_s_0',a:wins[0],b:wins[1],ga:null,gb:null,winner:null,played:false},{id:cm.cup.id+'_s_1',a:wins[2],b:wins[3],ga:null,gb:null,winner:null,played:false}];else if(Number(L.roundIndex)===1)cm.cup.rounds[2]=[{id:cm.cup.id+'_f_0',a:wins[0],b:wins[1],ga:null,gb:null,winner:null,played:false}];else{const f=cm.cup.rounds[2][0];cm.cup.champion=f.winner;cm.cup.runnerUp=f.a===f.winner?f.b:f.a;cm.cup.status='finished';const pp=Number(cm.cup.entry)===200000?{champ:1000000,runner:600000}:{champ:500000,runner:300000};if(cm.cup.champion===(state.team||'تیم من')){state.euros+=pp.champ;state.managerStats.points=(state.managerStats.points||0)+150;state.managerStats.trophies=(state.managerStats.trophies||0)+1}if(cm.cup.runnerUp===(state.team||'تیم من')){state.euros+=pp.runner;state.managerStats.points=(state.managerStats.points||0)+75}cm.cup.participants.forEach(p=>delete state.cupLocks[p.team]);}}
+    save();
+  }
+  window.finishLive3D=function(auto){if(!L||L.status==='finished')return;if(!auto){toast('نتیجه بازی فقط با پایان خودکار ۹۰ دقیقه ثبت می‌شود.');return}L.status='finished';L.paused=true;addEvent('🏁','سوت پایان؛ نتیجه رسمی بازی ثبت شد.');if(L.type==='cup')cupFinalize();else leagueFinalize();persist();updateHud();setTimeout(()=>{closeLive3D();if(typeof render==='function')render()},900)};
+  function renderLiveList(){const box=$('liveMatchList');if(!box)return;const saved=loadSaved();if(saved&&saved.type==='league'){box.innerHTML=`<div class="liveMatchItem"><div class="row"><div><b><span class="livePulse">LIVE</span> ${ex(saved.home)} — ${ex(saved.away)}</b><div class="sub">دقیقه ${ex(saved.minute)} • مالکیت ${Math.round(saved.homePoss)}٪ / ${100-Math.round(saved.homePoss)}٪</div></div><div class="liveMatchScore">${saved.homeScore} - ${saved.awayScore}</div></div><button class="btn" style="width:100%;margin-top:8px" onclick="openLive3D('league')">🎥 ادامه پخش زنده</button></div>`}else box.innerHTML='<div class="empty">فعلاً بازی زنده لیگ فعال نیست.</div>'}
+  const oldPage=window.renderPage;window.renderPage=function(id){if(typeof oldPage==='function')oldPage(id);if(id==='matches')setTimeout(renderLiveList,0)};const oldShow=window.show;window.show=function(id,push=true){const r=typeof oldShow==='function'?oldShow(id,push):undefined;if(id==='matches')setTimeout(renderLiveList,0);return r};setTimeout(renderLiveList,250);
+  window.__live4CupButton=function(cupId,ri,mi,played){return `<button class="btn sm cupLiveButton ${played?'replay':''}" onclick='event.stopPropagation();openLive3D({type:"cup",cupId:${JSON.stringify(cupId)},roundIndex:${ri},matchIndex:${mi}})'>${played?'▶️ بازپخش گزارش':'🔴 تماشای پخش زنده'}</button>`}
 })();
 </script>
 <!-- PITCH CARD UPDATE V1.14.3 -->
+
 
 
 
@@ -2153,318 +2216,8 @@ html,body{overscroll-behavior:auto!important}body{touch-action:auto!important}.p
 </style>
 
 <script>
-/* =========================================================
-   v13 fixes:
-   1) Real horizontal 3D broadcast pitch with exactly 11v11
-   2) richer passing/event engine for both teams
-   3) automatic match result at 90', no manual result button
-   4) cup = knockout, 3 calendar days (QF / SF / Final)
-   5) collapsed past-match details
-   6) selected competition banner + top scroll
-   ========================================================= */
-(function(){
-  const LIVE_KEY='sar_live_match_v3';
-  let L=null, S=null, C=null, R=null, raf=null, last=0, speedX=1;
-  let p3=[], ball3=null, carrier3=null, passAnim=null, goalAnim3=null, foulAnim3=null;
-  const $=id=>document.getElementById(id);
-  const escx=v=>typeof esc==='function'?esc(v):String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-  const get=()=>{try{return JSON.parse(localStorage.getItem(LIVE_KEY)||'null')}catch(_){return null}};
-  const put=()=>{if(L)localStorage.setItem(LIVE_KEY,JSON.stringify(L))};
-
-  function homePlayers(){
-    let ps=Array.isArray(state.players)?state.players.filter(Boolean):[];
-    let st=ps.filter(p=>p.starter);
-    if(st.length<11) st=ps;
-    while(st.length<11) st.push({num:700+st.length,name:'بازیکن '+(st.length+1),pos:['GK','RB','CB','CB','LB','DM','CM','CAM','RW','LW','ST'][st.length],rating:70,fitness:100,form:80});
-    return st.slice(0,11);
-  }
-  function awayPlayers(){
-    return ['دروازه‌بان حریف','مدافع راست حریف','مدافع میانی حریف ۱','مدافع میانی حریف ۲','مدافع چپ حریف','هافبک دفاعی حریف','هافبک میانی حریف','هافبک هجومی حریف','وینگر راست حریف','وینگر چپ حریف','مهاجم حریف'].map((name,i)=>({
-      num:900+i,name,pos:['GK','RB','CB','CB','LB','DM','CM','CAM','RW','LW','ST'][i],
-      rating:72+(i%5)*3,fitness:100,form:80
-    }));
-  }
-  const anchors=[
-    [0,-19],[-25,-13],[-10,-16],[10,-16],[25,-13],[-16,-5],[16,-5],[-25,3],[0,4],[25,3],[0,14]
-  ];
-  function makeLive(){
-    const old=get();
-    if(old && old.status==='live'){
-      L=old;
-      L.engineVersion=5;
-      L.events=Array.isArray(L.events)?L.events:[];
-      L.passesH=Number(L.passesH||0);L.passesA=Number(L.passesA||0);
-      L.passAccH=Number(L.passAccH||0);L.passAccA=Number(L.passAccA||0);
-      L.attacksH=Number(L.attacksH||0);L.attacksA=Number(L.attacksA||0);
-      return L;
-    }
-    L={
-      id:'live_'+Date.now(),home:state.team||'تیم من',away:'پرسپولیس نوین',
-      homeCoach:managerName||'سرمربی',awayCoach:'سرمربی حریف',
-      homeScore:0,awayScore:0,minute:1,status:'live',engineVersion:5,paused:false,
-      elapsed:0,homePoss:50,shotsH:0,shotsA:0,shotsOnH:0,shotsOnA:0,
-      cornersH:0,cornersA:0,passesH:0,passesA:0,passAccH:0,passAccA:0,
-      foulsH:0,foulsA:0,savesH:0,savesA:0,attacksH:0,attacksA:0,
-      events:[{minute:1,icon:'🏟️',text:'سوت آغاز • هر دو تیم با ۱۱ بازیکن وارد زمین شدند'}],
-      scorers:[],cards:[],ball:{x:0,z:0},nextActionAt:2,phase:'build-up'
-    };
-    put();return L;
-  }
-  function pName(x){return x?.p?.name||'بازیکن'}
-  function pos(x){return String(x?.p?.pos||'CM').toUpperCase()}
-  function teamText(home){return home?L.home:L.away}
-  function addEv(icon,text){
-    L.events=Array.isArray(L.events)?L.events:[];
-    L.events.unshift({minute:L.minute,icon,text});
-    L.events=L.events.slice(0,60);
-  }
-  function avatarImg(pl,home){
-    if(home){
-      return state.playerImages?.[pl.p?.num]||state.playerImages?.[String(pl.p?.num)]||'';
-    }
-    return 'https://ui-avatars.com/api/?name='+encodeURIComponent(pl.p?.name||'حریف')+'&background=7c1f32&color=fff&size=256';
-  }
-  function cardTexture(pl,home){
-    const T=window.THREE, cv=document.createElement('canvas');cv.width=256;cv.height=330;
-    const x=cv.getContext('2d');x.clearRect(0,0,256,330);
-    x.fillStyle=home?'#0c5b3a':'#8b2639';x.beginPath();x.roundRect(8,8,240,314,28);x.fill();
-    x.strokeStyle='#f4c95d';x.lineWidth=4;x.stroke();
-    x.fillStyle='#fff';x.textAlign='center';x.font='900 26px Arial';x.fillText(pos(pl),128,37);
-    x.fillStyle='#f4c95d';x.font='900 31px Arial';x.fillText(String(pl.p?.rating||70),207,37);
-    const src=avatarImg(pl,home);
-    const finish=()=>{
-      x.fillStyle='#fff';x.font='900 17px Arial';x.fillText(String(pName(pl)).slice(0,18),128,282);
-      x.font='700 14px Arial';x.fillStyle='#d9e5df';x.fillText(home?'تیم من':'حریف',128,305);
-      x.textAlign='left';
-    };
-    if(src){
-      const im=new Image();im.onload=()=>{x.save();x.beginPath();x.roundRect(28,53,200,180,20);x.clip();x.drawImage(im,28,53,200,180);x.restore();finish();tex.needsUpdate=true};im.onerror=finish;im.src=src;
-    }else finish();
-    const tex=new T.CanvasTexture(cv);tex.needsUpdate=true;return tex;
-  }
-  function teamStrength(home){
-    if(home && typeof lineupPower==='function') return Math.max(50,Math.min(96,Number(lineupPower()||72)));
-    let h=0;for(const ch of String(L.away))h=(h*31+ch.charCodeAt(0))>>>0;return 68+(h%19);
-  }
-  function initStateObjects(){
-    if(!L)return;
-    p3=[];
-    const hs=homePlayers(),as=awayPlayers();
-    [...hs.map((p,i)=>({p,home:true,i})),...as.map((p,i)=>({p,home:false,i}))].forEach((q,k)=>{
-      const tex=cardTexture(q,q.home);
-      const mat=new window.THREE.MeshBasicMaterial({map:tex,transparent:true,side:window.THREE.DoubleSide});
-      const mesh=new window.THREE.Mesh(new window.THREE.PlaneGeometry(2.7,3.35),mat);
-      const a=anchors[q.i];
-      mesh.position.set(a[0],1.75,q.home?a[1]:-a[1]);
-      mesh.lookAt(C.position.x,1.75,C.position.z);
-      S.add(mesh);p3.push({...q,mesh,phase:k*.71,baseX:a[0],baseZ:q.home?a[1]:-a[1]});
-    });
-  }
-  function addGoalHorizontal(x){
-    const T=window.THREE, g=new T.Group(), mat=new T.MeshStandardMaterial({color:0xf4f4f4,roughness:.6});
-    [-4.3,4.3].forEach(z=>{const post=new T.Mesh(new T.CylinderGeometry(.18,.18,4.2,14),mat);post.position.set(x,2.1,z);g.add(post)});
-    const bar=new T.Mesh(new T.CylinderGeometry(.18,.18,8.6,14),mat);bar.rotation.x=Math.PI/2;bar.position.set(x,4.2,0);g.add(bar);
-    const net=new T.Mesh(new T.PlaneGeometry(.9,8.6),new T.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.14,side:T.DoubleSide}));
-    net.rotation.y=Math.PI/2;net.position.set(x+(x>0?.55:-.55),2.1,0);g.add(net);S.add(g);
-  }
-  function buildScene(){
-    const T=window.THREE,canvas=$('live3dCanvas');if(!canvas)return;
-    S=new T.Scene();S.background=new T.Color(0x06100b);
-    C=new T.PerspectiveCamera(40,1,.1,300);C.position.set(0,48,40);C.lookAt(0,0,0);
-    R=new T.WebGLRenderer({canvas,antialias:true});R.setPixelRatio(Math.min(devicePixelRatio||1,2));R.shadowMap.enabled=true;
-    S.add(new T.HemisphereLight(0xe0f6ff,0x17351f,2.5));
-    const dl=new T.DirectionalLight(0xffffff,2.6);dl.position.set(0,50,10);dl.castShadow=true;S.add(dl);
-    const standMat=new T.MeshStandardMaterial({color:0x222c29,roughness:1});
-    for(const z of [-31,31]){for(let i=0;i<5;i++){const b=new T.Mesh(new T.BoxGeometry(78,2,3.8),standMat);b.position.set(0,1,z+(z>0?i*3.8:-i*3.8));S.add(b)}}
-    for(const x of [-41,41]){for(let i=0;i<4;i++){const b=new T.Mesh(new T.BoxGeometry(3.8,2,48),standMat);b.position.set(x+(x>0?i*3.8:-i*3.8),1,0);S.add(b)}}
-    const field=new T.Mesh(new T.PlaneGeometry(68,42),new T.MeshStandardMaterial({color:0x238b4f,roughness:1}));field.rotation.x=-Math.PI/2;field.receiveShadow=true;S.add(field);
-    const lm=new T.MeshBasicMaterial({color:0xffffff});
-    const line=(w,d,x,z)=>{const m=new T.Mesh(new T.BoxGeometry(w,.055,d),lm);m.position.set(x,.05,z);S.add(m)};
-    line(68,.12,0,-21);line(68,.12,0,21);line(.12,42,-34,0);line(.12,42,34,0);
-    /* only horizontal midfield line */
-    line(68,.12,0,0);
-    const circle=new T.Mesh(new T.RingGeometry(6.1,6.2,64),lm);circle.rotation.x=-Math.PI/2;circle.position.y=.06;S.add(circle);
-    /* penalty boxes */
-    for(const x of [-34,34]){
-      line(.12,22,x+(x<0?7:-7),0);line(12,.12,x+(x<0?6:-6),-11);line(12,.12,x+(x<0?6:-6),11);
-      line(.12,10,x+(x<0?11:-11),0);
-    }
-    addGoalHorizontal(-34);addGoalHorizontal(34);
-    initStateObjects();
-    ball3=new T.Mesh(new T.SphereGeometry(.52,24,18),new T.MeshStandardMaterial({color:0xffffff,roughness:.25}));ball3.position.set(0,.65,0);ball3.castShadow=true;S.add(ball3);
-    resize();
-    last=performance.now();raf=requestAnimationFrame(loop);
-  }
-  function resize(){
-    if(!R||!C)return;const el=document.querySelector('.live3dCanvasWrap');if(!el)return;
-    const w=el.clientWidth,h=el.clientHeight;R.setSize(w,h,false);C.aspect=w/h;C.updateProjectionMatrix();
-  }
-  function nearest(home,from){
-    const arr=p3.filter(x=>x.home===home&&x!==from&&pos(x)!=='GK');
-    arr.sort((a,b)=>((a.mesh.position.x-(from?.mesh.position.x||0))**2+(a.mesh.position.z-(from?.mesh.position.z||0))**2)-((b.mesh.position.x-(from?.mesh.position.x||0))**2+(b.mesh.position.z-(from?.mesh.position.z||0))**2));
-    return arr[0]||null;
-  }
-  function chooseTeam(){
-    let h=.5;if(String(state.tactics?.style||'').includes('هجومی'))h+=.08;if(String(state.tactics?.press||'').includes('زیاد'))h+=.03;
-    h+=((teamStrength(true)-teamStrength(false))/250);
-    return Math.random()<Math.max(.28,Math.min(.72,h));
-  }
-  function setCarrier(home,pl){
-    carrier3=pl||nearest(home,null)||p3.find(x=>x.home===home&&pos(x)!=='GK');
-    if(carrier3){L.carrier={home,name:pName(carrier3),num:carrier3.p?.num||carrier3.i};}
-  }
-  function passTo(from,to){
-    if(!from||!to)return;
-    passAnim={from,to,t:0,dur:.65};
-    L.ball={x:from.mesh.position.x,z:from.mesh.position.z};
-    const key=from.home?'passesH':'passesA',acc=from.home?'passAccH':'passAccA';L[key]++;L[acc]++;
-    addEv('🎯',`${pName(from)} پاس ${String(state.tactics?.pass||'ترکیبی')} به ${pName(to)} • ${teamText(from.home)}`);
-  }
-  function shot(home,shooter){
-    L[home?'shotsH':'shotsA']++;L[home?'shotsOnH':'shotsOnA']++;
-    const power=teamStrength(home),opp=teamStrength(!home);
-    const chance=Math.max(.035,Math.min(.22,.085+(power-opp)/500));
-    if(Math.random()<chance){triggerGoal3(home,shooter);return}
-    const gk=p3.find(x=>x.home!==home&&pos(x)==='GK');if(gk)L[home?'savesA':'savesH']++;
-    addEv('🧤',`شوت ${pName(shooter)} از ${Math.round(Math.abs(shooter.mesh.position.x))} متری • مهار دروازه‌بان ${gk?pName(gk):''}`);
-    L.nextActionAt=L.minute+1+Math.floor(Math.random()*2);
-  }
-  function triggerGoal3(home,scorer){
-    if(goalAnim3||passAnim||!L)return;
-    const s=scorer||carrier3||p3.find(x=>x.home===home&&pos(x)==='ST')||p3.find(x=>x.home===home);
-    const candidates=p3.filter(x=>x.home===home&&x!==s&&pos(x)!=='GK');
-    const a=candidates.length?candidates[Math.floor(Math.random()*candidates.length)]:null;
-    L[home?'homeScore':'awayScore']++;
-    L.scorers=L.scorers||[];L.scorers.push({minute:L.minute,name:pName(s),team:teamText(home),assist:a?pName(a):null});
-    addEv('⚽',`گللل! ${teamText(home)} • گلزن: ${pName(s)}${a?' • پاس گل: '+pName(a):''}`);
-    goalAnim3={scorer:s,home,t:0,goalX:home?34:-34};
-    carrier3=null;passAnim=null;
-  }
-  function foul(home){
-    const offender=p3.find(x=>x.home!==home&&pos(x)!=='GK')||carrier3;
-    const x=offender?.mesh.position.x||0,z=offender?.mesh.position.z||0;
-    L[home?'foulsA':'foulsH']++;
-    const team=teamText(home);
-    addEv('🦶',`خطا روی ${pName(offender)} • ضربه آزاد برای ${team}`);
-    foulAnim3={x,z,t:0,home};
-  }
-  function action(){
-    if(!L||goalAnim3||passAnim||foulAnim3)return;
-    const home=chooseTeam();L.lastTeam=home;
-    if(!carrier3||carrier3.home!==home)setCarrier(home);
-    const c=carrier3;if(!c)return;
-    const r=Math.random();
-    L.phase=r<.38?'build-up':r<.7?'progression':'final-third';
-    if(r<.40){
-      const to=nearest(home,c);if(to){passTo(c,to);return}
-    }
-    if(r<.56){
-      L[home?'attacksH':'attacksA']++;
-      const to=nearest(home,c);if(to&&Math.random()<.55){passTo(c,to);return}
-      const dir=home?1:-1;c.mesh.position.z+=dir*2.2;addEv('🏃',`${pName(c)} با توپ پیشروی کرد • ${teamText(home)}`);
-    }else if(r<.72){
-      shot(home,c);
-    }else if(r<.82){
-      if(Math.random()<.42)foul(home);else{L[home?'cornersH':'cornersA']++;addEv('🚩',`کرنر برای ${teamText(home)} • ارسال به محوطه جریمه`);L.nextActionAt=L.minute+1;}
-    }else{
-      addEv('🔄',`${pName(c)} توپ را حفظ کرد • ${teamText(home)} مالکیت را ادامه داد`);
-      L.homePoss=Math.max(32,Math.min(68,L.homePoss+(home?1:-1)));
-      L.nextActionAt=L.minute+1;
-    }
-  }
-  function movement(ts){
-    const bx=L.ball?.x||0,bz=L.ball?.z||0;
-    p3.forEach(pl=>{
-      const side=pl.home?1:-1;
-      let tx=pl.baseX,tz=pl.baseZ;
-      const role=pos(pl);
-      const dx=bx-tx,dz=bz-tz;
-      tx+=Math.max(-10,Math.min(10,dx))*.12;
-      tz+=Math.max(-7,Math.min(7,dz))*.10;
-      if(role==='GK'){tx*=.35;tz=side*18;}
-      else if(role==='ST')tz+=side*5;
-      else if(role==='CAM')tz+=side*2.2;
-      if(pl.home){
-        if(String(state.tactics?.style||'')==='هجومی')tz+=side*2.8;
-        if(String(state.tactics?.def||'')==='عقب')tz-=side*2;
-        if(String(state.tactics?.press||'')==='زیاد')tz+=side*2;
-      }
-      if(carrier3===pl){tx+=Math.sin(ts*.004+pl.phase)*1.5;tz+=side*2;}
-      pl.mesh.position.x+=(tx-pl.mesh.position.x)*.028*speedX;
-      pl.mesh.position.z+=(tz-pl.mesh.position.z)*.028*speedX;
-      pl.mesh.position.y=1.75+Math.sin(ts*.006+pl.phase)*.03;
-      pl.mesh.lookAt(C.position.x,1.75,C.position.z);
-    });
-  }
-  function loop(ts){
-    if(!R||!L){return}
-    const dt=Math.min(.05,(ts-last)/1000);last=ts;
-    if(!L.paused){
-      if(goalAnim3){
-        goalAnim3.t+=dt*speedX*1.25;const a=Math.min(1,goalAnim3.t);
-        const s=goalAnim3.scorer.mesh.position, gx=goalAnim3.goalX;
-        ball3.position.x=s.x*(1-a)+gx*a;ball3.position.z=s.z*(1-a);ball3.position.y=.65+Math.sin(a*Math.PI)*2;
-        if(a>=1){goalAnim3=null;L.ball={x:0,z:0};ball3.position.set(0,.65,0);setCarrier(L.homeScore>L.awayScore?false:true);L.nextActionAt=L.minute+1;}
-      }else if(passAnim){
-        passAnim.t+=dt*speedX;const a=Math.min(1,passAnim.t/passAnim.dur),f=passAnim.from.mesh.position,t=passAnim.to.mesh.position;
-        ball3.position.x=f.x*(1-a)+t.x*a;ball3.position.z=f.z*(1-a)+t.z*a;ball3.position.y=.65+Math.sin(a*Math.PI)*.5;
-        L.ball={x:ball3.position.x,z:ball3.position.z};
-        if(a>=1){carrier3=passAnim.to;L.carrier={home:carrier3.home,name:pName(carrier3),num:carrier3.p?.num||carrier3.i};passAnim=null;L.nextActionAt=L.minute+1;}
-      }else if(foulAnim3){
-        foulAnim3.t+=dt*speedX;ball3.position.set(foulAnim3.x,.65,foulAnim3.z);L.ball={x:foulAnim3.x,z:foulAnim3.z};
-        if(foulAnim3.t>1.15){addEv('🦶','ضربه آزاد از محل خطا اجرا شد • توپ دوباره در جریان است');setCarrier(foulAnim3.home);foulAnim3=null;L.nextActionAt=L.minute+1;}
-      }else{
-        L.elapsed=(L.elapsed||0)+dt*speedX*.70;L.minute=Math.min(90,1+Math.floor(L.elapsed));
-        if(!carrier3)setCarrier(chooseTeam());
-        if(carrier3){
-          L.ball={x:carrier3.mesh.position.x,z:carrier3.mesh.position.z};
-          ball3.position.set(L.ball.x,.65,L.ball.z);
-        }
-        if(L.minute>=L.nextActionAt)action();
-        movement(ts);
-        if(L.minute>=90){finalizeLive();return}
-      }
-      const sway=Math.sin(ts*.00025)*3;C.position.x=sway;C.position.z=42+Math.cos(ts*.00019)*4;C.lookAt(0,0,0);
-      R.render(S,C);updateHud();
-    }else R.render(S,C);
-    raf=requestAnimationFrame(loop);
-  }
-  function updateHud(){
-    if(!L)return;
-    if($('liveHomeName'))$('liveHomeName').textContent=L.home;if($('liveAwayName'))$('liveAwayName').textContent=L.away;
-    if($('liveHomeScore'))$('liveHomeScore').textContent=L.homeScore;if($('liveAwayScore'))$('liveAwayScore').textContent=L.awayScore;
-    if($('liveMinute'))$('liveMinute').textContent=`LIVE • ${L.minute}'`;
-    if($('livePoss'))$('livePoss').textContent=`مالکیت ${Math.round(L.homePoss)}٪ - ${100-Math.round(L.homePoss)}٪`;
-    if($('liveState'))$('liveState').textContent=L.paused?'⏸ متوقف':'🔴 LIVE';
-    if($('liveHomeLogo'))$('liveHomeLogo').src=state.clubLogo||state.avatar||('https://ui-avatars.com/api/?name='+encodeURIComponent(L.home));
-    if($('liveAwayLogo'))$('liveAwayLogo').src='https://ui-avatars.com/api/?name='+encodeURIComponent(L.away)+'&background=7c1f32&color=fff';
-    if($('liveHomeCoach'))$('liveHomeCoach').textContent=L.homeCoach||'سرمربی';if($('liveAwayCoach'))$('liveAwayCoach').textContent=L.awayCoach||'سرمربی حریف';
-    const ev=$('liveEvents');if(ev)ev.innerHTML=(L.events||[]).map(e=>`<div class="liveReportRow"><span class="liveReportMin">${fmt(e.minute)}'</span><span class="liveReportIcon">${e.icon||'•'}</span><span class="liveReportText">${escx(e.text||e)}</span></div>`).join('');
-  }
-  function loadThreeNew(cb){if(window.THREE){cb();return}const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js';sc.onload=cb;sc.onerror=()=>toast('کتابخانه سه‌بعدی بارگذاری نشد');document.head.appendChild(sc)}
-  window.openLive3D=function(){L=makeLive();$('live3dModal')?.classList.add('open');document.body.style.overflow='hidden';loadThreeNew(()=>{if(!R)buildScene();else resize();updateHud()})};
-  window.closeLive3D=function(){$('live3dModal')?.classList.remove('open');document.body.style.overflow='';if(raf){cancelAnimationFrame(raf);raf=null}put();if(typeof renderLiveList==='function')try{renderLiveList()}catch(_){}};
-  window.setLiveSpeed=v=>{speedX=Number(v)||1;toast(`سرعت پخش: ${v}×`)};
-  window.toggleLivePause=function(){if(!L)return;L.paused=!L.paused;put();updateHud()};
-  function finalizeLive(){
-    if(!L||L.status==='finished')return;
-    L.status='finished';L.paused=true;
-    const h=L.homeScore,a=L.awayScore,result=h>a?'برد':h<a?'باخت':'مساوی';
-    const reward=result==='برد'?50000:result==='مساوی'?25000:0,points=result==='برد'?3:result==='مساوی'?1:0;
-    state.managerStats=state.managerStats||{points:0,played:0,wins:0,draws:0,losses:0,goalsFor:0,goalsAgainst:0,trophies:0};
-    state.managerStats.played++;state.managerStats.points+=points;state.managerStats.wins+=result==='برد'?1:0;state.managerStats.draws+=result==='مساوی'?1:0;state.managerStats.losses+=result==='باخت'?1:0;
-    state.managerStats.goalsFor+=h;state.managerStats.goalsAgainst+=a;state.euros=(state.euros||0)+reward;
-    state.liveLeagueResults=Array.isArray(state.liveLeagueResults)?state.liveLeagueResults:[];
-    state.liveLeagueResults.push({id:L.id,home:L.home,away:L.away,hg:h,ag:a});
-    state.matches=Array.isArray(state.matches)?state.matches:[];
-    state.matches.unshift({id:L.id,homeTeam:L.home,awayTeam:L.away,homeGoals:h,awayGoals:a,result,reward,points,date:new Date().toLocaleString('fa-IR'),events:(L.events||[]).slice().reverse(),scorers:L.scorers||[],cards:L.cards||[],mvp:L.scorers?.[0]?.name||'—',live3d:true,stats:{shotsH:L.shotsH,shotsA:L.shotsA,shotsOnH:L.shotsOnH,shotsOnA:L.shotsOnA,cornersH:L.cornersH,cornersA:L.cornersA,foulsH:L.foulsH,foulsA:L.foulsA,passesH:L.passesH,passesA:L.passesA,passAccH:L.passAccH,passAccA:L.passAccA}});
-    save();put();updateHud();toast(`بازی تمام شد • ${h} - ${a} • نتیجه و جدول ثبت شد`);
-    setTimeout(()=>{window.closeLive3D();render()},700);
-  }
-  window.finishLive3D=function(){toast('نتیجه فقط با پایان خودکار بازی ثبت می‌شود؛ ثبت دستی غیرفعال است')};
-  const oldRenderPage2=window.renderPage;
-  window.renderPage=function(id){if(typeof oldRenderPage2==='function')oldRenderPage2(id);if(id==='matches')setTimeout(()=>{if(typeof renderLiveList==='function')renderLiveList()},0)};
-})();
+/* LIVE V4 replaces the previous live engine completely. */
+;
 
 /* ===== Match report: never open automatically ===== */
 (function(){
@@ -2615,5 +2368,29 @@ html,body{overscroll-behavior:auto!important}body{touch-action:auto!important}.p
 })();
 </script>
 
+<script>
+/* ===== LIVE V4 CUP ENTRY POINTS ===== */
+(function(){
+  function addCupLiveButtons(){
+    const panel=document.getElementById('competitionPanel');if(!panel||!Array.isArray(state.cups))return;
+    panel.querySelectorAll('.cupMatch').forEach((el,idx)=>{
+      if(el.querySelector('.cupLiveButton'))return;
+      const card=el.closest('.cupCard');if(!card)return;
+      const title=card.querySelector('.row b')?.textContent||'';
+      const cup=state.cups.find(c=>title.includes(c.name));if(!cup)return;
+      const roundEl=el.parentElement;const rounds=[...panel.querySelectorAll('.cupRound')];const ri=rounds.indexOf(roundEl);if(ri<0)return;
+      const matches=cup.rounds?.[ri]||[];const mi=[...roundEl.querySelectorAll('.cupMatch')].indexOf(el);const m=matches[mi];if(!m||!m.a||!m.b)return;
+      const b=document.createElement('button');b.className='btn sm cupLiveButton '+(m.played?'replay':'');b.textContent=m.played?'📋 جزئیات بازی':'🔴 تماشای پخش زنده';b.onclick=(ev)=>{ev.stopPropagation();if(m.played){if(typeof openCupMatchReport==='function')openCupMatchReport(cup.id,ri,mi)}else{openLive3D({type:'cup',cupId:cup.id,roundIndex:ri,matchIndex:mi})}};el.appendChild(b);if(!m.played)el.classList.add('liveReady');
+    });
+    let liveBox=panel.querySelector('.cupLiveHub');
+    const active=[];state.cups.forEach(c=>{(c.rounds||[]).forEach((round,ri)=>round.forEach((m,mi)=>{if(m&&!m.played&&m.a&&m.b)active.push({c,ri,mi,m})}))});
+    if(active.length){if(!liveBox){liveBox=document.createElement('div');liveBox.className='card cupLiveHub';const hero=panel.querySelector('.cupHero');hero?.after(liveBox)}const x=active[0];liveBox.innerHTML=`<div class="row"><div><b>🔴 پخش زنده جام حذفی</b><div class="sub">${ex2(x.m.a)} — ${ex2(x.m.b)} • نتیجه فقط توسط موتور بازی ثبت می‌شود.</div></div><button class="btn sm" onclick='openLive3D({type:"cup",cupId:${JSON.stringify(x.c.id)},roundIndex:${x.ri},matchIndex:${x.mi}})'>🎥 تماشای بازی</button></div>`}else if(liveBox)liveBox.remove();
+  }
+  function ex2(v){return typeof esc==='function'?esc(v):String(v??'')}
+  window.openCupMatchReport=function(cupId,ri,mi){const c=state.cups?.find(x=>x.id===cupId),m=c?.rounds?.[ri]?.[mi];if(!c||!m)return;const h=m.a,a=m.b;const hist=(c.history||[]).find(x=>x.match===m.id);const details=hist?.details||[];openModal(`<div class="heroRow"><div><h2 style="margin:0">📋 جزئیات بازی جام</h2><div class="sub">${ex2(c.name)} • ${['یک‌چهارم نهایی','نیمه‌نهایی','فینال'][ri]||'جام حذفی'}</div></div></div><div class="choice" style="margin-top:10px"><b>${ex2(h)}</b><strong>${m.ga??0} - ${m.gb??0}</strong><b>${ex2(a)}</b></div><div class="sub" style="margin-top:8px">برنده: ${ex2(m.winner||'—')}</div><div style="margin-top:10px;display:grid;gap:6px">${details.length?details.map(e=>`<div class="choice"><span>${ex2(e.minute)}'</span><span>${ex2(e.icon||'•')} ${ex2(e.text||'')}</span></div>`).join(''):'<div class="empty">گزارش جزئیات این بازی ذخیره نشده است.</div>'}</div>`)}
+  const oldRenderCup=window.renderCup;window.renderCup=function(){const r=typeof oldRenderCup==='function'?oldRenderCup():undefined;setTimeout(addCupLiveButtons,0);return r};
+  setTimeout(addCupLiveButtons,300);
+})();
+</script>
 </body>
 </html>
